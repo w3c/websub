@@ -75,21 +75,21 @@
   <section id="definitions">
     <h2>Definitions</h2>
     <dl>
-      <dt>Topic:</dt>
+      <dfn><dt>Topic</dt></dfn>
       <dd>An HTTP [[!RFC2616]] resource URL. The unit to which one can subscribe to changes.</dd>
-      <dt>Hub ("the hub"):</dt>
+      <dfn><dt>Hub ("the hub")</dt></dfn>
       <dd>The server (URL [[!RFC3986]]) which implements both sides of this protocol. Any hub MAY implement its own policies on who can use it.</dd>
-      <dt>Publisher:</dt>
+      <dfn><dt>Publisher</dt></dfn>
       <dd>An owner of a topic. Notifies the hub when the topic feed has been updated. As in almost all pubsub systems, the publisher is unaware of the subscribers, if any. Other pubsub systems might call the publisher the "source".</dd>
-      <dt>Subscriber:</dt>
+      <dfn><dt>Subscriber</dt></dfn>
       <dd>An entity (person or program) that wants to be notified of changes on a topic. The subscriber must be directly network-accessible and is identified by its Subscriber Callback URL. </dd>
-      <dt>Subscription:</dt>
+      <dfn><dt>Subscription</dt></dfn>
       <dd>A unique relation to a topic by a subscriber that indicates it should receive updates for that topic. A subscription's unique key is the tuple (Topic URL, Subscriber Callback URL). Subscriptions may (at the hub's decision) have expiration times akin to DHCP leases which must be periodically renewed. </dd>
-      <dt>Subscriber Callback URL:</dt>
+      <dfn><dt>Subscriber Callback URL</dt></dfn>
       <dd>The URL [[!RFC3986]] at which a subscriber wishes to receive notifications. </dd>
-      <dt>Event:</dt>
+      <dfn><dt>Event</dt></dfn>
       <dd>An event that causes updates to multiple topics. For each event that happens (e.g. "Brad posted to the Linux Community."), multiple topics could be affected (e.g. "Brad posted." and "Linux community has new post"). Publisher events cause topics to be updated and the hub looks up all subscriptions for affected topics, sending out notifications to subscribers. </dd>
-      <dt>Notification:</dt>
+      <dfn><dt>Notification</dt></dfn>
       <dd>A payload describing how a topic's contents have changed, or the full updated content. Depending on the topic's content type, the difference (or "delta") may be computed by the hub and sent to all subscribers. </dd>
     </dl>
   </section>
