@@ -60,7 +60,6 @@
 
 <body>
   <section id="abstract">
-    <h2>Abstract</h2>
     <p>An open, simple, web-scale and decentralized pubsub protocol. Anybody can play.</p>
     <p>As opposed to more developed (and more complex) pubsub specs like Jabber Publish-Subscribe [[!XEP-0060]] this spec's base profile (the barrier-to-entry to speak it) is dead simple. The fancy bits required for high-volume publishers and subscribers are optional. The base profile is HTTP-based, as opposed to XMPP (see more on this below).</p>
     <p>To dramatically simplify this spec in several places where we had to choose between supporting A or B, we took it upon ourselves to say "only A", rather than making it an implementation decision.</p>
@@ -68,21 +67,8 @@
   </section>
 
   <section id="sotd">
-    <h2 id="h-sotd">Status of This Document</h2>
     <p>
-      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
-    </p>
-    <p>
-      This document was published by the <a href="http://www.w3.org/Social/WG">Social Web Working Group</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to <a href="mailto:public-socialweb@w3.org">public-socialweb@w3.org</a> (<a href="mailto:public-socialweb-request@w3.org?subject=subscribe">subscribe</a>, <a href="http://lists.w3.org/Archives/Public/public-socialweb/">archives</a>). All comments are welcome.
-    </p>
-    <p>
-      Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
-    </p>
-    <p>
-      This document was produced by a group operating under the <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/72531/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
-    </p>
-    <p>
-      This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+      This document is currently an editor's draft. Current bugs and issues are managed in <a href="https://github.com/w3c/pubsubhubbub/issues">GitHub</a>.
     </p>
   </section>
 
@@ -107,6 +93,7 @@
       <dd>A payload describing how a topic's contents have changed, or the full updated content. Depending on the topic's content type, the difference (or "delta") may be computed by the hub and sent to all subscribers. </dd>
     </dl>
   </section>
+
   <section id="high-level-protocol-flow">
     <h2>High-level protocol flow</h2>
     <p>(This section is non-normative.)</p>
@@ -116,11 +103,13 @@
       <li>The hub caches minimal metadata (id, data, entry digest) about each topic's previous state. When the hub re-fetches a topic feed (on its own initiative or as a result of a publisher's ping) and finds a delta, it enqueues a notification to all registered subscribers.</li>
     </ul>
   </section>
+
   <section id="discovery">
     <h2>Discovery</h2>
     <p>A potential subscriber initiates discovery by retrieving (GET or HEAD request) the topic to which it wants to subscribe. The HTTP <cite title="NONE">[RFC2616]] response from the publisher MUST include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header). The former MUST indicate the exact URL of a PubSubHubbub hub designated by the publisher. If more than one URL is specified, it is expected that the publisher pings each of these URLs, so the subscriber may subscribe to one or more of these. The latter will point to the permanent URL for the resource being polled.</p>
     <p>In the absence of HTTP [[!RFC2616]] Link headers, subscribers MAY fall back to other methods to discover the hub(s) and the canonical URI of the topic. If the topic is an XML based feed, it MAY use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, it MAY use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. Finally, publishers MAY also use the Well-Known Uniform Resource Identifiers [[!RFC5785]] .host-meta to include the &lt;Link&gt; element with rel="hub".</p>
   </section>
+
   <section id="subscribing-and-unsubscribing">
     <h2>Subscribing and Unsubscribing</h2>
     <p>Subscribing to a topic URL consists of four parts that may occur immediately in sequence or have a delay.</p>
@@ -198,10 +187,12 @@
       </section>
     </section>
   </section>
+
   <section id="publishing">
     <h2>Publishing</h2>
     <p>The publisher MUST inform the hubs it previously designated when a topic has been updated. The hub and the publisher can agree on any mechanism, as long as the hub is eventually able send the updated payload to the subscribers.</p>
   </section>
+
   <section id="content-distribution">
     <h2>Content Distribution</h2>
     <p>A content distribution request is an HTTP [[!RFC2616]] POST request from hub to the subscriber's callback URL with the payload of the notification. This request MUST have a <samp>Content-Type</samp> corresponding to the type of the topic. The hub MAY reduce the payload to a diff between two consecutive versions if its format allows it.
@@ -211,6 +202,7 @@
     <p>The successful response from the subscriber's callback URL MUST be an HTTP [[!RFC2616]] success (2xx) code. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry notifications repeatedly until successful (up to some reasonable maximum over a reasonable time period). Subscribers SHOULD respond to notifications as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber.
     </p>
   </section>
+
   <section id="authenticated-content-distribution">
     <h2>Authenticated Content Distribution</h2>
     <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signatureof the payload and include that signature in the request headers of thecontent distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form<samp>sha1=signature</samp> where<samp>signature</samp> is a 40-byte, hexadecimal representation of a SHA1 signature [[!RFC3174]]. The signature MUST be computed using the HMAC algorithm [[!RFC2104]] with the request body as the data and the<samp>hub.secret</samp> as the key.
