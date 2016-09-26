@@ -218,14 +218,40 @@
     </p>
     <p>The successful response from the subscriber's callback URL MUST be an HTTP [[!RFC7231]] success (2xx) code. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry notifications repeatedly until successful (up to some reasonable maximum over a reasonable time period). Subscribers SHOULD respond to notifications as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber.
     </p>
+    <section id="authenticated-content-distribution">
+      <h2>Authenticated Content Distribution</h2>
+      <section id="signing-content">
+        <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signature of the payload and include that signature in the request headers of the content distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form <samp>method=signature</samp> where <samp>method</samp> is one of the recognized algorithm names and <samp>signature</samp> is the, hexadecimal representation of the signature. The signature MUST be computed using the HMAC algorithm [[!RFC6151]] with the request body as the data and the <samp>hub.secret</samp> as the key.</p>
+      </section>
+
+      <section id="recognized-algorithm-names">
+        <h3>Recognized algorithm names</h3>
+
+        <p>The following algorithms are added as recognized algorithm names, as specified by [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]:</p>
+        <dl>
+          <dt>sha1</dt>
+          <dd>The SHA-1 algorithm as specified in Section 6.1 of [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]</dd>
+          <dt>sha256</dt>
+          <dd>The SHA-256 algorithm as specified in Section 6.2</dd>
+          <dt>sha384</dt>
+          <dd>The SHA-384 algorithm as specified in Section 6.5</dd>
+          <dt>sha512</dt>
+          <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
+        </dl>
+      </section>
+
+      <section id="signature-validation">
+        <h3>Signature validation</h3>
+        <p>When subscribers receive a content distribution request with the<samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST still return a 2xx success response to acknowledge receipt, but locally ignore the message as invalid. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
+        <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
+      </section>
+
   </section>
 
-  <section id="authenticated-content-distribution">
-    <h2>Authenticated Content Distribution</h2>
-    <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signatureof the payload and include that signature in the request headers of thecontent distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form<samp>sha1=signature</samp> where<samp>signature</samp> is a 40-byte, hexadecimal representation of a SHA1 signature [[!RFC3174]]. The signature MUST be computed using the HMAC algorithm [[!RFC2104]] with the request body as the data and the<samp>hub.secret</samp> as the key.
-    </p>
-    <p>When subscribers receive a content distribution request with the<samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the SHA1 signature with the shared secret using the same method as the hub. If the signature does not match, subscribers MUST still return a 2xx success response to acknowledge receipt, but locally ignore the message as invalid. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
-    <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
+
   </section>
+
+
+
 </body>
 </html>
