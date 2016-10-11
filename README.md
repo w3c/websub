@@ -1,4 +1,4 @@
-# pubsubhubbub
+# PubSub
 
 The PubSub specification is produced by the W3C Social Web Working Group.
 
