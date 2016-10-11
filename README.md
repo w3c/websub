@@ -1,12 +1,9 @@
 # pubsubhubbub
 
-PuSH Spec in Social Web Working Group.
-The current spec is being imported from https://github.com/pubsubhubbub/pubsubhubbub
+The PubSub specification is produced by the W3C Social Web Working Group.
 
-The goal is to make the spec W3C-ready.
+Editor's Draft: https://w3c.github.io/pubsub/
 
-A couple changes will be required including:
-
-* better specification around diffing mechanisms
-* address feedback from the indieweb community
-
+Background:
+* The current spec was imported from https://github.com/pubsubhubbub/pubsubhubbub
+* The working group resolved on 2016-09-23 (https://www.w3.org/wiki/Socialwg/2016-09-23-minutes#Pubsubhubbub) to publish the Editor's Draft as a First Public Working Draft (FPWD) with the name "PubSub" (shortname: "pubsub")
