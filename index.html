@@ -29,7 +29,7 @@
     }, {
       name: "Martin Atkins"
     }],
-    edDraftURI: "https://w3c.github.io/pubsub",
+    edDraftURI: "https://w3c.github.io/pubsub/",
     wg: "Social Web Working Group",
     wgURI: "https://www.w3.org/Social/WG",
     wgPublicList: "public-socialweb",
@@ -54,7 +54,7 @@
     localBiblio: {
       "W3C.REC-html401-19991224": {
         title: "HTML 4.01 Specification",
-        href: "http://www.w3.org/TR/1999/REC-html401-19991224",
+        href: "https://www.w3.org/TR/1999/REC-html401-19991224/",
         authors: [
         "Dave Raggett", "Arnaud Le Hors", "Ian Jacobs"
         ],
@@ -150,7 +150,7 @@
         <dt>hub.lease_seconds</dt>
         <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
-        <dd>OPTIONAL. A subscriber-provided secret string that will be used to compute an HMAC digest for <a href="#authednotify">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
+        <dd>OPTIONAL. A subscriber-provided secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
       </dl>
       <p>Subscribers MAY also include additional HTTP [[!RFC7230]] request parameters, as well as HTTP [[!RFC7230]] Headers if they are required by the hub. In the context of social web applications, it is considered good practice to include a From HTTP [[!RFC7231]] header (as described in section 5.5.1 of Hypertext Transfer Protocol [[!RFC7231]]) to indicate on behalf of which user the subscription is being performed.</p>
       <p>Hubs MUST ignore additional request parameters they do not understand.</p>
@@ -162,15 +162,15 @@
       </section>
       <section id="subscription-response-details">
         <h4>Subscription Response Details</h4>
-        <p>The hub MUST respond to a subscription request with an HTTP [[!RFC7231]] 202 "Accepted" response to indicate that the request was received and will now be verified (<a href="#verifysub">Section 5.3 </a>) and validated (<a href="#validationsub">Section 5.2 </a>) by the hub. The hub SHOULD perform the verification and validation of intent as soon as possible.</p>
+        <p>The hub MUST respond to a subscription request with an HTTP [[!RFC7231]] 202 "Accepted" response to indicate that the request was received and will now be verified (<a href="#hub-verifies-intent">Section 5.3 </a>) and validated (<a href="#subscription-validation">Section 5.2 </a>) by the hub. The hub SHOULD perform the verification and validation of intent as soon as possible.</p>
         <p>If a hub finds any errors in the subscription request, an appropriate HTTP [[!RFC7231]] error response code (4xx or 5xx) MUST be returned. In the event of an error, hubs SHOULD return a description of the error in the response body as plain text. Hubs MAY decide to reject some callback URLs or topic URLs based on their own policies (e.g., domain authorization, topic URL port numbers).</p>
       </section>
     </section>
     <section id="subscription-validation">
       <h3>Subscription Validation</h3>
       <p>Subscriptions MAY be validated by the Hubs who may require more details to accept or refuse a subscription. The Hub MAY also check with the publisher whether the subscription should be accepted.</p>
-      <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#verifysub">verification of intent </a> of the subscriber.</p>
-      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 17.13.4 of <a href="#W3C.REC-html401-19991224">[W3C.REC-html401-19991224] </a>):</p>
+      <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
+      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "denied".</dd>
