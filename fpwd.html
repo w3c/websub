@@ -613,21 +613,21 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="h-definitions" resource="#h-definitions"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Definitions</span>
     </h2>
     <dl>
-      <dfn data-dfn-type="dfn" id="dfn-topic"><dt>Topic</dt></dfn>
+      <dt><dfn id="dfn-topic">Topic</dfn></dt>
       <dd>An HTTP [<cite><a class="bibref" href="#bib-RFC7230">RFC7230</a></cite>] resource URL. The unit to which one can subscribe to changes.</dd>
-      <dfn data-dfn-type="dfn" id="dfn-hub-the-hub"><dt>Hub ("the hub")</dt></dfn>
+      <dt><dfn id="dfn-hub-the-hub">Hub ("the hub")</dfn></dt>
       <dd>The server (URL [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>]) which implements both sides of this protocol. Any hub <em class="rfc2119" title="MAY">MAY</em> implement its own policies on who can use it.</dd>
-      <dfn data-dfn-type="dfn" id="dfn-publisher"><dt>Publisher</dt></dfn>
+      <dt><dfn id="dfn-publisher">Publisher</dfn></dt>
       <dd>An owner of a topic. Notifies the hub when the topic feed has been updated. As in almost all pubsub systems, the publisher is unaware of the subscribers, if any. Other pubsub systems might call the publisher the "source".</dd>
-      <dfn data-dfn-type="dfn" id="dfn-subscriber"><dt>Subscriber</dt></dfn>
+      <dt><dfn id="dfn-subscriber">Subscriber</dfn></dt>
       <dd>An entity (person or program) that wants to be notified of changes on a topic. The subscriber must be directly network-accessible and is identified by its Subscriber Callback URL. </dd>
-      <dfn data-dfn-type="dfn" id="dfn-subscription"><dt>Subscription</dt></dfn>
+      <dt><dfn id="dfn-subscription">Subscription</dfn></dt>
       <dd>A unique relation to a topic by a subscriber that indicates it should receive updates for that topic. A subscription's unique key is the tuple (Topic URL, Subscriber Callback URL). Subscriptions may (at the hub's decision) have expiration times akin to DHCP leases which must be periodically renewed. </dd>
-      <dfn data-dfn-type="dfn" id="dfn-subscriber-callback-url"><dt>Subscriber Callback URL</dt></dfn>
+      <dt><dfn id="dfn-subscriber-callback-url">Subscriber Callback URL</dfn></dt>
       <dd>The URL [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>] at which a subscriber wishes to receive notifications. </dd>
-      <dfn data-dfn-type="dfn" id="dfn-event"><dt>Event</dt></dfn>
+      <dt><dfn id="dfn-event">Event</dfn></dt>
       <dd>An event that causes updates to multiple topics. For each event that happens (e.g. "Brad posted to the Linux Community."), multiple topics could be affected (e.g. "Brad posted." and "Linux community has new post"). Publisher events cause topics to be updated and the hub looks up all subscriptions for affected topics, sending out notifications to subscribers. </dd>
-      <dfn data-dfn-type="dfn" id="dfn-notification"><dt>Notification</dt></dfn>
+      <dt><dfn id="dfn-notification">Notification</dfn></dt>
       <dd>A payload describing how a topic's contents have changed, or the full updated content. Depending on the topic's content type, the difference (or "delta") may be computed by the hub and sent to all subscribers. </dd>
     </dl>
   </section>
