@@ -755,7 +755,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <!--OddPage-->
     <h2 id="h-content-distribution" resource="#h-content-distribution"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Content Distribution</span>
     </h2>
-    <p>A content distribution request is an HTTP [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>] POST request from hub to the subscriber's callback URL with the payload of the notification. This request <em class="rfc2119" title="MUST">MUST</em> have a <samp>Content-Type</samp> corresponding to the type of the topic. The hub <em class="rfc2119" title="MAY">MAY</em> reduce the payload to a diff between two consecutive versions if its format allows it.
+    <p>A content distribution request is an HTTP [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>] POST request from hub to the subscriber's callback URL with the payload of the notification. This request <em class="rfc2119" title="MUST">MUST</em> have a <samp>Content-Type</samp> corresponding to the media type of the topic. The hub <em class="rfc2119" title="MAY">MAY</em> reduce the payload to a diff between two consecutive versions if its format allows it.
     </p>
     <p>The request <em class="rfc2119" title="MUST">MUST</em> include a Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with rel=hub pointing to the Hub as well as a Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with rel=self set to the topic that's being updated. The Hub <em class="rfc2119" title="SHOULD">SHOULD</em> combine both headers into a single Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>].
     </p>
