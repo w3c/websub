@@ -152,7 +152,7 @@
         <dt>hub.secret</dt>
         <dd>OPTIONAL. A subscriber-provided secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
       </dl>
-      <p>Subscribers MAY also include additional HTTP [[!RFC7230]] request parameters, as well as HTTP [[!RFC7230]] Headers if they are required by the hub. In the context of social web applications, it is considered good practice to include a From HTTP [[!RFC7231]] header (as described in section 5.5.1 of Hypertext Transfer Protocol [[!RFC7231]]) to indicate on behalf of which user the subscription is being performed.</p>
+      <p>Subscribers MAY also include additional HTTP [[!RFC7230]] request parameters, as well as HTTP [[!RFC7230]] Headers if they are required by the hub.</p>
       <p>Hubs MUST ignore additional request parameters they do not understand.</p>
       <p>Hubs MUST allow subscribers to re-request subscriptions that are already activated. Each subsequent request to a hub to subscribe or unsubscribe MUST override the previous subscription state for a specific topic URL and callback URL combination once the action is verified. Any failures to confirm the subscription action MUST leave the subscription state unchanged. This is required so subscribers can renew their subscriptions before the lease seconds period is over without any interruption.</p>
       <section id="subscription-parameter-details">
