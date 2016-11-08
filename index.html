@@ -212,9 +212,9 @@
 
   <section id="content-distribution">
     <h2>Content Distribution</h2>
-    <p>A content distribution request is an HTTP [[!RFC7231]] POST request from hub to the subscriber's callback URL with the payload of the notification. This request MUST have a <samp>Content-Type</samp> corresponding to the type of the topic. The hub MAY reduce the payload to a diff between two consecutive versions if its format allows it.
+    <p>A content distribution request is an HTTP [[!RFC7231]] POST request from hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. This request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and SHOULD contain the full contents of the topic URL. The hub MAY reduce the payload to a diff between two consecutive versions if its format allows it.
     </p>
-    <p>The request MUST include a Link Header [[!RFC5988]] with rel=hub pointing to the Hub as well as a Link Header [[!RFC5988]] with rel=self set to the topic that's being updated. The Hub SHOULD combine both headers into a single Link Header [[!RFC5988]].
+    <p>The request MUST include a Link Header [[!RFC5988]] with <samp>rel=hub</samp> pointing to the Hub as well as a Link Header [[!RFC5988]] with <samp>rel=self</samp> set to the topic that's being updated. The Hub SHOULD combine both headers into a single Link Header [[!RFC5988]].
     </p>
     <p>The successful response from the subscriber's callback URL MUST be an HTTP [[!RFC7231]] success (2xx) code. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry notifications repeatedly until successful (up to some reasonable maximum over a reasonable time period). Subscribers SHOULD respond to notifications as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber.
     </p>
