@@ -146,7 +146,7 @@
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", depending on the goal of the request.</dd>
         <dt>hub.topic</dt>
-        <dd>REQUIRED. The topic URL that the subscriber wishes to subscribe to or unsubscribe from.</dd>
+        <dd>REQUIRED. The topic URL that the subscriber wishes to subscribe to or unsubscribe from. Note that this MUST be the "self" URL found during the discovery step, which may be different from the URL that was used to make the discovery request.</dd>
         <dt>hub.lease_seconds</dt>
         <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a non-negative decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
