@@ -154,7 +154,7 @@
       <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request has a Content-Type of <samp>application/x-www-form-urlencoded</samp> (described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]) and the following parameters in its body:</p>
       <dl>
         <dt>hub.callback</dt>
-        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. It is considered good practice to use a unique callback URL for each subscription.</dd>
+        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. It is considered good practice to use a unique callback URL for each subscription. </dd>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", depending on the goal of the request.</dd>
         <dt>hub.topic</dt>
@@ -170,6 +170,7 @@
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
         <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URI spec [[!RFC3986]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 2.4 on <em>"When to Encode or Decode"</em> in the URI spec [[!RFC3986]].</p>
+        <p>The callback URL SHOULD be a Capability URL [[!capability-urls]] and SHOULD use HTTPS [[!RFC7230]]. The Capability URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionnaly, callback SHOULD be unique ( not re-used for multiple hubs) and changed when subscriptions are renewed. </p>
         <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query-string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
       <section id="subscription-response-details">
