@@ -2,8 +2,7 @@
 <html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
   <meta lang="" property="dc:language" content="en">
-  <title>PubSub
-  </title>
+  <title>WebSub</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD">
   <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'>
@@ -11,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    shortName: "pubsub",
+    shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
       url: "https://www.ouvre-boite.com/",
@@ -24,7 +23,7 @@
     authors: [{
       name: "Julien Genestoux"
     }],
-    edDraftURI: "https://w3c.github.io/pubsub/",
+    edDraftURI: "https://w3c.github.io/websub/",
     wg: "Social Web Working Group",
     wgURI: "https://www.w3.org/Social/WG",
     wgPublicList: "public-socialweb",
@@ -51,15 +50,15 @@
       data: [
         {
           value: 'Github',
-          href: 'https://github.com/w3c/pubsub'
+          href: 'https://github.com/w3c/websub'
         },
         {
           value: 'Issues',
-          href: 'https://github.com/w3c/pubsub/issues'
+          href: 'https://github.com/w3c/websub/issues'
         },
         {
           value: 'Commits',
-          href: 'https://github.com/w3c/pubsub/commits/master'
+          href: 'https://github.com/w3c/websub/commits/master'
         }
       ]
     }],
@@ -111,7 +110,7 @@
 
   <section id="sotd">
     <p>
-      This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/pubsub/issues">GitHub</a>.
+      This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/websub/issues">GitHub</a>.
     </p>
   </section>
 
@@ -154,7 +153,7 @@
 
   <section id="discovery">
     <h2>Discovery</h2>
-    <p>A potential subscriber initiates discovery by retrieving (GET or HEAD request) the topic to which it wants to subscribe. The HTTP [[RFC7231]] response from the publisher MUST include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header). The former MUST indicate the exact URL of a PubSub hub designated by the publisher. If more than one URL is specified, it is expected that the publisher pings each of these URLs, so the subscriber may subscribe to one or more of these. The latter will point to the permanent URL for the resource for which notifications will be sent.</p>
+    <p>A potential subscriber initiates discovery by retrieving (GET or HEAD request) the topic to which it wants to subscribe. The HTTP [[RFC7231]] response from the publisher MUST include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header). The former MUST indicate the exact URL of a WebSub hub designated by the publisher. If more than one URL is specified, it is expected that the publisher pings each of these URLs, so the subscriber may subscribe to one or more of these. The latter will point to the permanent URL for the resource for which notifications will be sent.</p>
     <p>In the absence of HTTP [[!RFC7231]] Link headers, subscribers MAY fall back to other methods to discover the hub(s) and the canonical URI of the topic. If the topic is an XML based feed, it MAY use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, it MAY use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. Finally, publishers MAY also use the Well-Known Uniform Resource Identifiers [[!RFC5785]] .host-meta to include the &lt;Link&gt; element with rel="hub".</p>
   </section>
 
