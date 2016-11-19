@@ -64,6 +64,20 @@
       ]
     }],
     localBiblio: {
+      "PubSubHubbub-Core-0.3": {
+        title: "PubSubHubbub Core 0.3 -- Working Draft",
+        href: "https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html",
+        authors: [
+          "B. Fitzpatrick", "B. Slatkin", "M. Atkins"
+        ]
+      },
+      "PubSubHubbub-Core-0.4": {
+        title: "PubSubHubbub Core 0.4 -- Working Draft",
+        href: "https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html",
+        authors: [
+          "B. Fitzpatrick", "B. Slatkin", "M. Atkins", "J. Genestoux"
+        ]
+      },
       "W3C.REC-html401-19991224": {
         title: "HTML 4.01 Specification",
         href: "https://www.w3.org/TR/1999/REC-html401-19991224/",
@@ -128,8 +142,13 @@
     <p>(This section is non-normative.)</p>
     <ul>
       <li>Publishers notify their hub(s) URLs when their topic(s) change.</li>
-      <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. Alternatively, some hubs may offer auto-polling capability, to let subscribers subscribe to topics which don't advertise a hub.</li>
-      <li>The hub caches minimal metadata (id, data, entry digest) about each topic's previous state. When the hub re-fetches a topic feed (on its own initiative or as a result of a publisher's ping) and finds a delta, it enqueues a notification to all registered subscribers.</li>
+      <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. </li>
+      <li>The hub caches minimal metadata about each topic's previous state. When the hub re-fetches a topic (on its own initiative or as a result of a publisher's ping) and finds a difference, it enqueues a notification to all registered subscribers.</li>
+    </ul>
+    <p>Earlier versions of this protocol were called PubSubHubbub:</p>
+    <ul>
+      <li>Working Draft 0.3 [[!PubSubHubbub-Core-0.3]]</li>
+      <li>Working Draft 0.4 [[!PubSubHubbub-Core-0.4]]</li>
     </ul>
   </section>
 
