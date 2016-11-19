@@ -235,6 +235,7 @@
         <p>Hubs MAY make the <samp>hub.lease_seconds</samp> equal to the value the subscriber passed in their subscription request but MAY change the value depending on the hub's policies. To sustain a subscription, the subscriber MUST re-request the subscription on the hub before <samp>hub.lease_seconds</samp> seconds has elapsed.</p>
       </section>
     </section>
+    <p class="note">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the actual notification. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the notification may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p>
   </section>
 
   <section id="publishing">
