@@ -297,12 +297,36 @@
         <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
       </section>
 
+    </section>
+
   </section>
 
+  <section class="appendix informative">
+    <h2>Change Log</h2>
+
+    <section>
+      <h3>Changes from 20 October FPWD to this version</h3>
+
+      <ul>
+        <li>Added informative reference to previous versions of the spec, PubSubHubbub 0.3 and 0.4</li>
+        <li>Split discovery section into separate publisher and subscriber sections</li>
+        <li>Clarify that publishers can use any available discovery method, and subscribers must support all</li>
+        <li>Marked host-meta discovery method At Risk due to no known implementations, and fixed reference to Host Meta spec instead of the previous reference to Well-Known</li>
+        <li>Recommend using Capability URLs as the subscriber's callback URLs for security and authenticating the notification delivery</li>
+        <li>Recommend not reusing callback URLs on subscription renewals</li>
+        <li>Clarify that the <code>hub.topic</code> must be the <code>self</code> URL that was discovered</li>
+        <li>Dropped the recommendation of including the <code>From</code> header on subscription requests</li>
+        <li>Clarify that the hub response to subscription requests must not depend on the verification or validation</li>
+        <li>Hubs must enforce lease expirations</li>
+        <li>Clarify that the notification payload should contain the full contents of the topic URL</li>
+        <li>Recommend that hubs should retry failed notification delivery up to self-imposed limits</li>
+        <li>Clarify that future defined signature methods in FIPS PUB 180-4 are allowed</li>
+        <li>Renamed the spec to WebSub</li>
+      </ul>
+
+    </section>
 
   </section>
-
-
 
 </body>
 </html>
