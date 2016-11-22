@@ -188,13 +188,13 @@
       <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request has a Content-Type of <samp>application/x-www-form-urlencoded</samp> (described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]) and the following parameters in its body:</p>
       <dl>
         <dt>hub.callback</dt>
-        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. It is considered good practice to use a unique callback URL for each subscription. </dd>
+        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. The callback URL SHOULD be a Capability URL [[!capability-urls]] (a unique URL per subscription).</dd>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", depending on the goal of the request.</dd>
         <dt>hub.topic</dt>
         <dd>REQUIRED. The topic URL that the subscriber wishes to subscribe to or unsubscribe from. Note that this MUST be the "self" URL found during the discovery step, which may be different from the URL that was used to make the discovery request.</dd>
         <dt>hub.lease_seconds</dt>
-        <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a non-negative decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
+        <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
         <dd>OPTIONAL. A subscriber-provided secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
       </dl>
@@ -204,8 +204,8 @@
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
         <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URI spec [[!RFC3986]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 2.4 on <em>"When to Encode or Decode"</em> in the URI spec [[!RFC3986]].</p>
-        <p>The callback URL SHOULD be a Capability URL [[!capability-urls]] and SHOULD use HTTPS [[!RFC7230]]. The Capability URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionnaly, callback SHOULD be unique ( not re-used for multiple hubs) and changed when subscriptions are renewed. </p>
-        <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query-string parameters in the URL portion of the request, not as POST body parameters.</p>
+        <p>The callback URL SHOULD be a Capability URL [[!capability-urls]] and SHOULD use HTTPS [[!RFC7230]]. The Capability URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
+        <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
       <section id="subscription-response-details">
         <h4>Subscription Response Details</h4>
@@ -248,6 +248,7 @@
         <p>The subscriber MUST confirm that the <samp>hub.topic</samp> corresponds to a pending subscription or unsubscription that it wishes to carry out. If so, the subscriber MUST respond with an HTTP success (2xx) code with a response body equal to the <samp>hub.challenge</samp> parameter. If the subscriber does not agree with the action, the subscriber MUST respond with a 404 "Not Found" response.</p>
         <p>The hub MUST consider other server response codes (3xx, 4xx, 5xx) to mean that the verification request has failed. If the subscriber returns an HTTP [[!RFC7231]] success (2xx) but the content body does not match the <samp>hub.challenge</samp> parameter, the hub MUST also consider verification to have failed.</p>
         <p>Hubs MAY make the <samp>hub.lease_seconds</samp> equal to the value the subscriber passed in their subscription request but MAY change the value depending on the hub's policies. To sustain a subscription, the subscriber MUST re-request the subscription on the hub before <samp>hub.lease_seconds</samp> seconds has elapsed.</p>
+        <p>Hubs MUST enfore lease expirations, and MUST NOT issue perpetual lease durations.</p>
       </section>
     </section>
   </section>
