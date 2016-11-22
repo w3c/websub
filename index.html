@@ -2,8 +2,7 @@
 <html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
   <meta lang="" property="dc:language" content="en">
-  <title>PubSub
-  </title>
+  <title>WebSub</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD">
   <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'>
@@ -11,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    shortName: "pubsub",
+    shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
       url: "https://www.ouvre-boite.com/",
@@ -24,7 +23,7 @@
     authors: [{
       name: "Julien Genestoux"
     }],
-    edDraftURI: "https://w3c.github.io/pubsub/",
+    edDraftURI: "https://w3c.github.io/websub/",
     wg: "Social Web Working Group",
     wgURI: "https://www.w3.org/Social/WG",
     wgPublicList: "public-socialweb",
@@ -51,19 +50,33 @@
       data: [
         {
           value: 'Github',
-          href: 'https://github.com/w3c/pubsub'
+          href: 'https://github.com/w3c/websub'
         },
         {
           value: 'Issues',
-          href: 'https://github.com/w3c/pubsub/issues'
+          href: 'https://github.com/w3c/websub/issues'
         },
         {
           value: 'Commits',
-          href: 'https://github.com/w3c/pubsub/commits/master'
+          href: 'https://github.com/w3c/websub/commits/master'
         }
       ]
     }],
     localBiblio: {
+      "PubSubHubbub-Core-0.3": {
+        title: "PubSubHubbub Core 0.3 -- Working Draft",
+        href: "https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html",
+        authors: [
+          "B. Fitzpatrick", "B. Slatkin", "M. Atkins"
+        ]
+      },
+      "PubSubHubbub-Core-0.4": {
+        title: "PubSubHubbub Core 0.4 -- Working Draft",
+        href: "https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html",
+        authors: [
+          "B. Fitzpatrick", "B. Slatkin", "M. Atkins", "J. Genestoux"
+        ]
+      },
       "W3C.REC-html401-19991224": {
         title: "HTML 4.01 Specification",
         href: "https://www.w3.org/TR/1999/REC-html401-19991224/",
@@ -97,7 +110,7 @@
 
   <section id="sotd">
     <p>
-      This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/pubsub/issues">GitHub</a>.
+      This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/websub/issues">GitHub</a>.
     </p>
   </section>
 
@@ -128,8 +141,13 @@
     <p>(This section is non-normative.)</p>
     <ul>
       <li>Publishers notify their hub(s) URLs when their topic(s) change.</li>
-      <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. Alternatively, some hubs may offer auto-polling capability, to let subscribers subscribe to topics which don't advertise a hub.</li>
-      <li>The hub caches minimal metadata (id, data, entry digest) about each topic's previous state. When the hub re-fetches a topic feed (on its own initiative or as a result of a publisher's ping) and finds a delta, it enqueues a notification to all registered subscribers.</li>
+      <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. </li>
+      <li>The hub caches minimal metadata about each topic's previous state. When the hub re-fetches a topic (on its own initiative or as a result of a publisher's ping) and finds a difference, it enqueues a notification to all registered subscribers.</li>
+    </ul>
+    <p>Earlier versions of this protocol were called PubSubHubbub:</p>
+    <ul>
+      <li>Working Draft 0.3 [[!PubSubHubbub-Core-0.3]]</li>
+      <li>Working Draft 0.4 [[!PubSubHubbub-Core-0.4]]</li>
     </ul>
   </section>
 
@@ -169,7 +187,7 @@
       <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request has a Content-Type of <samp>application/x-www-form-urlencoded</samp> (described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]) and the following parameters in its body:</p>
       <dl>
         <dt>hub.callback</dt>
-        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. It is considered good practice to use a unique callback URL for each subscription.</dd>
+        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. It is considered good practice to use a unique callback URL for each subscription. </dd>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", depending on the goal of the request.</dd>
         <dt>hub.topic</dt>
@@ -185,6 +203,7 @@
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
         <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URI spec [[!RFC3986]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 2.4 on <em>"When to Encode or Decode"</em> in the URI spec [[!RFC3986]].</p>
+        <p>The callback URL SHOULD be a Capability URL [[!capability-urls]] and SHOULD use HTTPS [[!RFC7230]]. The Capability URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionnaly, callback SHOULD be unique ( not re-used for multiple hubs) and changed when subscriptions are renewed. </p>
         <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query-string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
       <section id="subscription-response-details">
