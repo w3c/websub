@@ -935,6 +935,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>Hubs <em class="rfc2119" title="MUST">MUST</em> enfore lease expirations, and <em class="rfc2119" title="MUST NOT">MUST NOT</em> issue perpetual lease durations.</p>
       </section>
     </section>
+    <div class="note">
+      <div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
+      <p class="">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the actual notification. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the notification may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p>
+    </div>
   </section>
 
   <section id="publishing" typeof="bibo:Chapter" resource="#publishing" property="bibo:hasPart">
@@ -1017,6 +1021,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>Clarify that the notification payload should contain the full contents of the topic URL</li>
         <li>Recommend that hubs should retry failed notification delivery up to self-imposed limits</li>
         <li>Clarify that future defined signature methods in FIPS PUB 180-4 are allowed</li>
+        <li>Added informative note about the use of GET vs POST at the callback URL</li>
         <li>Renamed the spec to WebSub</li>
       </ul>
 
