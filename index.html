@@ -166,13 +166,13 @@
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
       <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]</li>
-      <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
+      <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ul>
     <p>When perfoming discovery, subscribers MUST implement all three discovery mechanisms in the following order, stopping at the first match:</p>
     <ol>
       <li>Issue a GET or HEAD request to retrieve the topic URL. Subscribers MUST check for HTTP Link headers first.</li>
       <li>In the absence of HTTP Link headers, and if the topic is an XML based feed or an HTML page, subscribers MUST check for embedded link elements.</li>
-      <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
+      <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ol>
     <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated.</p>
   </section>
