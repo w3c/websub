@@ -272,7 +272,7 @@
     <p>The protocol currently supports the following discovery mechanisms. Publishers MUST implement at least one of them:</p>
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
-      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]</li>
+      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp><link></samp> elements MUST be only present in the <samp><head></samp> section of the HTML document.</li>
       <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ul>
     <p>When perfoming discovery, subscribers MUST implement all three discovery mechanisms in the following order, stopping at the first match:</p>
