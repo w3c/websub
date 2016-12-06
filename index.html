@@ -156,6 +156,55 @@
     </ul>
   </section>
 
+  <section>
+    <h2>Conformance</h2>
+
+    <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+    document are to be interpreted as described in [[!RFC2119]].</p>
+
+    <section>
+      <h3>Conformance Classes</h3>
+
+      <p>WebSub describes three roles: publishers, subscribers and hubs. This section describes the conformance criteria for each role.</p>
+
+      <h4>Publishers</h4>
+
+      <ul>
+        <li>A conforming publisher MUST advertise topic and hub URLs for a given resource URL as described in <a href="#discovery">Discovery</a>.</li>
+      </ul>
+
+      <h4>Subscribers</h4>
+
+      <p>A conforming subscriber:</p>
+
+      <ul>
+        <li>MUST support each discovery mechanism in the specified order to discover the topic and hub URLs as described in <a href="#discovery">Discovery</a>.</li>
+        <li>MUST send a subscription request as described in <a href="#subscriber-sends-subscription-request">Subscriber Sends Subscription Request</a>.</li>
+        <li>MAY request a specific lease duration</li>
+        <li>MAY include a secret in the subscription request, and if it does, then MUST use the secret to verify the signature in the <a href="#authenticated-content-distribution">content distribution request</a>.</li>
+        <li>MUST acknowledge a content distribution request with an HTTP 2xx status code.</li>
+        <li>MAY request that a subscription is deactivated using the "unsubscribe" mechanism.</li>
+      </ul>
+
+      <h4>Hubs</h4>
+
+      <p>A conforming hub:</p>
+
+      <ul>
+        <li>MUST accept a subscription request with the parameters <code>hub.callback</code>, <code>hub.mode</code> and <code>hub.topic</code>.</li>
+        <li>MUST accept a subscription request with a <code>hub.secret</code> parameter.</li>
+        <li>MAY respect the requested lease duration in subscription requests.</li>
+        <li>MUST allow subscribers to re-request already active subscriptions.</li>
+        <li>MUST support unsubscription requests.</li>
+        <li>MUST send content distribution requests with a matching content type of the topic URL.</li>
+        <li>MAY reduce the payload of the content distribution to a diff of the contents for supported formats as described in <a href="#content-distribution">Content Distribution</a>.</li>
+        <li>MUST send a <code>X-Hub-Signature</code> header if the subscription was made with a <code>hub.secret</code> as described in <a href="#authenticated-content-distribution">Authenticated Content Distribution</a>.</li>
+      </ul>
+
+    </section>
+  </section>
+
   <section id="discovery">
     <h2>Discovery</h2>
     <p>The discovery mechanism aims at identifying at least 2 URLs.</p>
