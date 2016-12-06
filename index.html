@@ -203,6 +203,63 @@
       </ul>
 
     </section>
+    <section>
+      <h3>Candidate Recommendation Exit Criteria</h3>
+
+      <p>For this specification to exit the CR stage, there must be at least two independent, interoperable implementations of each feature. Each feature may be implemented by a different set of products. There is no requirement that all features be implemented by a single product. For the purposes of this criterion, we define the following terms:</p>
+
+      <section>
+        <h4>Publisher</h4>
+        <p>A WebSub Publisher is an implementation that advertises a topic and hub URL on one or more resource URLs. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
+      </section>
+
+      <section>
+        <h4>Subscriber</h4>
+        <p>A WebSub Subscriber is an implementation that discovers the hub and topic URL given a resouce URL, subscribes to updates at the hub, and accepts content distribution requests from the hub. The subscriber MAY support <a href="#authenticated-content-distribution">authenticated content distribution</a>. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
+      </section>
+
+      <section>
+        <h4>Hub</h4>
+        <p>A WebSub Hub is an implementation that handles subscription requests and delivers notifications to subscribers when the corresponding topic URL has been updated. Hubs MUST support subscription requests with a secret and deliver <a href="#authenticated-content-distribution">authenticated notifications</a> when requested. Hubs MUST deliver the full contents of the topic URL in the notification, and MAY reduce the payload to a diff if the content type supports it. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
+      </section>
+
+      <section>
+        <h4>Independent</h4>
+        <p>Each implementation must be developed by a different party and cannot share, reuse, or derive from code used by another qualifying implementation. Sections of code that have no bearing on the implementation of this specification are exempt from this requirement.</p>
+      </section>
+
+      <section>
+        <h4>Interoperable</h4>
+        <p>A Subscriber and Hub implementation are considered interoperable for a specific feature when the Hub takes the defined action that the Subscriber requests, the Subscriber gets the expected response from a Hub according to the feature, and the Hub sends the expected response to the Subscriber.</p>
+      </section>
+
+      <section>
+        <h4>Feature</h4>
+        <p>For the purposes of evaluating exit criteria, each of the following is considered a feature:</p>
+        <ul>
+          <li>Discovering the hub and topic URLs by looking at the HTTP headers of the resource URL.</li>
+          <li>Discovering the hub and topic URLs by looking at the contents of the resource URL as an XML document.</li>
+          <li>Discovering the hub and topic URLs by looking at the contents of the resource URL as an HTML document.</li>
+          <li>Discovering the hub URL by using the Host-Meta Well-Known URI.</li>
+          <li>Subscribing to the hub with a callback URL.</li>
+          <li>Subscribing to the hub and requesting a specific lease duration.</li>
+          <li>Subscribing to the hub with a secret and handling authenticated content distribution.</li>
+          <li>Requesting that a subscription is deactivated by sending an unsubscribe request.</li>
+          <li>The Subscriber acknowledges a pending subscription on a validation request.</li>
+          <li>The Subscriber rejects a subscription validation request for an invalid topic URL.</li>
+          <li>The Subscriber returns an HTTP 2xx response when the payload is delivered.</li>
+          <li>The Subscriber verifies the signature for authenticated content distribution requests.</li>
+          <li>The Subscriber rejects the distribution request if the signature does not validate.</li>
+          <li>The Subscriber rejects the distribution request when no signature is present if the subscription was made with a secret.</li>
+          <li>The Hub respects the requested lease duration during a subscription request.</li>
+          <li>The Hub allows Subscribers to re-request already active subscriptions, extending the lease duration.</li>
+          <li>The Hub sends the full contents of the topic URL in the distribution request.</li>
+          <li>The Hub sends a diff of the topic URL for the formats that support it.</li>
+          <li>The Hub sends a valid signature for subscriptions that were made with a secret.</li>
+        </ul>
+      </section>
+
+    </section>
   </section>
 
   <section id="discovery">
