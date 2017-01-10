@@ -99,6 +99,13 @@
         ],
         status: "Draft",
         publisher: "XMPP Standards Foundation"
+      },
+      "RSS-2.0": {
+        title: "RSS 2.0",
+        href: "http://www.rssboard.org/rss-specification",
+        authors: ["Dave Winer"],
+        status: "Stable",
+        publisher: "RSS Board"
       }
     }
   };
@@ -372,7 +379,9 @@
 
   <section id="content-distribution">
     <h2>Content Distribution</h2>
-    <p>A content distribution request is an HTTP [[!RFC7231]] POST request from hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. This request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and SHOULD contain the full contents of the topic URL. The hub MAY reduce the payload to a diff between two consecutive versions if its format allows it.
+    <p>A content distribution request is sent from the Hub to the Subscriber when new content is available for a topic URL. The request is an HTTP [[!RFC7231]] POST request from the hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. The content distribution request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and MUST contain the full contents of the topic URL, with an exception allowed as described below.
+    </p>
+    <p>For Atom ([[RFC4287]]) and RSS ([[RSS-2.0]]) feeds, the hub MAY remove already-delivered <code>atom:entry</code> or <code>rss:item</code> elements from the feed.
     </p>
     <p>The request MUST include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> pointing to a Hub associated with the topic being updated. It MUST also include one Link Header [[!RFC5988]] with <samp>rel=self</samp> set to the canonical URL of the topic being updated. The Hub SHOULD combine these headers into a single Link Header [[!RFC5988]]. All these URLs are those resulting from the discovery process (<a href="#discovery">Section 3</a>). The subscriber MUST NOT use these Link headers to identify the subscription corresponding to the content distribution request, because the Link headers are metadata associated with the topic content, not with any particular subscription. A hub MAY use discovery from time to time to detect changes in a topic's canonical URL and Hub URLs. Any such changes will cause changes to the Link headers sent in subsequent content distribution requests.
     </p>
