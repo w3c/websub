@@ -154,7 +154,7 @@
     <ul>
       <li>Publishers notify their hub(s) URLs when their topic(s) change.</li>
       <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. </li>
-      <li>The hub caches minimal metadata about each topic's previous state. When the hub re-fetches a topic (on its own initiative or as a result of a publisher's ping) and finds a difference, it enqueues a notification to all registered subscribers.</li>
+      <li>When the hub identifies a change in the topic, it sends a notification to all registered subscribers.</li>
     </ul>
     <p>Earlier versions of this protocol were called PubSubHubbub:</p>
     <ul>
