@@ -414,7 +414,7 @@
       <section id="signature-validation">
         <h3>Signature validation</h3>
         <p>When subscribers receive a content distribution request with the<samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST still return a 2xx success response to acknowledge receipt, but locally ignore the message as invalid. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
-        <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
+        <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber.</p>
       </section>
 
     </section>
