@@ -289,6 +289,16 @@
       <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ol>
     <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated.</p>
+    <section id="content-negociation">
+      <h3>Content Negotiation</h3>
+      <p>
+        For preactical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the same mime-type.
+      </p>
+      <p>
+        It is, however, possible to perform content negociation (described in Section 12 of [[!RFC2616]]) by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
+      </p>
+    </section>
+
   </section>
 
   <section id="subscribing-and-unsubscribing">
