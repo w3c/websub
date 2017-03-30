@@ -303,7 +303,7 @@
     <p>Unsubscribing works in the same way, except with a single parameter changed to indicate the desire to unsubscribe. Also, the Hub will not validate unsubscription requests with the publisher.</p>
     <section id="subscriber-sends-subscription-request">
       <h3>Subscriber Sends Subscription Request</h3>
-      <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request MUST have a Content-Type header of <samp>application/x-www-form-urlencoded</samp> (described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]) and the following parameters in its body, formatted accordingly:</p>
+      <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request MUST have a Content-Type header of <samp>application/x-www-form-urlencoded</samp> (described in Section 4.10.22.6 [[!HTML5]]), MUST use UTF-8 [[!Encoding]] as the document character encoding, and MUST use the following parameters in its body, formatted accordingly:</p>
       <dl>
         <dt>hub.callback</dt>
         <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. The callback URL SHOULD be a Capability URL [[!capability-urls]] (a unique URL per subscription).</dd>
