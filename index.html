@@ -427,9 +427,58 @@
         <p>When subscribers receive a content distribution request with the<samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST still return a 2xx success response to acknowledge receipt, but locally ignore the message as invalid. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
         <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
       </section>
-
     </section>
+  </section>
 
+  <section id="security-considerations">
+    <h2>Security Considerations</h2>
+    <p>Here is a summary of security considerations. It is important to note that WebSub is a server to server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
+    <h3>Discovery</h3>
+    <p>There is no specific security consideration for discovery.</p>
+    <h3>Subscriptions</h3>
+    <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Then the subscribers SHOULD use capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution. Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single use <samp>hub.challenge</samp>.</p>
+    <h3>Distribution</h3>
+    <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers. Subscribers MUST perform the same signature mechanism and MUST discard notifications which failed this test.</p>
+
+    <section id="security-and-privacy-review">
+
+      <p>These questions provide an overview of security and privacy considerations for this specification as guided by Self-Review Questionnaire: Security and Privacy ([[security-privacy-questionnaire]]).</p>
+
+      <dl>
+        <dt>Does this specification deal with personally-identifiable information?</dt>
+        <dd>The only potentially personally-identifiable information involved are topic and callback URLs.</dd>
+        <dt>Does this specification deal with high-value data?</dt>
+        <dd>No, there is no authentication or other credentials involved.</dd>
+        <dt>Does this specification introduce new state for an origin that persists across browsing sessions?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification expose persistent, cross-origin state to the web?</dt>
+        <dd>The WebSub subscriber should create a resource with information about the topic to which it subscribes.</dd>
+        <dt>Does this specification expose any other data to an origin that it doesn't currently have access to?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification enable new script execution/loading mechanisms?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow an origin access to a user's location?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow an origin access to sensors on a user's device?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow an origin access to aspects of a user's local computing environment?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow an origin access to other devices?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow an origin some measure of control over a user agent's native UI?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification expose temporary identifiers to the web?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification distinguish between behavior in first-party and third-party contexts?</dt>
+        <dd>No.</dd>
+        <dt>How should this specification work in the context of a user agent's "incognito" mode?</dt>
+        <dd>WebSub is a server to server protocol, in which "incognito" mode does not have a meaning.</dd>
+        <dt>Does this specification persist data to a user's local device?</dt>
+        <dd>No.</dd>
+        <dt>Does this specification allow downgrading default security characteristics?</dt>
+        <dd>No.</dd>
+      </dl>
+    </section>
   </section>
 
   <section class="appendix informative">
