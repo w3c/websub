@@ -105,11 +105,7 @@
 
 <body>
   <section id="abstract">
-    <p>An open, simple, web-scale and decentralized pubsub protocol. Anybody can play.</p>
-    <p>WebSub allows subscribers to receive notifications when a URL is updated. Typically this is used for URLs that represent feeds such as a blog home page, but can be used in any situation where receiving realtime notifications of changes would be helpful.</p>
-    <p>To dramatically simplify this spec in several places where we had to choose between supporting A or B, we took it upon ourselves to say "only A", rather than making it an implementation decision.</p>
-    <p>We offer this spec in hopes that it fills a need or at least advances the state of the discussion in the pubsub space. Polling is extremely wasteful and high latency. We think a decentralized pubsub layer is a fundamental, missing layer in the Internet architecture today and its existence, more than just enabling the obvious lower latency feed readers, would enable many cool applications, most of which we can't even imagine. But we're looking forward to decentralized social networking.</p>
-    <p>As opposed to more developed (and more complex) pubsub specs like Jabber Publish-Subscribe [[XEP-0060]] this spec's base profile (the barrier-to-entry to speak it) is very simple. The fancy bits required for high-volume publishers and subscribers are optional. The base profile is HTTP-based, as opposed to XMPP (see more on this below).</p>
+    <p>WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.</p>
   </section>
 
   <section id="sotd">
@@ -537,6 +533,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Added example of using different <code>rel=self</code> URLs to support content negotiation</li>
         <li>Added a security considerations section</li>
         <li>Updated references to [[WHATWG-URL]] instead of HTML 4</li>
+        <li>Replaced abstract with updated description</li>
       </ul>
     </section>
 
