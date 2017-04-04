@@ -447,10 +447,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <p>The successful response from the subscriber's callback URL MUST be an HTTP [[!RFC7231]] success (2xx) code. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. Subscribers SHOULD respond to notifications as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry notifications up to self-imposed limits on the number of times and the overall time period to retry. When the failing delivery exceeds the hub's limits, the hub terminates the subscription.
     </p>
     <section id="authenticated-content-distribution">
-      <h2>Authenticated Content Distribution</h2>
-      <section id="signing-content">
-        <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signature of the payload and include that signature in the request headers of the content distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form <samp>method=signature</samp> where <samp>method</samp> is one of the recognized algorithm names and <samp>signature</samp> is the, hexadecimal representation of the signature. The signature MUST be computed using the HMAC algorithm [[!RFC6151]] with the request body as the data and the <samp>hub.secret</samp> as the key.</p>
-      </section>
+      <h2 id="signing-content">Authenticated Content Distribution</h2>
+      <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signature of the payload and include that signature in the request headers of the content distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form <samp>method=signature</samp> where <samp>method</samp> is one of the recognized algorithm names and <samp>signature</samp> is the, hexadecimal representation of the signature. The signature MUST be computed using the HMAC algorithm [[!RFC6151]] with the request body as the data and the <samp>hub.secret</samp> as the key.</p>
 
       <section id="recognized-algorithm-names">
         <h3>Recognized algorithm names</h3>
@@ -467,7 +465,6 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
           <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
         </dl>
         <p>In the future, any algorithm added to [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>] SHOULD be supported by hubs and subscribers.</p>
-
       </section>
 
       <section id="signature-validation">
@@ -481,15 +478,20 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
   <section id="security-considerations">
     <h2>Security Considerations</h2>
     <p>Here is a summary of security considerations. It is important to note that WebSub is a server to server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
-    <h3>Discovery</h3>
-    <p>There is no specific security consideration for discovery.</p>
-    <h3>Subscriptions</h3>
-    <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Then the subscribers SHOULD use capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution. Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single use <samp>hub.challenge</samp>.</p>
-    <h3>Distribution</h3>
-    <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers. Subscribers MUST perform the same signature mechanism and MUST discard notifications which failed this test.</p>
-
+    <section>
+      <h3>Discovery</h3>
+      <p>There are no specific security considerations for discovery.</p>
+    </section>
+    <section>
+      <h3>Subscriptions</h3>
+      <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Then the subscribers SHOULD use capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution. Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single use <samp>hub.challenge</samp>.</p>
+      </section>
+    <section>
+      <h3>Distribution</h3>
+      <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers. Subscribers MUST perform the same signature mechanism and MUST discard notifications which failed this test.</p>
+    </section>
     <section id="security-and-privacy-review">
-
+      <h3>Security and Privacy Review</h3>
       <p>These questions provide an overview of security and privacy considerations for this specification as guided by Self-Review Questionnaire: Security and Privacy ([[security-privacy-questionnaire]]).</p>
 
       <dl>
@@ -570,5 +572,21 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
   </section>
 
+  <script>
+  // After text is selected (mouseup), find the closest element that has an ID
+  // attribute, and update the browser location bar to include that as the fragment
+  document.body.onmouseup = function(){
+    var selection;
+    if(selection=window.getSelection()) {
+      var range = selection.getRangeAt(0);
+      var el = range.startContainer;
+      while((el=el.parentElement) && !el.attributes["id"]);
+      var hash = el.attributes["id"].value;
+      if(history.replaceState) {
+        history.replaceState(null, null, "#"+hash);
+      }
+    }
+  };
+  </script>
 </body>
 </html>
