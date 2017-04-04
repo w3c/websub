@@ -282,6 +282,27 @@
       <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp>&lt;link&gt;</samp> elements MUST be only present in the <samp>&lt;head&gt;</samp> section of the HTML document.</li>
       <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ul>
+
+    <pre class="example">GET /feed HTTP/1.1
+Host: example.com
+
+HTTP/1.1 200 Ok
+Content-type: text/html
+Link: &lt;https://hub.example.com/&gt;; rel="hub"
+Link: &lt;http://example.com/feed&gt;; rel="self"
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;hub&quot; href=&quot;https://hub.example.com/&quot;&gt;
+    &lt;link rel=&quot;self&quot; href=&quot;http://example.com/feed&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+
     <p>When perfoming discovery, subscribers MUST implement all three discovery mechanisms in the following order, stopping at the first match:</p>
     <ol>
       <li>Issue a GET or HEAD request to retrieve the topic URL. Subscribers MUST check for HTTP Link headers first.</li>
@@ -289,6 +310,7 @@
       <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
     </ol>
     <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated.</p>
+
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
       <p>
@@ -297,6 +319,32 @@
       <p>
         It is, however, possible to perform content negotiation (described in Section 12 of [[!RFC2616]]) by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
       </p>
+      <p>The example below illustrates how a topic URL can return different <samp>Link</samp> headers depending on the <samp>Accept</samp> header that was sent.</p>
+      <pre class="example">GET /feed HTTP/1.1
+Host: example.com
+Accept: application/json
+
+HTTP/1.1 200 Ok
+Content-type: application/json
+Link: &lt;/feed.json&gt;; rel="self"
+Link: &lt;https://hub.example.com/&gt;; rel="hub"
+
+{
+  "items": [...]
+}
+      </pre>
+      <pre class="example">GET /feed HTTP/1.1
+Host: example.com
+Accept: text/html
+
+HTTP/1.1 200 Ok
+Content-type: text/html
+Link: &lt;/feed.html&gt;; rel="self"
+Link: &lt;https://hub.example.com/&gt;; rel="hub"
+
+&lt;html&gt;
+...
+      </pre>
     </section>
 
   </section>
