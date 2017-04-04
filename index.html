@@ -309,7 +309,7 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
         For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the same mime-type.
       </p>
       <p>
-        It is, however, possible to perform content negotiation (described in Section 12 of [[!RFC2616]]) by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
+        It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
       </p>
       <p>The example below illustrates how a topic URL can return different <samp>Link</samp> headers depending on the <samp>Accept</samp> header that was sent.</p>
       <pre class="example">GET /feed HTTP/1.1
