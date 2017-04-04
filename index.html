@@ -112,6 +112,15 @@
     <p>
       This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/websub/issues">GitHub</a>.
     </p>
+
+    <section id="at-risk">
+      <h3>Features At Risk</h3>
+      <p>The following features are at risk; if interoperable implementations are not found, they may be removed to advance the other features in this specification to Proposed Recommendation:</p>
+      <ul>
+        <li>The Host-Meta method of discovery</li>
+        <li>The restriction of <samp>&lt;link&gt;</samp> tags limited to the <samp>&lt;head&gt;</samp> of the HTML document</li>
+      </ul>
+    </section>
   </section>
 
   <section id="definitions">
@@ -267,8 +276,8 @@
     <p>The protocol currently supports the following discovery mechanisms. Publishers MUST implement at least one of them:</p>
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
-      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp>&lt;link&gt;</samp> elements MUST be only present in the <samp>&lt;head&gt;</samp> section of the HTML document.</li>
-      <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
+      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp>&lt;link&gt;</samp> elements MUST be only present in the <samp>&lt;head&gt;</samp> section of the HTML document. (Note: The restriction on limiting <samp>&lt;link&gt;</samp> to the <samp>&lt;head&gt;</samp> is At Risk.)</li>
+      <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently At Risk and may be deprecated.</li>
     </ul>
 
     <pre class="example">GET /feed HTTP/1.1
@@ -295,9 +304,9 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
     <ol>
       <li>Issue a GET or HEAD request to retrieve the topic URL. Subscribers MUST check for HTTP Link headers first.</li>
       <li>In the absence of HTTP Link headers, and if the topic is an XML based feed or an HTML page, subscribers MUST check for embedded link elements.</li>
-      <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently at risk and may be deprecated.</li>
+      <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently At Risk and may be deprecated.</li>
     </ol>
-    <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated.</p>
+    <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated. The working group requests feedback on this issue, which can be <a href="https://github.com/w3c/websub/issues/97">discussed here</a>.</p>
 
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
@@ -319,8 +328,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
 {
   "items": [...]
-}
-      </pre>
+}</pre>
       <pre class="example">GET /feed HTTP/1.1
 Host: example.com
 Accept: text/html
@@ -331,8 +339,7 @@ Link: &lt;/feed.html&gt;; rel="self"
 Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
 &lt;html&gt;
-...
-      </pre>
+...</pre>
     </section>
 
   </section>
@@ -557,7 +564,6 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Added informative note about the use of GET vs POST at the callback URL</li>
         <li>Renamed the spec to WebSub</li>
       </ul>
-
     </section>
 
   </section>
