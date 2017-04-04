@@ -82,15 +82,6 @@
           "B. Fitzpatrick", "B. Slatkin", "M. Atkins", "J. Genestoux"
         ]
       },
-      "W3C.REC-html401-19991224": {
-        title: "HTML 4.01 Specification",
-        href: "https://www.w3.org/TR/1999/REC-html401-19991224/",
-        authors: [
-        "Dave Raggett", "Arnaud Le Hors", "Ian Jacobs"
-        ],
-        status: "REC",
-        publisher: "W3C"
-      },
       "XEP-0060": {
         title: "Publish-Subscribe",
         href: "http://www.xmpp.org/extensions/xep-0060.html",
@@ -115,9 +106,10 @@
 <body>
   <section id="abstract">
     <p>An open, simple, web-scale and decentralized pubsub protocol. Anybody can play.</p>
-    <p>As opposed to more developed (and more complex) pubsub specs like Jabber Publish-Subscribe [[!XEP-0060]] this spec's base profile (the barrier-to-entry to speak it) is very simple. The fancy bits required for high-volume publishers and subscribers are optional. The base profile is HTTP-based, as opposed to XMPP (see more on this below).</p>
+    <p>WebSub allows subscribers to receive notifications when a URL is updated. Typically this is used for URLs that represent feeds such as a blog home page, but can be used in any situation where receiving realtime notifications of changes would be helpful.</p>
     <p>To dramatically simplify this spec in several places where we had to choose between supporting A or B, we took it upon ourselves to say "only A", rather than making it an implementation decision.</p>
     <p>We offer this spec in hopes that it fills a need or at least advances the state of the discussion in the pubsub space. Polling is extremely wasteful and high latency. We think a decentralized pubsub layer is a fundamental, missing layer in the Internet architecture today and its existence, more than just enabling the obvious lower latency feed readers, would enable many cool applications, most of which we can't even imagine. But we're looking forward to decentralized social networking.</p>
+    <p>As opposed to more developed (and more complex) pubsub specs like Jabber Publish-Subscribe [[XEP-0060]] this spec's base profile (the barrier-to-entry to speak it) is very simple. The fancy bits required for high-volume publishers and subscribers are optional. The base profile is HTTP-based, as opposed to XMPP (see more on this below).</p>
   </section>
 
   <section id="sotd">
@@ -394,7 +386,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <h3>Subscription Validation</h3>
       <p>Subscriptions MAY be validated by the Hubs who may require more details to accept or refuse a subscription. The Hub MAY also check with the publisher whether the subscription should be accepted.</p>
       <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
-      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]):</p>
+      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!WHATWG-URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "denied".</dd>
@@ -409,7 +401,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <section id="hub-verifies-intent">
       <h3>Hub Verifies Intent of the Subscriber</h3>
       <p>In order to prevent an attacker from creating unwanted subscriptions on behalf of a subscriber (or unsubscribing desired ones), a hub must ensure that the subscriber did indeed send the subscription request.</p>
-      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 17.13.4 of [[!W3C.REC-html401-19991224]]):</p>
+      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!WHATWG-URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", which matches the original request to the hub from the subscriber.</dd>
@@ -544,6 +536,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Added examples of discovery request and response</li>
         <li>Added example of using different <code>rel=self</code> URLs to support content negotiation</li>
         <li>Added a security considerations section</li>
+        <li>Updated references to [[WHATWG-URL]] instead of HTML 4</li>
       </ul>
     </section>
 
