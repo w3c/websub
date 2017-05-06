@@ -42,9 +42,9 @@ Answers are:
 
 ## Distribution
 
-* [ ] 1xx: Returns HTTP 2xx when the notification payload is delivered
+* [ ] 300: Returns HTTP 2xx when the notification payload is delivered
 * [ ] 1xx: Verifies a valid signature for authenticated distribution
-* [ ] Rejects a distribution request with an invalid signature
-* [ ] Rejects a distribution request with no signature when the subscription was made with a secret
+* [ ] 301: Rejects a distribution request with an invalid signature
+* [ ] 302: Rejects a distribution request with no signature when the subscription was made with a secret
 
 (1xx denotes that you can can use any of the 100-104 tests to confirm this feature)
