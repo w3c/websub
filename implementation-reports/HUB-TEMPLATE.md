@@ -1,6 +1,8 @@
-This file is a template implementation report for WebSub subscribers. Copy this file to a new .md file and change the name to your project name (lowercase with hyphens between words). Fill out the information based on the details of your implementation. It's okay to not check all the boxes, we are more interested in knowing how much of the spec is implemented than getting everyone to tick every box. When you are finished, submit a pull request or link to your file in a [new issue](https://github.com/w3c/websub/issues).
+This file is a template implementation report for WebSub subscribers. Copy this file to a new .md file and change the name to `HUB-project-name.md`, your project name (lowercase with hyphens between words). Fill out the information based on the details of your implementation. It's okay to not check all the boxes, we are more interested in knowing how much of the spec is implemented than getting everyone to tick every box. When you are finished, submit a pull request or link to your file in a [new issue](https://github.com/w3c/websub/issues).
 
 For items that have a number next to the checkbox, the number corresponds with the test number on websub.rocks. You can use that tool to check whether you support the feature properly. To mark a statement as true, add an x between the brackets, e.g. [x]. If the statement does not apply to your implementation, use [na] and add a sentence explaining why it does not apply.
+
+Delete the section above when filling out your copy of this file.
 
 # Implementation Name (Replace this header)
 
@@ -24,8 +26,11 @@ Answers are:
 * [ ] 102: Ignores unrecognized parameters in the subscription request
 * [ ] 103: Allows subscribers to re-request active subscriptions before they expire
 * [ ] 104: Supports unsubscription requests
+* [ ] 1xx: Sends a properly formatted verification request for subscribing and unsubscribing
 * [ ] Allows subscribers to request a specific lease duration
   * If not, then describe the default lease duration issued, or other specifics here
+
+(1xx denotes that you can can use any of the 100-104 tests to confirm this feature)
 
 ## Distribution
 
