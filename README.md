@@ -11,4 +11,4 @@ Editor's Draft: https://w3c.github.io/websub/
 
 ## Pull requests
 
-Please make sure you commit changes to `index.html`. The content of `fpwd.html` is regenerated from `index.html`.
+Please make sure you commit changes to `source.html`. The content of `index.html` is regenerated from `source.html`.
