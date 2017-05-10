@@ -35,11 +35,11 @@ Answers are:
 * [ ] 204: Subscribing to a hub that sends a 301 permanent redirect
 * [ ] 205: Rejects a verification request with an invalid topic URL
 * [ ] 1xx: Requests a subscription using a secret (optional)
- * Please select the signature method(s) that the subscriber recognizes. All methods listed below are currently acceptable for the hub to choose:
- * [ ] sha1
- * [ ] sha256
- * [ ] sha384
- * [ ] sha512
+  * Please select the signature method(s) that the subscriber recognizes. All methods listed below are currently acceptable for the hub to choose:
+  * [ ] sha1
+  * [ ] sha256
+  * [ ] sha384
+  * [ ] sha512
 * [ ] 1xx: Requests a subscription with a specific `lease_seconds` (optional, hub may ignore)
 * [ ] Callback URL is unique per subscription (should)
 * [ ] Callback URL is an unguessable URL (should)

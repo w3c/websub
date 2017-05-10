@@ -25,17 +25,17 @@ Answers are:
 * [ ] 103: Allows subscribers to re-request active subscriptions before they expire
 * [ ] 104: Supports unsubscription requests
 * [ ] Allows subscribers to request a specific lease duration
- * If not, then describe the default lease duration issued, or other specifics here
+  * If not, then describe the default lease duration issued, or other specifics here
 
 ## Distribution
 
 * [ ] 100: Sends a notification with a matching content-type of the topic URL
 * [ ] 100: Sends a notification with the full contents of the topic
 * [ ] 101: Sends a notification with a valid signature
- * Please select the signature method(s) that the hub uses to sign requests
- * [ ] sha1
- * [ ] sha256
- * [ ] sha384
- * [ ] sha512
+  * Please select the signature method(s) that the hub uses to sign requests
+  * [ ] sha1
+  * [ ] sha256
+  * [ ] sha384
+  * [ ] sha512
 * [ ] Sends only a diff of the topic URL for Atom or RSS feeds
 
