@@ -429,6 +429,17 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
   <section id="publishing">
     <h2>Publishing</h2>
     <p>The publisher MUST inform the hubs it previously designated when a topic has been updated. The hub and the publisher can agree on any mechanism, as long as the hub is eventually able send the updated payload to the subscribers.</p>
+
+    <section id="subscription-migration">
+      <h3>Subscription Migration</h3>
+      <p>If the publisher wishes to migrate existing subscriptions to a new topic URL, it can do so using HTTP redirects.</p>
+      <ul>
+        <li>The previous topic URL should send a redirect to the new topic URL. This will provide a seamless transition for any clients polling the topic URL.</li>
+        <li>When existing subscriptions expire, clients will fetch the previous topic URL, and will be redirected to the new topic URL.</li>
+        <li>At the new topic URL, the clients will see the new <code>rel=self</code> URL and the new hub, and will subscribe to the new topic URL at the new hub.</li>
+      </ul>
+      <p>This does not require any participation on the part of the previous hub, and works whether or not the publisher changes hubs as well.</p>
+    </section>
   </section>
 
   <section id="content-distribution">
