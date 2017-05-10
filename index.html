@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-04-04",
+    publishDate: "2017-05-10",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -24,11 +24,11 @@
     authors: [{
       name: "Julien Genestoux"
     }],
-    previousMaturity: "FPWD",
-    previousPublishDate: "2016-10-20",
+    previousMaturity: "CR",
+    previousPublishDate: "2017-04-11",
     edDraftURI: "https://w3c.github.io/websub/",
     testSuiteURI: "https://websub.rocks/",
-    implementationReportURI: "https://github.com/w3c/websub/tree/master/implementation-reports",
+    implementationReportURI: "https://websub.rocks/implementation-reports",
     wg: "Social Web Working Group",
     wgURI: "https://www.w3.org/Social/WG",
     wgPublicList: "public-socialweb",
@@ -541,7 +541,16 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <h2>Change Log</h2>
 
     <section>
-      <h3>Changes from 24 November WD to this version</h3>
+      <h3>Changes from 11 April 2017 CR to this version</h3>
+
+      <ul>
+        <li>Adds informative guidelines for how publishers can migrate subscribers to a new topic URL</li>
+        <li>Allow subscribers to reject invalid signatures with response codes other than 2xx</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Changes from 24 November WD to 11 April 2017 CR</h3>
 
       <ul>
         <li>Clarified wording on supported algorithms for authenticated distribution</li>
