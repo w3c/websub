@@ -6,6 +6,6 @@ To submit your own implementation report, copy the appropriate template file to 
 
 Implementation report templates are available for publishers, subscribers, and hubs.
 
-* `SUBSCRIBER-TEMPLATE.md`
-* `PUBLISHER-TEMPLATE.md` (in progress)
-* `HUB-TEMPLATE.md` (in progress)
+* [`SUBSCRIBER-TEMPLATE.md`](SUBSCRIBER-TEMPLATE.md)
+* [`PUBLISHER-TEMPLATE.md`](PUBLISHER-TEMPLATE.md)
+* [`HUB-TEMPLATE.md`](HUB-TEMPLATE.md)
