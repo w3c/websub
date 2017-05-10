@@ -1,6 +1,6 @@
 This file is a template implementation report for WebSub subscribers. Copy this file to a new .md file and change the name to your project name (lowercase with hyphens between words). Fill out the information based on the details of your implementation. It's okay to not check all the boxes, we are more interested in knowing how much of the spec is implemented than getting everyone to tick every box. When you are finished, submit a pull request or link to your file in a [new issue](https://github.com/w3c/websub/issues).
 
-For items that have a number next to the checkbox, the number corresponds with the test number on micropub.rocks. You can use that tool to check whether you support the feature properly. To mark a statement as true, add an x between the brackets, e.g. [x]. If the statement does not apply to your implementation, use [na] and add a sentence explaining why it does not apply.
+For items that have a number next to the checkbox, the number corresponds with the test number on websub.rocks. You can use that tool to check whether you support the feature properly. To mark a statement as true, add an x between the brackets, e.g. [x]. If the statement does not apply to your implementation, use [na] and add a sentence explaining why it does not apply.
 
 # Implementation Name (Replace this header)
 
@@ -35,6 +35,11 @@ Answers are:
 * [ ] 204: Subscribing to a hub that sends a 301 permanent redirect
 * [ ] 205: Rejects a verification request with an invalid topic URL
 * [ ] 1xx: Requests a subscription using a secret (optional)
+ * Please select the signature method(s) that the subscriber recognizes. All methods listed below are currently acceptable for the hub to choose:
+ * [ ] sha1
+ * [ ] sha256
+ * [ ] sha384
+ * [ ] sha512
 * [ ] 1xx: Requests a subscription with a specific `lease_seconds` (optional, hub may ignore)
 * [ ] Callback URL is unique per subscription (should)
 * [ ] Callback URL is an unguessable URL (should)
