@@ -221,7 +221,7 @@
 
       <section>
         <h4>Subscriber</h4>
-        <p>A WebSub Subscriber is an implementation that discovers the hub and topic URL given a resouce URL, subscribes to updates at the hub, and accepts content distribution requests from the hub. The subscriber MAY support <a href="#authenticated-content-distribution">authenticated content distribution</a>. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
+        <p>A WebSub Subscriber is an implementation that discovers the hub and topic URL given a resource URL, subscribes to updates at the hub, and accepts content distribution requests from the hub. The subscriber MAY support <a href="#authenticated-content-distribution">authenticated content distribution</a>. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
       </section>
 
       <section>
@@ -422,7 +422,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <p>The subscriber MUST confirm that the <samp>hub.topic</samp> corresponds to a pending subscription or unsubscription that it wishes to carry out. If so, the subscriber MUST respond with an HTTP success (2xx) code with a response body equal to the <samp>hub.challenge</samp> parameter. If the subscriber does not agree with the action, the subscriber MUST respond with a 404 "Not Found" response.</p>
         <p>The hub MUST consider other server response codes (3xx, 4xx, 5xx) to mean that the verification request has failed. If the subscriber returns an HTTP [[!RFC7231]] success (2xx) but the content body does not match the <samp>hub.challenge</samp> parameter, the hub MUST also consider verification to have failed.</p>
         <p>Hubs MAY make the <samp>hub.lease_seconds</samp> equal to the value the subscriber passed in their subscription request but MAY change the value depending on the hub's policies. To sustain a subscription, the subscriber MUST re-request the subscription on the hub before <samp>hub.lease_seconds</samp> seconds has elapsed.</p>
-        <p>Hubs MUST enfore lease expirations, and MUST NOT issue perpetual lease durations.</p>
+        <p>Hubs MUST enforce lease expirations, and MUST NOT issue perpetual lease durations.</p>
       </section>
     </section>
     <p class="note">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the actual notification. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the notification may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p>
@@ -456,7 +456,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     </p>
     <section id="authenticated-content-distribution">
       <h2 id="signing-content">Authenticated Content Distribution</h2>
-      <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signature of the payload and include that signature in the request headers of the content distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form <samp>method=signature</samp> where <samp>method</samp> is one of the recognized algorithm names and <samp>signature</samp> is the, hexadecimal representation of the signature. The signature MUST be computed using the HMAC algorithm [[!RFC6151]] with the request body as the data and the <samp>hub.secret</samp> as the key.</p>
+      <p>If the subscriber supplied a value for <samp>hub.secret</samp> in their subscription request, the hub MUST generate an HMAC signature of the payload and include that signature in the request headers of the content distribution request. The <samp>X-Hub-Signature</samp> header's value MUST be in the form <samp>method=signature</samp> where <samp>method</samp> is one of the recognized algorithm names and <samp>signature</samp> is the hexadecimal representation of the signature. The signature MUST be computed using the HMAC algorithm [[!RFC6151]] with the request body as the data and the <samp>hub.secret</samp> as the key.</p>
 
       <section id="recognized-algorithm-names">
         <h3>Recognized algorithm names</h3>
@@ -477,7 +477,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
       <section id="signature-validation">
         <h3>Signature validation</h3>
-        <p>When subscribers receive a content distribution request with the<samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST locally ignore the message as invalid. Subscribers MAY still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
+        <p>When subscribers receive a content distribution request with the <samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST locally ignore the message as invalid. Subscribers MAY still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
         <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
       </section>
     </section>
