@@ -23,10 +23,10 @@ Answers are:
   * Other ________
 * [ ] The publisher advertises the hub and self URLs in HTTP headers
 * The publisher advertises the hub and self URLs in the body of the document for the following content types:
-  * [x] HTML in <link> tags in the HTML <head>
-  * [ ] HTML in <link> tags in the body (currently not allowed, but the restriction of placing the <link> tags in the <head> is *at risk* so if an implementation requires advertising the URLs in the body this limitation may be dropped)
-  * [x] Atom in <link> elements
-  * [ ] RSS in <atom:link> elements
+  * [x] HTML in `<link>` tags in the HTML `<head>`
+  * [ ] HTML in `<link>` tags in the body (currently not allowed, but the restriction of placing the `<link>` tags in the `<head>` is *at risk* so if an implementation requires advertising the URLs in the body this limitation may be dropped)
+  * [x] Atom in `<link>` elements
+  * [ ] RSS in `<atom:link>` elements
 * [ ] The publisher advertises the hub URL using the `.host-meta` well-known URI (currently *at risk*)
 
 ## Distribution
