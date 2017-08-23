@@ -119,7 +119,6 @@
       <h3>Features At Risk</h3>
       <p>The following features are at risk; if interoperable implementations are not found, they may be removed to advance the other features in this specification to Proposed Recommendation:</p>
       <ul>
-        <li>The Host-Meta method of discovery</li>
         <li>The restriction of <samp>&lt;link&gt;</samp> tags limited to the <samp>&lt;head&gt;</samp> of the HTML document</li>
       </ul>
     </section>
@@ -246,7 +245,6 @@
           <li>Discovering the hub and topic URLs by looking at the HTTP headers of the resource URL.</li>
           <li>Discovering the hub and topic URLs by looking at the contents of the resource URL as an XML document.</li>
           <li>Discovering the hub and topic URLs by looking at the contents of the resource URL as an HTML document.</li>
-          <li>Discovering the hub URL by using the Host-Meta Well-Known URI.</li>
           <li>Subscribing to the hub with a callback URL.</li>
           <li>Subscribing to the hub and requesting a specific lease duration.</li>
           <li>Subscribing to the hub with a secret and handling authenticated content distribution.</li>
@@ -279,7 +277,6 @@
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
       <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp>&lt;link&gt;</samp> elements MUST be only present in the <samp>&lt;head&gt;</samp> section of the HTML document. (Note: The restriction on limiting <samp>&lt;link&gt;</samp> to the <samp>&lt;head&gt;</samp> is At Risk.)</li>
-      <li>Finally, publishers MAY also use the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> to include the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently At Risk and may be deprecated.</li>
     </ul>
 
     <pre class="example">GET /feed HTTP/1.1
@@ -306,9 +303,7 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
     <ol>
       <li>Issue a GET or HEAD request to retrieve the topic URL. Subscribers MUST check for HTTP Link headers first.</li>
       <li>In the absence of HTTP Link headers, and if the topic is an XML based feed or an HTML page, subscribers MUST check for embedded link elements.</li>
-      <li>In the absence of both HTTP Link headers and embedded link elements, subscribers MUST look in the Host-Meta Well-Known URI [[!RFC6415]] <samp>/.well-known/host-meta</samp> for the &lt;Link&gt; element with rel="hub". However, please note that this mechanism is currently At Risk and may be deprecated.</li>
     </ol>
-    <p class="warning">Note: The Host-Meta method of discovery is currently At Risk and may be deprecated. The working group requests feedback on this issue, which can be <a href="https://github.com/w3c/websub/issues/97">discussed here</a>.</p>
 
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
@@ -550,6 +545,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Adds informative guidelines for how publishers can migrate subscribers to a new topic URL</li>
         <li>Allow subscribers to reject invalid signatures with response codes other than 2xx</li>
         <li>Suggest subscribers return HTTP 410 if a subscription has been deleted</li>
+        <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a></li>
       </ul>
     </section>
 
