@@ -364,7 +364,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt>hub.lease_seconds</dt>
         <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
-        <dd>OPTIONAL. A subscriber-provided secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
+        <dd>OPTIONAL. A subscriber-provided cryptographically random unique secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
       </dl>
       <p>Subscribers MAY also include additional HTTP [[!RFC7230]] request parameters, as well as HTTP [[!RFC7230]] Headers if they are required by the hub.</p>
       <p>Hubs MUST ignore additional request parameters they do not understand.</p>
@@ -547,6 +547,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Suggest subscribers return HTTP 410 if a subscription has been deleted</li>
         <li>Add informative note about the lack of specification of publisher-hub relationship</li>
         <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a></li>
+        <li>Add text to note the subscriber's <code>hub.secret</code> should be cryptographically random and unique</li>
       </ul>
     </section>
 
