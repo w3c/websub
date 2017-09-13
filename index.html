@@ -457,7 +457,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <script id="initialUserConfig" type="application/json">
         {
             "specStatus": "ED",
-            "publishDate": "2017-08-23",
+            "publishDate": "2017-09-12",
             "shortName": "websub",
             "editors": [{
                     "name": "Julien Genestoux",
@@ -556,11 +556,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     "publisher": "RSS Board"
                 }
             },
-            "publishISODate": "2017-08-23T00:00:00.000Z",
-            "generatedSubtitle": "Editor's Draft 23 August 2017"
+            "publishISODate": "2017-09-12T00:00:00.000Z",
+            "generatedSubtitle": "Editor's Draft 12 September 2017"
         }
     </script>
-    <meta name="generator" content="ReSpec 16.2.0">
+    <meta name="generator" content="ReSpec 16.2.2">
     <meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.">
 </head>
 
@@ -571,7 +571,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </p>
         <p></p>
         <h1 class="title p-name" id="title">WebSub</h1>
-        <h2 id="w3c-editor's-draft-23-august-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-08-23">23 August 2017</time></h2>
+        <h2 id="w3c-editor's-draft-12-september-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-09-12">12 September 2017</time></h2>
         <dl>
             <dt>This version:</dt>
             <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -1174,7 +1174,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>The subscriber's callback URL <em class="rfc2119" title="MUST">MUST</em> return an HTTP [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>] 2xx response code to indicate a success. The subscriber's callback URL <em class="rfc2119"
                 title="MAY">MAY</em> return an HTTP 410 code to indicate that the subscription has been deleted, and the hub <em class="rfc2119" title="MAY">MAY</em> terminate the subscription if it receives that code as a response. The hub <em class="rfc2119"
                 title="MUST">MUST</em> consider all other subscriber response codes as failures; that means subscribers <em class="rfc2119" title="MUST NOT">MUST NOT</em> use HTTP redirects for moving subscriptions. Subscribers <em class="rfc2119" title="SHOULD">SHOULD</em>            respond to notifications as quickly as possible; their success response code <em class="rfc2119" title="SHOULD">SHOULD</em> only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber. The
-            response body from the subscriber <em class="rfc2119" title="MUST">MUST</em> be ignored by the hub. Hubs <em class="rfc2119" title="SHOULD">SHOULD</em> retry notifications up to self-imposed limits on the number of times and the overall time period to retry. When the failing delivery exceeds the hub's limits, the hub stops attempting to deliver that nofication. The hub <em class="rfc2119" title="MUST">MUST</em> keep the subscription active until the end of the lease duration, and if a new update is published to the topic, <em class="rfc2119" title="MUST">MUST</em> continue to retry delivery to the previously-failing subscriber.
+            response body from the subscriber <em class="rfc2119" title="MUST">MUST</em> be ignored by the hub. Hubs <em class="rfc2119" title="SHOULD">SHOULD</em> retry notifications up to self-imposed limits on the number of times and the overall time
+            period to retry. When the failing delivery exceeds the hub's limits, the hub stops attempting to deliver that nofication. The hub <em class="rfc2119" title="MUST">MUST</em> keep the subscription active until the end of the lease duration,
+            and if a new update is published to the topic, <em class="rfc2119" title="MUST">MUST</em> continue to retry delivery to the previously-failing subscriber.
         </p>
         <section id="authenticated-content-distribution">
             <h3 id="signing-content"><span class="secno">7.1 </span>Authenticated Content Distribution</h3>
