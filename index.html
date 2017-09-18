@@ -1287,8 +1287,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                 <li>Allow subscribers to reject invalid signatures with response codes other than 2xx</li>
                 <li>Suggest subscribers return HTTP 410 if a subscription has been deleted</li>
                 <li>Add informative note about the lack of specification of publisher-hub relationship</li>
-                <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a></li>
+                <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a>)</li>
                 <li>Add text to note the subscriber's <code>hub.secret</code> should be cryptographically random and unique</li>
+                <li>Clarify that failed delivery of notifications should not delete the subscription before the lease duration ends (<a href="https://github.com/w3c/websub/issues/119">Issue #119</a>)</li>
             </ul>
         </section>
 
