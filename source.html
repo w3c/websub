@@ -308,10 +308,10 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
       <p>
-        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the same mime-type.
+        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type or language may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the appropriate representation of the document.
       </p>
       <p>
-        It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
+        It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in the initial discovery request. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
       </p>
       <p>The example below illustrates how a topic URL can return different <samp>Link</samp> headers depending on the <samp>Accept</samp> header that was sent.</p>
       <pre class="example">GET /feed HTTP/1.1
@@ -337,6 +337,21 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
 &lt;html&gt;
 ...</pre>
+      <p>Similarly, the technique can also be used to return a different <samp>rel=self</samp> URL depending on the language requested by the <samp>Accept-Language</samp> header.</p>
+      <pre class="example">GET /feed HTTP/1.1
+Host: example.com
+Accept-Language: de-DE
+
+HTTP/1.1 200 Ok
+Content-type: text/html
+
+Link: &lt;/feed-de.json&gt;; rel="self"
+Link: &lt;https://hub.example.com/&gt;; rel="hub"
+
+{
+  "items": [...]
+}</pre>
+      </pre>
     </section>
 
   </section>
@@ -550,6 +565,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Add text to note the subscriber's <code>hub.secret</code> should be cryptographically random and unique</li>
         <li>Clarify that failed delivery of notifications should not delete the subscription before the lease duration ends (<a href="https://github.com/w3c/websub/issues/119">Issue #119</a>)</li>
         <li>Replaced note about referring to FIPS document for algorithm extensions with a note that says a proper WebSub extension should be defined in the future that enables negotiation of the hashing algorithm between subscribers and hubs</li>
+        <li>Add example of returning a different rel=self URL depending on the HTTP <code>Accept-Language</code> header.</li>
       </ul>
     </section>
 
