@@ -457,7 +457,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <script id="initialUserConfig" type="application/json">
         {
             "specStatus": "ED",
-            "publishDate": "2017-09-12",
+            "publishDate": "2017-09-19",
             "shortName": "websub",
             "editors": [{
                     "name": "Julien Genestoux",
@@ -556,22 +556,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     "publisher": "RSS Board"
                 }
             },
-            "publishISODate": "2017-09-12T00:00:00.000Z",
-            "generatedSubtitle": "Editor's Draft 12 September 2017"
+            "publishISODate": "2017-09-19T00:00:00.000Z",
+            "generatedSubtitle": "Editor's Draft 19 September 2017"
         }
     </script>
     <meta name="generator" content="ReSpec 16.2.2">
     <meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.">
 </head>
 
-<body aria-busy="false" class="h-entry" id="respecDocument">
+<body aria-busy="false" class="h-entry toc-inline" id="respecDocument">
     <div class="head" role="contentinfo" id="respecHeader">
         <p>
             <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
         </p>
         <p></p>
         <h1 class="title p-name" id="title">WebSub</h1>
-        <h2 id="w3c-editor's-draft-12-september-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-09-12">12 September 2017</time></h2>
+        <h2 id="w3c-editor's-draft-19-september-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-09-19">19 September 2017</time></h2>
         <dl>
             <dt>This version:</dt>
             <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -968,12 +968,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <section id="content-negotiation">
             <h3 id="x4.1-content-negotiation"><span class="secno">4.1 </span>Content Negotiation</h3>
             <p>
-                For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type may have been requested by the subscriber upon discovery, it would not be able
-                to perform notifications using the same mime-type.
+                For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type or language may have been requested by the subscriber upon discovery, it would
+                not be able to perform notifications using the appropriate representation of the document.
             </p>
             <p>
-                It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in content negotiation. For example, a request to <samp>/feed</samp> with an Accept header
-                containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
+                It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in the initial discovery request. For example, a request to <samp>/feed</samp> with an Accept
+                header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
             </p>
             <p>The example below illustrates how a topic URL can return different <samp>Link</samp> headers depending on the <samp>Accept</samp> header that was sent.</p>
             <div class="example">
@@ -1005,6 +1005,24 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 ...</span></span></pre>
             </div>
+            <p>Similarly, the technique can also be used to return a different <samp>rel=self</samp> URL depending on the language requested by the <samp>Accept-Language</samp> header.</p>
+            <div class="example">
+                <div class="example-title marker"><span>Example 4</span></div>
+                <pre class="hljs http" aria-busy="false" aria-live="polite"><span class="hljs-keyword">GET</span> <span class="hljs-string">/feed</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.com
+<span class="hljs-attribute">Accept-Language</span>: de-DE
+
+<span class="http">HTTP/1.1 <span class="hljs-number">200</span> Ok
+<span class="hljs-attribute">Content-type</span>: text/html
+
+<span class="http"><span class="hljs-attribute">Link</span>: &lt;/feed-de.json&gt;; rel="self"
+<span class="hljs-attribute">Link</span>: &lt;https://hub.example.com/&gt;; rel="hub"
+
+<span class="json">{
+  <span class="hljs-attr">"items"</span>: [...]
+}</span></span></span></pre>
+            </div>
+
         </section>
 
     </section>
@@ -1199,7 +1217,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     <dt>sha512</dt>
                     <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
                 </dl>
-                <p>In the future, any algorithm added to [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>] <em class="rfc2119" title="SHOULD">SHOULD</em> be supported by hubs and subscribers.</p>
+                <p>In the future, an extension may be specified allowing subscribers to indicate which algorithms they can use for validation. As of this writing, most hubs sign with SHA-1, despite its known cryptographic weakness, in order to be interoperable
+                    with older subscribers.</p>
             </section>
 
             <section id="signature-validation">
@@ -1216,7 +1235,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section id="security-considerations">
         <!--OddPage-->
         <h2 id="x8.-security-considerations"><span class="secno">8. </span>Security Considerations</h2>
-        <p>Here is a summary of security considerations. It is important to note that WebSub is a server to server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
+        <p>Here is a summary of security considerations. It is important to note that WebSub is a server-to-server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
         <section id="discovery-0">
             <h3 id="x8.1-discovery"><span class="secno">8.1 </span>Discovery</h3>
             <p>There are no specific security considerations for discovery.</p>
@@ -1231,7 +1250,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <section id="distribution">
             <h3 id="x8.3-distribution"><span class="secno">8.3 </span>Distribution</h3>
             <p>The Hub <em class="rfc2119" title="MUST">MUST</em> use the exact callback used by the subscriber (including the use of HTTPS). Hubs <em class="rfc2119" title="MUST">MUST</em> sign their requests using the <samp>hub.secret</samp> supplied by
-                subscribers. Subscribers <em class="rfc2119" title="MUST">MUST</em> perform the same signature mechanism and <em class="rfc2119" title="MUST">MUST</em> discard notifications which failed this test.</p>
+                subscribers if requested. Subscribers <em class="rfc2119" title="MUST">MUST</em> perform the same signature mechanism and <em class="rfc2119" title="MUST">MUST</em> discard notifications which failed this test.</p>
+            <p>If a subscriber does not use a secure notification URL (HTTPS), or if it is suspected that the TLS transport between the hub and subscriber may be compromised, then the integrity of the content delivery notification is only protected by the
+                <samp>hub.secret</samp> and the hashing algorithm used. In this case, an appropriate hashing algorithm should be used based on the security requirements of the application. As SHA-1 has been demonstrated to be compromised as of the date
+                of this publication, a minimum of SHA-256 should be used.</p>
         </section>
         <section id="security-and-privacy-review">
             <h3 id="x8.4-security-and-privacy-review"><span class="secno">8.4 </span>Security and Privacy Review</h3>
@@ -1290,6 +1312,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                 <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a>)</li>
                 <li>Add text to note the subscriber's <code>hub.secret</code> should be cryptographically random and unique</li>
                 <li>Clarify that failed delivery of notifications should not delete the subscription before the lease duration ends (<a href="https://github.com/w3c/websub/issues/119">Issue #119</a>)</li>
+                <li>Replaced note about referring to FIPS document for algorithm extensions with a note that says a proper WebSub extension should be defined in the future that enables negotiation of the hashing algorithm between subscribers and hubs</li>
+                <li>Add example of returning a different rel=self URL depending on the HTTP <code>Accept-Language</code> header</li>
+                <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
             </ul>
         </section>
 
