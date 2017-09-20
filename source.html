@@ -468,7 +468,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
           <dt>sha512</dt>
           <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
         </dl>
-        <p>In the future, any algorithm added to [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>] SHOULD be supported by hubs and subscribers.</p>
+        <p>In the future, an extension may be specified allowing subscribers to indicate which algorithms they can use for validation. As of this writing, most hubs sign with SHA-1, despite its known cryptographic weakness, in order to be interoperable with older subscribers.</p>
       </section>
 
       <section id="signature-validation">
@@ -549,6 +549,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Drop at-risk <code>.host-meta</code> discovery feature due to lack of implementations (<a href="https://github.com/w3c/websub/issues/97">Issue #97</a>)</li>
         <li>Add text to note the subscriber's <code>hub.secret</code> should be cryptographically random and unique</li>
         <li>Clarify that failed delivery of notifications should not delete the subscription before the lease duration ends (<a href="https://github.com/w3c/websub/issues/119">Issue #119</a>)</li>
+        <li>Replaced note about referring to FIPS document for algorithm extensions with a note that says a proper WebSub extension should be defined in the future that enables negotiation of the hashing algorithm between subscribers and hubs</li>
       </ul>
     </section>
 
