@@ -457,7 +457,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <script id="initialUserConfig" type="application/json">
         {
             "specStatus": "ED",
-            "publishDate": "2017-09-19",
+            "publishDate": "2017-09-22",
             "shortName": "websub",
             "editors": [{
                     "name": "Julien Genestoux",
@@ -556,22 +556,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     "publisher": "RSS Board"
                 }
             },
-            "publishISODate": "2017-09-19T00:00:00.000Z",
-            "generatedSubtitle": "Editor's Draft 19 September 2017"
+            "publishISODate": "2017-09-22T00:00:00.000Z",
+            "generatedSubtitle": "Editor's Draft 22 September 2017"
         }
     </script>
     <meta name="generator" content="ReSpec 16.2.2">
     <meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.">
 </head>
 
-<body aria-busy="false" class="h-entry toc-inline" id="respecDocument">
+<body aria-busy="false" class="h-entry" id="respecDocument">
     <div class="head" role="contentinfo" id="respecHeader">
         <p>
             <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
         </p>
         <p></p>
         <h1 class="title p-name" id="title">WebSub</h1>
-        <h2 id="w3c-editor's-draft-19-september-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-09-19">19 September 2017</time></h2>
+        <h2 id="w3c-editor's-draft-22-september-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-09-22">22 September 2017</time></h2>
         <dl>
             <dt>This version:</dt>
             <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -1250,7 +1250,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <section id="distribution">
             <h3 id="x8.3-distribution"><span class="secno">8.3 </span>Distribution</h3>
             <p>The Hub <em class="rfc2119" title="MUST">MUST</em> use the exact callback used by the subscriber (including the use of HTTPS). Hubs <em class="rfc2119" title="MUST">MUST</em> sign their requests using the <samp>hub.secret</samp> supplied by
-                subscribers if requested. Subscribers <em class="rfc2119" title="MUST">MUST</em> perform the same signature mechanism and <em class="rfc2119" title="MUST">MUST</em> discard notifications which failed this test.</p>
+                subscribers if requested.</p>
+            <p>If the subscriber included a hub.secret in the subscription request, the subscriber <em class="rfc2119" title="SHOULD">SHOULD</em> validate the hub's provided signature, and if they do so, they <em class="rfc2119" title="MUST">MUST</em> use
+                the server's stated signature mechanism, and discard notifications which fail the test.</p>
             <p>If a subscriber does not use a secure notification URL (HTTPS), or if it is suspected that the TLS transport between the hub and subscriber may be compromised, then the integrity of the content delivery notification is only protected by the
                 <samp>hub.secret</samp> and the hashing algorithm used. In this case, an appropriate hashing algorithm should be used based on the security requirements of the application. As SHA-1 has been demonstrated to be compromised as of the date
                 of this publication, a minimum of SHA-256 should be used.</p>
@@ -1315,6 +1317,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                 <li>Replaced note about referring to FIPS document for algorithm extensions with a note that says a proper WebSub extension should be defined in the future that enables negotiation of the hashing algorithm between subscribers and hubs</li>
                 <li>Add example of returning a different rel=self URL depending on the HTTP <code>Accept-Language</code> header</li>
                 <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
+                <li>Clarify security consideration section regarding signature validation</li>
             </ul>
         </section>
 

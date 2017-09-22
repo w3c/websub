@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-09-19",
+    publishDate: "2017-09-22",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -507,7 +507,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       </section>
     <section>
       <h3>Distribution</h3>
-      <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers if requested. Subscribers MUST perform the same signature mechanism and MUST discard notifications which failed this test.</p>
+      <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers if requested.</p>
+      <p>If the subscriber included a hub.secret in the subscription request, the subscriber SHOULD validate the hub's provided signature, and if they do so, they MUST use the server's stated signature mechanism, and discard notifications which fail the test.</p>
       <p>If a subscriber does not use a secure notification URL (HTTPS), or if it is suspected that the TLS transport between the hub and subscriber may be compromised, then the integrity of the content delivery notification is only protected by the <samp>hub.secret</samp> and the hashing algorithm used. In this case, an appropriate hashing algorithm should be used based on the security requirements of the application. As SHA-1 has been demonstrated to be compromised as of the date of this publication, a minimum of SHA-256 should be used.</samp></p>
     </section>
     <section id="security-and-privacy-review">
@@ -568,6 +569,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Replaced note about referring to FIPS document for algorithm extensions with a note that says a proper WebSub extension should be defined in the future that enables negotiation of the hashing algorithm between subscribers and hubs</li>
         <li>Add example of returning a different rel=self URL depending on the HTTP <code>Accept-Language</code> header</li>
         <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
+        <li>Clarify security consideration section regarding signature validation</li>
       </ul>
     </section>
 
