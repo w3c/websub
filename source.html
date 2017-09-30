@@ -99,6 +99,12 @@
         authors: ["Dave Winer"],
         status: "Stable",
         publisher: "RSS Board"
+      },
+      "FIPS-PUB-180-4": {
+        title: "Secure Hash Standard (SHS)",
+        href: "http://dx.doi.org/10.6028/NIST.FIPS.180-4",
+        authors: ["National Institute of Standards and Technology"],
+        publisher: "U.S. Department of Commerce"
       }
     }
   };
@@ -470,16 +476,16 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <section id="recognized-algorithm-names">
         <h3>Recognized algorithm names</h3>
 
-        <p>The following algorithms are the initially registered algorithm names, based on the contents of the referenced registry at the time of publishing. [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]</p>
+        <p>The following algorithms are the initially registered algorithm names, based on the contents of the [[FIPS-PUB-180-4]] registry at the time of publishing.</p>
         <dl>
           <dt>sha1</dt>
-          <dd>The SHA-1 algorithm as specified in Section 6.1 of [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]</dd>
+          <dd>The SHA-1 algorithm as specified in Section 6.1 of [[FIPS-PUB-180-4]]</dd>
           <dt>sha256</dt>
-          <dd>The SHA-256 algorithm as specified in Section 6.2</dd>
+          <dd>The SHA-256 algorithm as specified in Section 6.2 of [[FIPS-PUB-180-4]]</dd>
           <dt>sha384</dt>
-          <dd>The SHA-384 algorithm as specified in Section 6.5</dd>
+          <dd>The SHA-384 algorithm as specified in Section 6.5 of [[FIPS-PUB-180-4]]</dd>
           <dt>sha512</dt>
-          <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
+          <dd>The SHA-512 algorithm as specified in Section 6.4 of [[FIPS-PUB-180-4]]</dd>
         </dl>
         <p>In the future, an extension may be specified allowing subscribers to indicate which algorithms they can use for validation. As of this writing, most hubs sign with SHA-1, despite its known cryptographic weakness, in order to be interoperable with older subscribers.</p>
       </section>
@@ -569,6 +575,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
         <li>Clarify security consideration section regarding signature validation</li>
         <li>Moved "at risk" section out of the "sotd" section which was causing a respec error</li>
+        <li>Replaced hyperlink to FIPS PUB 180-4 with an in-page reference</li>
       </ul>
     </section>
 

@@ -556,6 +556,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     ],
                     "status": "Stable",
                     "publisher": "RSS Board"
+                },
+                "FIPS-PUB-180-4": {
+                    "title": "Secure Hash Standard (SHS)",
+                    "href": "http://dx.doi.org/10.6028/NIST.FIPS.180-4",
+                    "authors": [
+                        "National Institute of Standards and Technology"
+                    ],
+                    "publisher": "U.S. Department of Commerce"
                 }
             },
             "publishISODate": "2017-10-03T00:00:00.000Z",
@@ -1210,16 +1218,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <section id="recognized-algorithm-names">
                 <h4 id="x8.1.1-recognized-algorithm-names"><span class="secno">8.1.1 </span>Recognized algorithm names</h4>
 
-                <p>The following algorithms are the initially registered algorithm names, based on the contents of the referenced registry at the time of publishing. [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]</p>
+                <p>The following algorithms are the initially registered algorithm names, based on the contents of the [<cite><a class="bibref" href="#bib-FIPS-PUB-180-4">FIPS-PUB-180-4</a></cite>] registry at the time of publishing.</p>
                 <dl>
                     <dt>sha1</dt>
-                    <dd>The SHA-1 algorithm as specified in Section 6.1 of [<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">FIPS PUB 180-4</a>]</dd>
+                    <dd>The SHA-1 algorithm as specified in Section 6.1 of [<cite><a class="bibref" href="#bib-FIPS-PUB-180-4">FIPS-PUB-180-4</a></cite>]</dd>
                     <dt>sha256</dt>
-                    <dd>The SHA-256 algorithm as specified in Section 6.2</dd>
+                    <dd>The SHA-256 algorithm as specified in Section 6.2 of [<cite><a class="bibref" href="#bib-FIPS-PUB-180-4">FIPS-PUB-180-4</a></cite>]</dd>
                     <dt>sha384</dt>
-                    <dd>The SHA-384 algorithm as specified in Section 6.5</dd>
+                    <dd>The SHA-384 algorithm as specified in Section 6.5 of [<cite><a class="bibref" href="#bib-FIPS-PUB-180-4">FIPS-PUB-180-4</a></cite>]</dd>
                     <dt>sha512</dt>
-                    <dd>The SHA-512 algorithm as specified in Section 6.4</dd>
+                    <dd>The SHA-512 algorithm as specified in Section 6.4 of [<cite><a class="bibref" href="#bib-FIPS-PUB-180-4">FIPS-PUB-180-4</a></cite>]</dd>
                 </dl>
                 <p>In the future, an extension may be specified allowing subscribers to indicate which algorithms they can use for validation. As of this writing, most hubs sign with SHA-1, despite its known cryptographic weakness, in order to be interoperable
                     with older subscribers.</p>
@@ -1323,6 +1331,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                 <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
                 <li>Clarify security consideration section regarding signature validation</li>
                 <li>Moved "at risk" section out of the "sotd" section which was causing a respec error</li>
+                <li>Replaced hyperlink to FIPS PUB 180-4 with an in-page reference</li>
             </ul>
         </section>
 
@@ -1411,7 +1420,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </section>
         <section id="informative-references">
             <h3 id="b.2-informative-references"><span class="secno">B.2 </span>Informative references</h3>
-            <dl class="bibliography"><dt id="bib-PubSubHubbub-Core-0.3">[PubSubHubbub-Core-0.3]</dt>
+            <dl class="bibliography"><dt id="bib-FIPS-PUB-180-4">[FIPS-PUB-180-4]</dt>
+                <dd><a href="http://dx.doi.org/10.6028/NIST.FIPS.180-4"><cite>Secure Hash Standard (SHS)</cite></a>. National Institute of Standards and Technology. U.S. Department of Commerce. URL: <a href="http://dx.doi.org/10.6028/NIST.FIPS.180-4">http://dx.doi.org/10.6028/NIST.FIPS.180-4</a>
+                </dd><dt id="bib-PubSubHubbub-Core-0.3">[PubSubHubbub-Core-0.3]</dt>
                 <dd><a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html"><cite>PubSubHubbub Core 0.3 -- Working Draft</cite></a>. B. Fitzpatrick; B. Slatkin; M. Atkins.URL: <a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html">https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html</a>
                 </dd><dt id="bib-PubSubHubbub-Core-0.4">[PubSubHubbub-Core-0.4]</dt>
                 <dd><a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html"><cite>PubSubHubbub Core 0.4 -- Working Draft</cite></a>. B. Fitzpatrick; B. Slatkin; M. Atkins; J. Genestoux.URL: <a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html">https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html</a>
