@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<html lang="en" dir="ltr" typeof="bibo:Document" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
   <meta lang="" property="dc:language" content="en">
   <title>WebSub</title>
@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-09-22",
+    publishDate: "2017-10-03",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -26,6 +26,8 @@
     }],
     previousMaturity: "CR",
     previousPublishDate: "2017-04-11",
+    crEnd: "2017-10-02",
+    prEnd: "2017-11-03",
     edDraftURI: "https://w3c.github.io/websub/",
     testSuiteURI: "https://websub.rocks/",
     implementationReportURI: "https://websub.rocks/implementation-reports",
@@ -110,18 +112,14 @@
     <p>WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.</p>
   </section>
 
-  <section>
-    <section id="sotd"></section>
-    <p>
-      This document is currently a W3C TR track document. Current bugs and issues are managed in <a href="https://github.com/w3c/websub/issues">GitHub</a>.
-    </p>
-    <section id="at-risk">
-      <h3>Features At Risk</h3>
-      <p>The following features are at risk; if interoperable implementations are not found, they may be removed to advance the other features in this specification to Proposed Recommendation:</p>
-      <ul>
-        <li>The restriction of <samp>&lt;link&gt;</samp> tags limited to the <samp>&lt;head&gt;</samp> of the HTML document</li>
-      </ul>
-    </section>
+  <section id="sotd"></section>
+
+  <section id="at-risk">
+    <h3>Features At Risk</h3>
+    <p>The following features are at risk; if interoperable implementations are not found, they may be removed to advance the other features in this specification to Recommendation:</p>
+    <ul>
+      <li>The restriction of <samp>&lt;link&gt;</samp> tags limited to the <samp>&lt;head&gt;</samp> of the HTML document</li>
+    </ul>
   </section>
 
   <section id="definitions">
@@ -570,6 +568,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Add example of returning a different rel=self URL depending on the HTTP <code>Accept-Language</code> header</li>
         <li>Add a note in Security Considerations about the hashing algorithm protecting against a compromised TLS channel</li>
         <li>Clarify security consideration section regarding signature validation</li>
+        <li>Moved "at risk" section out of the "sotd" section which was causing a respec error</li>
       </ul>
     </section>
 
