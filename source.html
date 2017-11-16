@@ -457,9 +457,9 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <h3>Subscription Migration</h3>
       <p>If the publisher wishes to migrate existing subscriptions to a new topic URL, it can do so using HTTP redirects.</p>
       <ul>
-        <li>The previous topic URL should send a redirect to the new topic URL. This will provide a seamless transition for any clients polling the topic URL.</li>
-        <li>When existing subscriptions expire, clients will fetch the previous topic URL, and will be redirected to the new topic URL.</li>
-        <li>At the new topic URL, the clients will see the new <code>rel=self</code> URL and the new hub, and will subscribe to the new topic URL at the new hub.</li>
+        <li>The previous topic URL should send a redirect to the new topic URL. This will provide a seamless transition for any HTTP client that did not use WebSub but instead was polling the topic URL.</li>
+        <li>When existing WebSub subscriptions expire, subscribers will attempt to renew the subscription. The first step of renewing a subscription is to fetch the topic URL, which means the subscriber will encounter the redirect and end up at the new topic URL.</li>
+        <li>At the new topic URL, the subscriber will see the new <code>rel=self</code> URL and the new hub, and will subscribe to the new topic URL at the new hub.</li>
       </ul>
       <p>This does not require any participation on the part of the previous hub, and works whether or not the publisher changes hubs as well.</p>
       <p class="note">The specific mechanism for the publisher to inform the hub is left unspecified. For example, some existing public hubs <a href="https://documentation.superfeedr.com/publishers.html#ping">[1]</a> <a href="https://pubsubhubbub.appspot.com/">[2]</a> <a href="https://switchboard.p3k.io/docs">[3]</a> ask publishers to send a POST request with the keys <span style="white-space: nowrap">hub.mode="publish"</span> and <span style="white-space: nowrap">hub.url=(the URL of the resource that was updated)</span>.</p>
@@ -578,6 +578,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Clarify sending the POST request to the subscriber's callback URL</li>
         <li>Add reference to HTTPS when previously only HTTP was mentioned in cases where an HTTPS URL may be used</li>
         <li>Clarify when hub.lease_seconds parameter is required or optional</li>
+        <li>Reword section on subscription migration to make it more clear</li>
       </ul>
     </section>
 
