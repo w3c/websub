@@ -371,10 +371,10 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <h2>Subscribing and Unsubscribing</h2>
     <p>Subscribing to a topic URL consists of four parts that may occur immediately in sequence or have a delay.</p>
     <ul>
-      <li>Requesting a subscription using the hub </li>
-      <li>Validating the subscription with the publisher (OPTIONAL)</li>
-      <li>Confirming the subscription was actually desired by the subscriber</li>
-      <li>Periodically reconfirming the subscription is still active (OPTIONAL)</li>
+      <li>Subscriber requests a subscription at the hub</li>
+      <li>The hub validates the subscription with the publisher (OPTIONAL)</li>
+      <li>The hub confirms the subscription was actually requested by the subscriber</li>
+      <li>The hub periodically reconfirms the subscription is still active (OPTIONAL)</li>
     </ul>
     <p>Unsubscribing works in the same way, except with a single parameter changed to indicate the desire to unsubscribe. Also, the Hub will not validate unsubscription requests with the publisher.</p>
     <section id="subscriber-sends-subscription-request">
