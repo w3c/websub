@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-10-03",
+    publishDate: "2017-11-16",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -206,7 +206,7 @@
         <li>MAY respect the requested lease duration in subscription requests.</li>
         <li>MUST allow subscribers to re-request already active subscriptions.</li>
         <li>MUST support unsubscription requests.</li>
-        <li>MUST send content distribution requests with a matching content type of the topic URL.</li>
+        <li>MUST send content distribution requests with a matching content type of the topic URL. (See <a href="#content-negotiation">Content Negotiation</a>)</li>
         <li>MAY reduce the payload of the content distribution to a diff of the contents for supported formats as described in <a href="#content-distribution">Content Distribution</a>.</li>
         <li>MUST send a <code>X-Hub-Signature</code> header if the subscription was made with a <code>hub.secret</code> as described in <a href="#authenticated-content-distribution">Authenticated Content Distribution</a>.</li>
       </ul>
@@ -560,7 +560,15 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <h2>Change Log</h2>
 
     <section>
-      <h3>Changes from 11 April 2017 CR to this version</h3>
+      <h3>Changes from 03 October 2017 PR to this version</h3>
+
+      <ul>
+        <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Changes from 11 April 2017 CR to 03 October 2017 PR</h3>
 
       <ul>
         <li>Adds informative guidelines for how publishers can migrate subscribers to a new topic URL</li>
