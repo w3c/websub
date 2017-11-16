@@ -105,6 +105,13 @@
         href: "http://dx.doi.org/10.6028/NIST.FIPS.180-4",
         authors: ["National Institute of Standards and Technology"],
         publisher: "U.S. Department of Commerce"
+      },
+      "URL": {
+        title: "URL Standard",
+        href: "https://url.spec.whatwg.org/",
+        authors: ["Anne van Kesteren"],
+        status: "Living Standard",
+        publisher: "WHATWG"
       }
     }
   };
@@ -134,7 +141,7 @@
       <dt><dfn>Topic</dfn></dt>
       <dd>An HTTP [[!RFC7230]] resource URL. The unit to which one can subscribe to changes.</dd>
       <dt><dfn>Hub ("the hub")</dfn></dt>
-      <dd>The server (URL [[!WHATWG-URL]]) which implements both sides of this protocol. Any hub MAY implement its own policies on who can use it.</dd>
+      <dd>The server (URL [[!URL]]) which implements both sides of this protocol. Any hub MAY implement its own policies on who can use it.</dd>
       <dt><dfn>Publisher</dfn></dt>
       <dd>An owner of a topic. Notifies the hub when the topic feed has been updated. As in almost all pubsub systems, the publisher is unaware of the subscribers, if any. Other pubsub systems might call the publisher the "source".</dd>
       <dt><dfn>Subscriber</dfn></dt>
@@ -142,7 +149,7 @@
       <dt><dfn>Subscription</dfn></dt>
       <dd>A unique relation to a topic by a subscriber that indicates it should receive updates for that topic. A subscription's unique key is the tuple (Topic URL, Subscriber Callback URL). Subscriptions may (at the hub's decision) have expiration times akin to DHCP leases which must be periodically renewed. </dd>
       <dt><dfn>Subscriber Callback URL</dfn></dt>
-      <dd>The URL [[!WHATWG-URL]] at which a subscriber wishes to receive notifications. </dd>
+      <dd>The URL [[!URL]] at which a subscriber wishes to receive notifications. </dd>
       <dt><dfn>Event</dfn></dt>
       <dd>An event that causes updates to multiple topics. For each event that happens (e.g. "Brad posted to the Linux Community."), multiple topics could be affected (e.g. "Brad posted." and "Linux community has new post"). Publisher events cause topics to be updated and the hub looks up all subscriptions for affected topics, sending out notifications to subscribers. </dd>
       <dt><dfn>Notification</dfn></dt>
@@ -390,7 +397,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <p>Hubs MUST allow subscribers to re-request subscriptions that are already activated. Each subsequent request to a hub to subscribe or unsubscribe MUST override the previous subscription state for a specific topic URL and callback URL combination, but only once the action is verified (<a href="#hub-verifies-intent">Section 4.3</a>). If verification fails, the subscription state MUST be left unchanged. This is required so subscribers can renew their subscriptions before the lease seconds period is over without any interruption. The subscriber MAY use a new hub.secret value in a future subscription, and MAY make a new subscription without a hub.secret.</p>
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
-        <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!WHATWG-URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!WHATWG-URL]].</p>
+        <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!URL]].</p>
         <p>The callback URL SHOULD be an unguessable unique URL ([[capability-urls]]) and SHOULD use HTTPS [[!RFC7230]]. The callback URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
         <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
@@ -405,7 +412,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <h3>Subscription Validation</h3>
       <p>Subscriptions MAY be validated by the Hubs who may require more details to accept or refuse a subscription. The Hub MAY also check with the publisher whether the subscription should be accepted.</p>
       <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
-      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!WHATWG-URL]]):</p>
+      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "denied".</dd>
@@ -420,7 +427,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <section id="hub-verifies-intent">
       <h3>Hub Verifies Intent of the Subscriber</h3>
       <p>In order to prevent an attacker from creating unwanted subscriptions on behalf of a subscriber (or unsubscribing desired ones), a hub must ensure that the subscriber did indeed send the subscription request.</p>
-      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!WHATWG-URL]]):</p>
+      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", which matches the original request to the hub from the subscriber.</dd>
@@ -564,6 +571,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
       <ul>
         <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
+        <li>Updated reference name from "[[WHATWG-URL]]" to "[[URL]]", but does not change the actual reference.</li>
       </ul>
     </section>
 
