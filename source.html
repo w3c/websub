@@ -399,7 +399,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <h4>Subscription Parameter Details</h4>
         <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!URL]].</p>
         <p>The callback URL SHOULD be an unguessable unique URL ([[capability-urls]]) and SHOULD use HTTPS [[!RFC7230]]. The callback URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
-        <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. For event notification, the callback URL will be POSTed to including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
+        <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. When sending the content distribution request, the hub will make a POST request to the callback URL including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
       <section id="subscription-response-details">
         <h4>Subscription Response Details</h4>
@@ -574,6 +574,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Updated reference name from "[[WHATWG-URL]]" to "[[URL]]", but does not change the actual reference.</li>
         <li>Rephrase sentence on hub URL discovery to better clarify which URLs are being talked about, and use "notify" instead of "ping"</li>
         <li>Correct "mime-type" to "Media Type" and add informative reference to RFC.</li>
+        <li>Rephrase summary of "subscribing and unsubscribing" to explicitly mention the actor of each step</li>
+        <li>Clarify sending the POST request to the subscriber's callback URL</li>
       </ul>
     </section>
 
