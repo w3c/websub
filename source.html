@@ -319,10 +319,10 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
       <p>
-        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what mime-type or language may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the appropriate representation of the document.
+        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what Media Type ([[RFC6838]]) or language may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the appropriate representation of the document.
       </p>
       <p>
-        It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in the initial discovery request. For example, a request to <samp>/feed</samp> with an Accept header containing application/json could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
+        It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in the initial discovery request. For example, a request to <samp>/feed</samp> with an <samp>Accept</samp> header containing <samp>application/json</samp> could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
       </p>
       <p>The example below illustrates how a topic URL can return different <samp>Link</samp> headers depending on the <samp>Accept</samp> header that was sent.</p>
       <pre class="example">GET /feed HTTP/1.1
@@ -573,6 +573,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
         <li>Updated reference name from "[[WHATWG-URL]]" to "[[URL]]", but does not change the actual reference.</li>
         <li>Rephrase sentence on hub URL discovery to better clarify which URLs are being talked about, and use "notify" instead of "ping"</li>
+        <li>Correct "mime-type" to "Media Type" and add informative reference to RFC.</li>
       </ul>
     </section>
 
