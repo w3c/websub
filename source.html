@@ -281,7 +281,7 @@
     <h2>Discovery</h2>
     <p>The discovery mechanism aims at identifying at least 2 URLs.</p>
     <ul>
-      <li>The URL of the hub(s) designated by the publisher. If more than one URL is specified, it is expected that the publisher pings each of these URLs, so the subscriber may subscribe to one or more of these.</li>
+      <li>The URL of one or more hubs designated by the publisher. If more than one hub URL is specified, it is expected that the publisher notifies each hub, so the subscriber may subscribe to one or more of them.</li>
       <li>The canonical URL for the topic to which subscribers are expected to use for subscriptions.</li>
     </ul>
     <p>The protocol currently supports the following discovery mechanisms. Publishers MUST implement at least one of them:</p>
@@ -572,6 +572,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <ul>
         <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
         <li>Updated reference name from "[[WHATWG-URL]]" to "[[URL]]", but does not change the actual reference.</li>
+        <li>Rephrase sentence on hub URL discovery to better clarify which URLs are being talked about, and use "notify" instead of "ping"</li>
       </ul>
     </section>
 
