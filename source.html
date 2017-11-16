@@ -429,14 +429,14 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <p>In order to prevent an attacker from creating unwanted subscriptions on behalf of a subscriber (or unsubscribing desired ones), a hub must ensure that the subscriber did indeed send the subscription request.</p>
       <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
-        <dt>hub.mode</dt>
-        <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", which matches the original request to the hub from the subscriber.</dd>
-        <dt>hub.topic</dt>
+        <dt><samp>hub.mode</samp></dt>
+        <dd>REQUIRED. The literal string "<samp>subscribe</samp>" or "<samp>unsubscribe</samp>", which matches the original request to the hub from the subscriber.</dd>
+        <dt><samp>hub.topic</samp></dt>
         <dd>REQUIRED. The topic URL given in the corresponding subscription request.</dd>
-        <dt>hub.challenge</dt>
+        <dt><samp>hub.challenge</samp></dt>
         <dd>REQUIRED. A hub-generated, random string that MUST be echoed by the subscriber to verify the subscription.</dd>
-        <dt>hub.lease_seconds</dt>
-        <dd>REQUIRED/OPTIONAL. The hub-determined number of seconds that the subscription will stay active before expiring, measured from the time the verification request was made from the hub to the subscriber. Hubs MUST supply this parameter for subscription requests. This parameter MAY be present for unsubscribe requests and MUST be ignored by subscribers during unsubscription.</dd>
+        <dt><samp>hub.lease_seconds</samp></dt>
+        <dd>REQUIRED/OPTIONAL. The hub-determined number of seconds that the subscription will stay active before expiring, measured from the time the verification request was made from the hub to the subscriber. Hubs MUST supply this parameter when <samp>hub.mode</samp> is set to "subscribe". This parameter MAY be present when <samp>hub.mode</samp> is "unsubscribe" and MUST be ignored by subscribers in that case.</dd>
       </dl>
       <section id="verification-details">
         <h4>Verification Details</h4>
@@ -576,7 +576,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Correct "mime-type" to "Media Type" and add informative reference to RFC.</li>
         <li>Rephrase summary of "subscribing and unsubscribing" to explicitly mention the actor of each step</li>
         <li>Clarify sending the POST request to the subscriber's callback URL</li>
-        <li>Add refence to HTTPS when previously only HTTP was mentioned in cases where an HTTPS URL may be used</li>
+        <li>Add reference to HTTPS when previously only HTTP was mentioned in cases where an HTTPS URL may be used</li>
+        <li>Clarify when hub.lease_seconds parameter is required or optional</li>
       </ul>
     </section>
 
