@@ -37,8 +37,8 @@ Answers are:
   * [ ] sha384
   * [ ] sha512
 * [ ] 1xx: Requests a subscription with a specific `lease_seconds` (optional, hub may ignore)
-* [ ] Callback URL is unique per subscription (should)
-* [ ] Callback URL is an unguessable URL (should)
+* [x] Callback URL is unique per subscription (should)
+* [x] Callback URL is an unguessable URL (should)
 * [ ] 1xx: Sends an unsubscription request
 
 ## Distribution
