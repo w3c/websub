@@ -139,7 +139,7 @@
     <h2>Definitions</h2>
     <dl>
       <dt><dfn>Topic</dfn></dt>
-      <dd>An HTTP [[!RFC7230]] resource URL. The unit to which one can subscribe to changes.</dd>
+      <dd>An HTTP [[!RFC7230]] (or HTTPS [[!RFC2818]]) resource URL. The unit to which one can subscribe to changes.</dd>
       <dt><dfn>Hub ("the hub")</dfn></dt>
       <dd>The server (URL [[!URL]]) which implements both sides of this protocol. Any hub MAY implement its own policies on who can use it.</dd>
       <dt><dfn>Publisher</dfn></dt>
@@ -397,7 +397,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <p>Hubs MUST allow subscribers to re-request subscriptions that are already activated. Each subsequent request to a hub to subscribe or unsubscribe MUST override the previous subscription state for a specific topic URL and callback URL combination, but only once the action is verified (<a href="#hub-verifies-intent">Section 4.3</a>). If verification fails, the subscription state MUST be left unchanged. This is required so subscribers can renew their subscriptions before the lease seconds period is over without any interruption. The subscriber MAY use a new hub.secret value in a future subscription, and MAY make a new subscription without a hub.secret.</p>
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
-        <p>The topic and callback URLs MAY use HTTP or HTTPS [[!RFC7230]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!URL]].</p>
+        <p>The topic and callback URLs MAY use HTTP [[!RFC7230]] or HTTPS [[!RFC2818]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!URL]].</p>
         <p>The callback URL SHOULD be an unguessable unique URL ([[capability-urls]]) and SHOULD use HTTPS [[!RFC7230]]. The callback URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
         <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. When sending the content distribution request, the hub will make a POST request to the callback URL including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
@@ -412,7 +412,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <h3>Subscription Validation</h3>
       <p>Subscriptions MAY be validated by the Hubs who may require more details to accept or refuse a subscription. The Hub MAY also check with the publisher whether the subscription should be accepted.</p>
       <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
-      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
+      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "denied".</dd>
@@ -427,7 +427,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <section id="hub-verifies-intent">
       <h3>Hub Verifies Intent of the Subscriber</h3>
       <p>In order to prevent an attacker from creating unwanted subscriptions on behalf of a subscriber (or unsubscribing desired ones), a hub must ensure that the subscriber did indeed send the subscription request.</p>
-      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
+      <p>The hub verifies a subscription request by sending an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", which matches the original request to the hub from the subscriber.</dd>
@@ -468,7 +468,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
   <section id="content-distribution">
     <h2>Content Distribution</h2>
-    <p>A content distribution request is sent from the Hub to the Subscriber when new content is available for a topic URL. The request is an HTTP [[!RFC7231]] POST request from the hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. The content distribution request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and MUST contain the full contents of the topic URL, with an exception allowed as described below.
+    <p>A content distribution request is sent from the Hub to the Subscriber when new content is available for a topic URL. The request is an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) POST request from the hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. The content distribution request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and MUST contain the full contents of the topic URL, with an exception allowed as described below.
     </p>
     <p>For Atom ([[RFC4287]]) and RSS ([[RSS-2.0]]) feeds, the hub MAY remove already-delivered <code>atom:entry</code> or <code>rss:item</code> elements from the feed.
     </p>
@@ -576,6 +576,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Correct "mime-type" to "Media Type" and add informative reference to RFC.</li>
         <li>Rephrase summary of "subscribing and unsubscribing" to explicitly mention the actor of each step</li>
         <li>Clarify sending the POST request to the subscriber's callback URL</li>
+        <li>Add refence to HTTPS when previously only HTTP was mentioned in cases where an HTTPS URL may be used</li>
       </ul>
     </section>
 
