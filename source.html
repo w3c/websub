@@ -453,6 +453,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <h2>Publishing</h2>
     <p>The publisher MUST inform the hubs it previously designated when a topic has been updated. The hub and the publisher can agree on any mechanism, as long as the hub is eventually able send the updated payload to the subscribers.</p>
 
+    <p class="note">The specific mechanism for the publisher to inform the hub is left unspecified. For example, some existing public hubs <a href="https://documentation.superfeedr.com/publishers.html#ping">[1]</a> <a href="https://pubsubhubbub.appspot.com/">[2]</a> <a href="https://switchboard.p3k.io/docs">[3]</a> ask publishers to send a POST request with the keys <span style="white-space: nowrap">hub.mode="publish"</span> and <span style="white-space: nowrap">hub.url=(the URL of the resource that was updated)</span>.</p>
+
     <section id="subscription-migration">
       <h3>Subscription Migration</h3>
       <p>If the publisher wishes to migrate existing subscriptions to a new topic URL, it can do so using HTTP redirects.</p>
@@ -462,7 +464,6 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>At the new topic URL, the subscriber will see the new <code>rel=self</code> URL and the new hub, and will subscribe to the new topic URL at the new hub.</li>
       </ul>
       <p>This does not require any participation on the part of the previous hub, and works whether or not the publisher changes hubs as well.</p>
-      <p class="note">The specific mechanism for the publisher to inform the hub is left unspecified. For example, some existing public hubs <a href="https://documentation.superfeedr.com/publishers.html#ping">[1]</a> <a href="https://pubsubhubbub.appspot.com/">[2]</a> <a href="https://switchboard.p3k.io/docs">[3]</a> ask publishers to send a POST request with the keys <span style="white-space: nowrap">hub.mode="publish"</span> and <span style="white-space: nowrap">hub.url=(the URL of the resource that was updated)</span>.</p>
     </section>
   </section>
 
@@ -579,6 +580,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Add reference to HTTPS when previously only HTTP was mentioned in cases where an HTTPS URL may be used</li>
         <li>Clarify when hub.lease_seconds parameter is required or optional</li>
         <li>Reword section on subscription migration to make it more clear</li>
+        <li>Move note about publisher->hub notification outside of the subscription migration section</li>
       </ul>
     </section>
 
