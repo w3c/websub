@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-11-16",
+    publishDate: "2017-11-20",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -412,8 +412,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <section id="subscription-validation">
       <h3>Subscription Validation</h3>
       <p>Subscriptions MAY be validated by the Hubs who may require more details to accept or refuse a subscription. The Hub MAY also check with the publisher whether the subscription should be accepted.</p>
-      <p>If (and when), the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
-      <p>If (and when), the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
+      <p>If (and when) the subscription is accepted, the hub MUST perform the <a href="#hub-verifies-intent">verification of intent </a> of the subscriber.</p>
+      <p>If (and when) the subscription is denied, the hub MUST inform the subscriber by sending an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) GET request to the subscriber's callback URL as given in the subscription request. This request has the following query string arguments appended (format described in Section 4 of [[!URL]]):</p>
       <dl>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "denied".</dd>
@@ -422,7 +422,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt>hub.reason</dt>
         <dd>OPTIONAL. The hub may include a reason for which the subscription has been denied.</dd>
       </dl>
-      <p>Hubs may provide an additional HTTP [[!RFC7231]] Location header (as described in section 7.1.2 of Hypertext Transfer Protocol [[!RFC7231]]) to indicate that the subscriber may retry subscribing to a different hub.topic. This allows for limited distribution to specific groups or users in the context of social web applications.</p>
+      <p>Hubs MAY provide an additional HTTP [[!RFC7231]] Location header (as described in section 7.1.2 of Hypertext Transfer Protocol [[!RFC7231]]) to indicate that the subscriber may retry subscribing to a different <samp>hub.topic</samp>. This allows for limited distribution to specific groups or users in the context of social web applications.</p>
       <p>The subscription MAY be denied by the hub at any point (even if it was previously accepted). The Subscriber SHOULD then consider that the subscription is not possible anymore.</p>
     </section>
     <section id="hub-verifies-intent">
