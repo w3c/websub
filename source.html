@@ -149,10 +149,10 @@
       <dt><dfn>Subscription</dfn></dt>
       <dd>A unique relation to a topic by a subscriber that indicates it should receive updates for that topic. A subscription's unique key is the tuple (Topic URL, Subscriber Callback URL). Subscriptions may (at the hub's decision) have expiration times akin to DHCP leases which must be periodically renewed. </dd>
       <dt><dfn>Subscriber Callback URL</dfn></dt>
-      <dd>The URL [[!URL]] at which a subscriber wishes to receive notifications. </dd>
+      <dd>The URL [[!URL]] at which a subscriber wishes to receive content distribution requests. </dd>
       <dt><dfn>Event</dfn></dt>
-      <dd>An event that causes updates to multiple topics. For each event that happens (e.g. "Brad posted to the Linux Community."), multiple topics could be affected (e.g. "Brad posted." and "Linux community has new post"). Publisher events cause topics to be updated and the hub looks up all subscriptions for affected topics, sending out notifications to subscribers. </dd>
-      <dt><dfn>Notification</dfn></dt>
+      <dd>An event that causes updates to multiple topics. For each event that happens (e.g. "Brad posted to the Linux Community."), multiple topics could be affected (e.g. "Brad posted." and "Linux community has new post"). Publisher events cause topics to be updated and the hub looks up all subscriptions for affected topics, delivering the content to subscribers. </dd>
+      <dt><dfn>Content Distribution Notification</dfn> / <dfn>(Content Distribution Request)</dfn></dt>
       <dd>A payload describing how a topic's contents have changed, or the full updated content. Depending on the topic's content type, the difference (or "delta") may be computed by the hub and sent to all subscribers. </dd>
     </dl>
   </section>
@@ -163,7 +163,7 @@
     <ul>
       <li>Publishers notify their hub(s) URLs when their topic(s) change.</li>
       <li>Subscribers POST to one or more of the advertised hubs for a topic they're interested in. </li>
-      <li>When the hub identifies a change in the topic, it sends a notification to all registered subscribers.</li>
+      <li>When the hub identifies a change in the topic, it sends a content distribution request to all registered subscribers.</li>
     </ul>
     <p>Earlier versions of this protocol were called PubSubHubbub:</p>
     <ul>
@@ -236,7 +236,7 @@
 
       <section>
         <h4>Hub</h4>
-        <p>A WebSub Hub is an implementation that handles subscription requests and delivers notifications to subscribers when the corresponding topic URL has been updated. Hubs MUST support subscription requests with a secret and deliver <a href="#authenticated-content-distribution">authenticated notifications</a> when requested. Hubs MUST deliver the full contents of the topic URL in the notification, and MAY reduce the payload to a diff if the content type supports it. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
+        <p>A WebSub Hub is an implementation that handles subscription requests and distributes the content to subscribers when the corresponding topic URL has been updated. Hubs MUST support subscription requests with a secret and deliver <a href="#authenticated-content-distribution">authenticated requests</a> when requested. Hubs MUST deliver the full contents of the topic URL in the request, and MAY reduce the payload to a diff if the content type supports it. The conformance criteria are described in <a href="#conformance-classes">Conformance Classes</a> above.</p>
       </section>
 
       <section>
@@ -319,7 +319,7 @@ Link: &lt;http://example.com/feed&gt;; rel="self"
     <section id="content-negotiation">
       <h3>Content Negotiation</h3>
       <p>
-        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what Media Type ([[RFC6838]]) or language may have been requested by the subscriber upon discovery, it would not be able to perform notifications using the appropriate representation of the document.
+        For practical purposes, it is important that the <samp>rel=self</samp> URL only offers a single representation. As the hub has no way of knowing what Media Type ([[RFC6838]]) or language may have been requested by the subscriber upon discovery, it would not be able to deliver the content using the appropriate representation of the document.
       </p>
       <p>
         It is, however, possible to perform content negotiation by returning an appropriate <samp>rel=self</samp> URL according to the HTTP headers used in the initial discovery request. For example, a request to <samp>/feed</samp> with an <samp>Accept</samp> header containing <samp>application/json</samp> could return a <samp>rel=self</samp> value of <samp>/feed.json</samp>.
@@ -382,7 +382,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <p>Subscription is initiated by the subscriber making an HTTPS or HTTP POST [[!RFC7231]] request to the hub URL. This request MUST have a Content-Type header of <samp>application/x-www-form-urlencoded</samp> (described in Section 4.10.22.6 [[!HTML5]]), MUST use UTF-8 [[!Encoding]] as the document character encoding, and MUST use the following parameters in its body, formatted accordingly:</p>
       <dl>
         <dt>hub.callback</dt>
-        <dd>REQUIRED. The subscriber's callback URL where notifications should be delivered. The callback URL SHOULD be an unguessable URL that is unique per subscription. ([[capability-urls]])</dd>
+        <dd>REQUIRED. The subscriber's callback URL where content distribution notifications should be delivered. The callback URL SHOULD be an unguessable URL that is unique per subscription. ([[capability-urls]])</dd>
         <dt>hub.mode</dt>
         <dd>REQUIRED. The literal string "subscribe" or "unsubscribe", depending on the goal of the request.</dd>
         <dt>hub.topic</dt>
@@ -398,7 +398,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <section id="subscription-parameter-details">
         <h4>Subscription Parameter Details</h4>
         <p>The topic and callback URLs MAY use HTTP [[!RFC7230]] or HTTPS [[!RFC2818]] schemes. The topic URL MUST be the one advertised by the publisher in a Self Link Header during the discovery phase. (See <a href="#discovery">Section 3 </a>). Hubs MAY refuse subscriptions if the topic URL does not correspond to the one advertised by the publisher. The topic URL can otherwise be free-form following the URL spec [[!URL]]. Hubs MUST always decode non-reserved characters for these URL parameters; see section 1.2 on <em>"Percent-encoded bytes"</em> in [[!URL]].</p>
-        <p>The callback URL SHOULD be an unguessable unique URL ([[capability-urls]]) and SHOULD use HTTPS [[!RFC7230]]. The callback URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering notifications. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
+        <p>The callback URL SHOULD be an unguessable unique URL ([[capability-urls]]) and SHOULD use HTTPS [[!RFC7230]]. The callback URL acts as authentication from the hub to the subscriber when confirming subscriptions and delivering the content. Additionally, the callback SHOULD be unique (not re-used for multiple hubs) and changed when subscriptions are renewed.</p>
         <p>The callback URL MAY contain arbitrary query string parameters (e.g., <samp>?foo=bar&amp;red=fish</samp>). Hubs MUST preserve the query string during subscription verification by appending new parameters to the end of the list using the <samp>&amp;</samp> (ampersand) character to join. Existing parameters with names that overlap with those used by verification requests will not be overwritten. When sending the content distribution request, the hub will make a POST request to the callback URL including any query string parameters in the URL portion of the request, not as POST body parameters.</p>
       </section>
       <section id="subscription-response-details">
@@ -446,7 +446,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <p>Hubs MUST enforce lease expirations, and MUST NOT issue perpetual lease durations.</p>
       </section>
     </section>
-    <p class="note">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the actual notification. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the notification may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p>
+    <p class="note">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the content. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the content distribution request may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p>
   </section>
 
   <section id="publishing">
@@ -469,13 +469,13 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
   <section id="content-distribution">
     <h2>Content Distribution</h2>
-    <p>A content distribution request is sent from the Hub to the Subscriber when new content is available for a topic URL. The request is an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) POST request from the hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the notification. The content distribution request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and MUST contain the full contents of the topic URL, with an exception allowed as described below.
+    <p>A content distribution request is sent from the Hub to the Subscriber when new content is available for a topic URL. The request is an HTTP [[!RFC7231]] (or HTTPS [[!RFC2818]]) POST request from the hub to the subscriber's callback URL. The HTTP body of the POST request MUST include the payload of the content distribution notification. The content distribution request MUST have a <samp>Content-Type</samp> Header corresponding to the <samp>Content-Type</samp> of the topic, and MUST contain the full contents of the topic URL, with an exception allowed as described below.
     </p>
     <p>For Atom ([[RFC4287]]) and RSS ([[RSS-2.0]]) feeds, the hub MAY remove already-delivered <code>atom:entry</code> or <code>rss:item</code> elements from the feed.
     </p>
     <p>The request MUST include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> pointing to a Hub associated with the topic being updated. It MUST also include one Link Header [[!RFC5988]] with <samp>rel=self</samp> set to the canonical URL of the topic being updated. The Hub SHOULD combine these headers into a single Link Header [[!RFC5988]]. All these URLs are those resulting from the discovery process (<a href="#discovery">Section 3</a>). The subscriber MUST NOT use these Link headers to identify the subscription corresponding to the content distribution request, because the Link headers are metadata associated with the topic content, not with any particular subscription. A hub MAY use discovery from time to time to detect changes in a topic's canonical URL and Hub URLs. Any such changes will cause changes to the Link headers sent in subsequent content distribution requests.
     </p>
-    <p>The subscriber's callback URL MUST return an HTTP [[!RFC7231]] 2xx response code to indicate a success. The subscriber's callback URL MAY return an HTTP 410 code to indicate that the subscription has been deleted, and the hub MAY terminate the subscription if it receives that code as a response. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. Subscribers SHOULD respond to notifications as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry notifications up to self-imposed limits on the number of times and the overall time period to retry. When the failing delivery exceeds the hub's limits, the hub stops attempting to deliver that nofication. The hub MUST keep the subscription active until the end of the lease duration, and if a new update is published to the topic, MUST continue to retry delivery to the previously-failing subscriber.
+    <p>The subscriber's callback URL MUST return an HTTP [[!RFC7231]] 2xx response code to indicate a success. The subscriber's callback URL MAY return an HTTP 410 code to indicate that the subscription has been deleted, and the hub MAY terminate the subscription if it receives that code as a response. The hub MUST consider all other subscriber response codes as failures; that means subscribers MUST NOT use HTTP redirects for moving subscriptions. Subscribers SHOULD respond to content distribution requests as quickly as possible; their success response code SHOULD only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber. The response body from the subscriber MUST be ignored by the hub. Hubs SHOULD retry content distribution requests up to self-imposed limits on the number of times and the overall time period to retry. When the failing delivery exceeds the hub's limits, the hub stops attempting to deliver that nofication. The hub MUST keep the subscription active until the end of the lease duration, and if a new update is published to the topic, MUST continue to retry delivery to the previously-failing subscriber.
     </p>
     <section id="authenticated-content-distribution">
       <h2 id="signing-content">Authenticated Content Distribution</h2>
@@ -500,8 +500,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
       <section id="signature-validation">
         <h3>Signature validation</h3>
-        <p>When subscribers receive a content distribution request with the <samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST locally ignore the message as invalid. Subscribers MAY still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated notifications from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
-        <p>Please note however that this signature only ensures that the payload was not forged. Since the notification also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
+        <p>When subscribers receive a content distribution request with the <samp>X-Hub-Signature</samp> header specified, they SHOULD recompute the signature with the shared secret using the same method (provided in the <samp>X-Hub-Signature</samp> header) as the hub. If the signature does not match, subscribers MUST locally ignore the message as invalid. Subscribers MAY still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. Using this technique along with HTTPS [[!RFC2818]] for subscription requests enables simple subscribers to receive authenticated content distribution requests from hubs without the need for subscribers to run an HTTPS [[!RFC2818]] server.</p>
+        <p>Please note however that this signature only ensures that the payload was not forged. Since the request also includes headers, these should not be considered as safe by the subscriber, unless of course the subscriber uses HTTPS [[!RFC2818]] callbacks.</p>
       </section>
     </section>
   </section>
@@ -520,8 +520,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <section>
       <h3>Distribution</h3>
       <p>The Hub MUST use the exact callback used by the subscriber (including the use of HTTPS). Hubs MUST sign their requests using the <samp>hub.secret</samp> supplied by subscribers if requested.</p>
-      <p>If the subscriber included a hub.secret in the subscription request, the subscriber SHOULD validate the hub's provided signature, and if they do so, they MUST use the server's stated signature mechanism, and discard notifications which fail the test.</p>
-      <p>If a subscriber does not use a secure notification URL (HTTPS), or if it is suspected that the TLS transport between the hub and subscriber may be compromised, then the integrity of the content delivery notification is only protected by the <samp>hub.secret</samp> and the hashing algorithm used. In this case, an appropriate hashing algorithm should be used based on the security requirements of the application. As SHA-1 has been demonstrated to be compromised as of the date of this publication, a minimum of SHA-256 should be used.</samp></p>
+      <p>If the subscriber included a hub.secret in the subscription request, the subscriber SHOULD validate the hub's provided signature, and if they do so, they MUST use the server's stated signature mechanism, and discard requests which fail the test.</p>
+      <p>If a subscriber does not use a secure callback URL (HTTPS), or if it is suspected that the TLS transport between the hub and subscriber may be compromised, then the integrity of the content delivery notification is only protected by the <samp>hub.secret</samp> and the hashing algorithm used. In this case, an appropriate hashing algorithm should be used based on the security requirements of the application. As SHA-1 has been demonstrated to be compromised as of the date of this publication, a minimum of SHA-256 should be used.</samp></p>
     </section>
     <section id="security-and-privacy-review">
       <h3>Security and Privacy Review</h3>
@@ -581,6 +581,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Clarify when hub.lease_seconds parameter is required or optional</li>
         <li>Reword section on subscription migration to make it more clear</li>
         <li>Move note about publisher->hub notification outside of the subscription migration section</li>
+        <li>Remove references to "notification" as a standalone term, replaced by "content distribution request" or "content distribution notification" as appropriate</li>
       </ul>
     </section>
 
