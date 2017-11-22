@@ -379,7 +379,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><link rel="canonical" href="https://www.w3.org/TR/websub/"><script id="initialUserConfig" type="application/json">{
   "specStatus": "ED",
-  "publishDate": "2017-11-20",
+  "publishDate": "2017-11-21",
   "shortName": "websub",
   "editors": [
     {
@@ -505,16 +505,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "publisher": "WHATWG"
     }
   },
-  "publishISODate": "2017-11-20T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 20 November 2017"
+  "publishISODate": "2017-11-21T00:00:00.000Z",
+  "generatedSubtitle": "Editor's Draft 21 November 2017"
 }</script><meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub."></head>
 <body aria-busy="false" class="h-entry"><div class="head">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
-  <p><!--_hyper: -804414267;--></p>
+  <p><!--_hyper: 680442442;--></p>
   <h1 class="title p-name" id="title">WebSub</h1>
-  <h2 id="w3c-editor-s-draft-20-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-20">20 November 2017</time></h2>
+  <h2 id="w3c-editor-s-draft-21-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-21">21 November 2017</time></h2>
   <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -975,7 +975,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
     <p>For Atom ([<cite><a class="bibref" href="#bib-RFC4287">RFC4287</a></cite>]) and RSS ([<cite><a class="bibref" href="#bib-RSS-2.0">RSS-2.0</a></cite>]) feeds, the hub <em class="rfc2119" title="MAY">MAY</em> remove already-delivered <code>atom:entry</code> or <code>rss:item</code> elements from the feed.
     </p>
-    <p>The request <em class="rfc2119" title="MUST">MUST</em> include at least one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=hub</samp> pointing to a Hub associated with the topic being updated. It <em class="rfc2119" title="MUST">MUST</em> also include one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=self</samp> set to the canonical URL of the topic being updated. The Hub <em class="rfc2119" title="SHOULD">SHOULD</em> combine these headers into a single Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. All these URLs are those resulting from the discovery process (<a href="#discovery">Section 3</a>). The subscriber <em class="rfc2119" title="MUST NOT">MUST NOT</em> use these Link headers to identify the subscription corresponding to the content distribution request, because the Link headers are metadata associated with the topic content, not with any particular subscription. A hub <em class="rfc2119" title="MAY">MAY</em> use discovery from time to time to detect changes in a topic's canonical URL and Hub URLs. Any such changes will cause changes to the Link headers sent in subsequent content distribution requests.
+    <p>The request <em class="rfc2119" title="MUST">MUST</em> include at least one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=hub</samp> pointing to a Hub associated with the topic being updated. It <em class="rfc2119" title="MUST">MUST</em> also include one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=self</samp> set to the canonical URL of the topic being updated. The Hub <em class="rfc2119" title="SHOULD">SHOULD</em> combine these headers into a single Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. All these URLs are those resulting from the discovery process (<a href="#discovery">Section 3</a>). The subscriber <em class="rfc2119" title="MUST NOT">MUST NOT</em> use these Link headers to identify the subscription corresponding to the content distribution request, because the Link headers are metadata associated with the topic content, not with any particular subscription. For example, the topic URL in the content distribution request may be different from the topic URL that was originally subscribed to.
     </p>
     <p>The subscriber's callback URL <em class="rfc2119" title="MUST">MUST</em> return an HTTP [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>] 2xx response code to indicate a success. The subscriber's callback URL <em class="rfc2119" title="MAY">MAY</em> return an HTTP 410 code to indicate that the subscription has been deleted, and the hub <em class="rfc2119" title="MAY">MAY</em> terminate the subscription if it receives that code as a response. The hub <em class="rfc2119" title="MUST">MUST</em> consider all other subscriber response codes as failures; that means subscribers <em class="rfc2119" title="MUST NOT">MUST NOT</em> use HTTP redirects for moving subscriptions. Subscribers <em class="rfc2119" title="SHOULD">SHOULD</em> respond to content distribution requests as quickly as possible; their success response code <em class="rfc2119" title="SHOULD">SHOULD</em> only indicate receipt of the message, not acknowledgment that it was successfully processed by the subscriber. The response body from the subscriber <em class="rfc2119" title="MUST">MUST</em> be ignored by the hub. Hubs <em class="rfc2119" title="SHOULD">SHOULD</em> retry content distribution requests up to self-imposed limits on the number of times and the overall time period to retry. When the failing delivery exceeds the hub's limits, the hub stops attempting to deliver that nofication. The hub <em class="rfc2119" title="MUST">MUST</em> keep the subscription active until the end of the lease duration, and if a new update is published to the topic, <em class="rfc2119" title="MUST">MUST</em> continue to retry delivery to the previously-failing subscriber.
     </p>
@@ -1086,6 +1086,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>Remove references to "notification" as a standalone term, replaced by "content distribution request" or "content distribution notification" as appropriate</li>
         <li>Update CR exit criteria text to past tense</li>
         <li>Added explanatory text about why a publisher may advertise multiple hubs</li>
+        <li>Replaced sentence in section 8 to better describe the situation "the topic URL in the content distribution request may be different from the topic URL that was originally subscribed to"</li>
       </ul>
     </section>
 
