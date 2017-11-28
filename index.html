@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" dir="ltr" typeof="bibo:Document" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 18.2.4"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
+<!DOCTYPE html><html lang="en" dir="ltr" typeof="bibo:Document" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 18.3.0"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
 div.example-title {
     min-width: 7.5em;
     color: #b9ab2d;
@@ -379,7 +379,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><link rel="canonical" href="https://www.w3.org/TR/websub/"><script id="initialUserConfig" type="application/json">{
   "specStatus": "ED",
-  "publishDate": "2017-11-21",
+  "publishDate": "2017-11-28",
   "shortName": "websub",
   "editors": [
     {
@@ -505,16 +505,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "publisher": "WHATWG"
     }
   },
-  "publishISODate": "2017-11-21T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 21 November 2017"
+  "publishISODate": "2017-11-28T00:00:00.000Z",
+  "generatedSubtitle": "Editor's Draft 28 November 2017"
 }</script><meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub."></head>
 <body aria-busy="false" class="h-entry"><div class="head">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
-  <p><!--_hyper: 680442442;--></p>
+  <p><!--_hyper: 1290523145;--></p>
   <h1 class="title p-name" id="title">WebSub</h1>
-  <h2 id="w3c-editor-s-draft-21-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-21">21 November 2017</time></h2>
+  <h2 id="w3c-editor-s-draft-28-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-28">28 November 2017</time></h2>
   <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -790,8 +790,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>The protocol currently supports the following discovery mechanisms. Publishers <em class="rfc2119" title="MUST">MUST</em> implement at least one of them:</p>
     <ul>
       <li>Link Headers [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]: the publisher <em class="rfc2119" title="SHOULD">SHOULD</em> include at least one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] with <samp>rel=self</samp> (the self link header)</li>
-      <li>If the topic is an XML based feed, publishers <em class="rfc2119" title="SHOULD">SHOULD</em> use embedded link elements as described in Appendix B of Web Linking [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. Similarly, for HTML pages, publishers <em class="rfc2119" title="SHOULD">SHOULD</em> use embedded link elements as described in Appendix A of Web Linking [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. However, for HTML, these <samp>&lt;link&gt;</samp> elements <em class="rfc2119" title="MUST">MUST</em> be only present in the <samp>&lt;head&gt;</samp> section of the HTML document. (Note: The restriction on limiting <samp>&lt;link&gt;</samp> to the <samp>&lt;head&gt;</samp> is At Risk.)</li>
+      <li>If the topic is an XML based feed, publishers <em class="rfc2119" title="SHOULD">SHOULD</em> use embedded link elements as described in Appendix B of Web Linking [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. Similarly, for HTML pages, publishers <em class="rfc2119" title="SHOULD">SHOULD</em> use embedded link elements as described in Appendix A of Web Linking [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>].</li>
     </ul>
+
+    <div class="note"><div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div><p class="">Since <samp>&lt;link&gt;</samp> has been limited to being placed in the <samp>&lt;head&gt;</samp> for many years, some consuming code might only check the <samp>&lt;head&gt;</samp>. Therefore it is more robust to place the <samp>&lt;link&gt;</samp> tags only in the HTML <samp>&lt;head&gt;</samp> rather than in the <samp>&lt;body&gt;</samp>.</p></div>
 
     <div class="example"><div class="example-title marker"><span>Example 1</span></div><pre class="hljs http" aria-busy="false" aria-live="polite"><span class="hljs-keyword">GET</span> <span class="hljs-string">/feed</span> HTTP/1.1
 <span class="hljs-attribute">Host</span>: example.com
@@ -923,7 +925,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dt>hub.reason</dt>
         <dd><em class="rfc2119" title="OPTIONAL">OPTIONAL</em>. The hub may include a reason for which the subscription has been denied.</dd>
       </dl>
-      <p>Hubs <em class="rfc2119" title="MAY">MAY</em> provide an additional HTTP [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>] Location header (as described in section 7.1.2 of Hypertext Transfer Protocol [<cite><a class="bibref" href="#bib-RFC7231">RFC7231</a></cite>]) to indicate that the subscriber may retry subscribing to a different <samp>hub.topic</samp>. This allows for limited distribution to specific groups or users in the context of social web applications.</p>
       <p>The subscription <em class="rfc2119" title="MAY">MAY</em> be denied by the hub at any point (even if it was previously accepted). The Subscriber <em class="rfc2119" title="SHOULD">SHOULD</em> then consider that the subscription is not possible anymore.</p>
     </section>
     <section id="hub-verifies-intent">
@@ -948,14 +949,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>Hubs <em class="rfc2119" title="MUST">MUST</em> enforce lease expirations, and <em class="rfc2119" title="MUST NOT">MUST NOT</em> issue perpetual lease durations.</p>
       </section>
     </section>
-    <div class="note"><div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div><p class="">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the content. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the content distribution request may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p></div>
+    <div class="note"><div role="heading" class="note-title marker" id="h-note-1" aria-level="3"><span>Note</span></div><p class="">The spec uses GET vs POST to differentiate between the confirmation/denial of the subscription request and delivering the content. While this is not considered "best practice" from a web architecture perspective, it does make implementation of the callback URL simpler. Since the POST body of the content distribution request may be any arbitrary content type and only includes the actual content of the document, using the GET vs POST distinction to switch between handling these two modes makes implementations simpler.</p></div>
   </section>
 
   <section id="publishing">
     <!--OddPage--><h2 id="x7-publishing"><span class="secno">7. </span>Publishing</h2>
     <p>The publisher <em class="rfc2119" title="MUST">MUST</em> inform the hubs it previously designated when a topic has been updated. The hub and the publisher can agree on any mechanism, as long as the hub is eventually able send the updated payload to the subscribers.</p>
 
-    <div class="note"><div role="heading" class="note-title marker" id="h-note-1" aria-level="3"><span>Note</span></div><p class="">The specific mechanism for the publisher to inform the hub is left unspecified. For example, some existing public hubs <a href="https://documentation.superfeedr.com/publishers.html#ping">[1]</a> <a href="https://pubsubhubbub.appspot.com/">[2]</a> <a href="https://switchboard.p3k.io/docs">[3]</a> ask publishers to send a POST request with the keys <span style="white-space: nowrap">hub.mode="publish"</span> and <span style="white-space: nowrap">hub.url=(the URL of the resource that was updated)</span>.</p></div>
+    <div class="note"><div role="heading" class="note-title marker" id="h-note-2" aria-level="3"><span>Note</span></div><p class="">The specific mechanism for the publisher to inform the hub is left unspecified. For example, some existing public hubs <a href="https://documentation.superfeedr.com/publishers.html#ping">[1]</a> <a href="https://pubsubhubbub.appspot.com/">[2]</a> <a href="https://switchboard.p3k.io/docs">[3]</a> ask publishers to send a POST request with the keys <span style="white-space: nowrap">hub.mode="publish"</span> and <span style="white-space: nowrap">hub.url=(the URL of the resource that was updated)</span>.</p></div>
 
     <section id="subscription-migration">
       <h3 id="x7-1-subscription-migration"><span class="secno">7.1 </span>Subscription Migration</h3>
