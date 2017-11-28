@@ -426,7 +426,6 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt>hub.reason</dt>
         <dd>OPTIONAL. The hub may include a reason for which the subscription has been denied.</dd>
       </dl>
-      <p>Hubs MAY provide an additional HTTP [[!RFC7231]] Location header (as described in section 7.1.2 of Hypertext Transfer Protocol [[!RFC7231]]) to indicate that the subscriber may retry subscribing to a different <samp>hub.topic</samp>. This allows for limited distribution to specific groups or users in the context of social web applications.</p>
       <p>The subscription MAY be denied by the hub at any point (even if it was previously accepted). The Subscriber SHOULD then consider that the subscription is not possible anymore.</p>
     </section>
     <section id="hub-verifies-intent">
