@@ -290,8 +290,10 @@
     <p>The protocol currently supports the following discovery mechanisms. Publishers MUST implement at least one of them:</p>
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
-      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]]. However, for HTML, these <samp>&lt;link&gt;</samp> elements MUST be only present in the <samp>&lt;head&gt;</samp> section of the HTML document. (Note: The restriction on limiting <samp>&lt;link&gt;</samp> to the <samp>&lt;head&gt;</samp> is At Risk.)</li>
+      <li>If the topic is an XML based feed, publishers SHOULD use embedded link elements as described in Appendix B of Web Linking [[!RFC5988]]. Similarly, for HTML pages, publishers SHOULD use embedded link elements as described in Appendix A of Web Linking [[!RFC5988]].</li>
     </ul>
+
+    <p class="note">Since <samp>&lt;link&gt;</samp> has been limited to being placed in the <samp>&lt;head&gt;</samp> for many years, some consuming code might only check the <samp>&lt;head&gt;</samp>. Therefore it is more robust to place the <samp>&lt;link&gt;</samp> tags only in the HTML <samp>&lt;head&gt;</samp> rather than in the <samp>&lt;body&gt;</samp>.</p>
 
     <pre class="example">GET /feed HTTP/1.1
 Host: example.com
