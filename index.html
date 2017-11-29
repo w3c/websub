@@ -379,7 +379,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><link rel="canonical" href="https://www.w3.org/TR/websub/"><script id="initialUserConfig" type="application/json">{
   "specStatus": "ED",
-  "publishDate": "2017-11-28",
+  "publishDate": "2017-11-29",
   "shortName": "websub",
   "editors": [
     {
@@ -505,16 +505,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "publisher": "WHATWG"
     }
   },
-  "publishISODate": "2017-11-28T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 28 November 2017"
+  "publishISODate": "2017-11-29T00:00:00.000Z",
+  "generatedSubtitle": "Editor's Draft 29 November 2017"
 }</script><meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub."></head>
 <body aria-busy="false" class="h-entry"><div class="head">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
-  <p><!--_hyper: 1290523145;--></p>
+  <p><!--_hyper: 972203958;--></p>
   <h1 class="title p-name" id="title">WebSub</h1>
-  <h2 id="w3c-editor-s-draft-28-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-28">28 November 2017</time></h2>
+  <h2 id="w3c-editor-s-draft-29-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-29">29 November 2017</time></h2>
   <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -1014,7 +1014,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>Here is a summary of security considerations. It is important to note that WebSub is a server-to-server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
     <section id="discovery-0">
       <h3 id="x9-1-discovery"><span class="secno">9.1 </span>Discovery</h3>
-      <p>There are no specific security considerations for discovery.</p>
+      <p>The decision about whether a subscriber should look for <samp>&lt;link&gt;</samp> elements inside a page's <samp>&lt;body&gt;</samp> (as well as the <samp>&lt;head&gt;</samp>) is not straightforward, and there is currently no clear consensus. One reason to ignore the <samp>&lt;body&gt;</samp> during discovery is that some web sites (perhaps accidentally) allow users to post content containing <samp>&lt;link&gt;</samp> elements. If WebSub discovery uses such <samp>&lt;link&gt;</samp> elements, one user could maliciously cause all subscribers to use an alternate hub which later delivers malicious content. Given this potential attack, it may be prudent to do discovery only in the <samp>&lt;head&gt;</samp> of HTML documents.</p>
     </section>
     <section id="subscriptions">
       <h3 id="x9-2-subscriptions"><span class="secno">9.2 </span>Subscriptions</h3>

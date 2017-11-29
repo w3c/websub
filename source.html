@@ -10,7 +10,7 @@
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-11-28",
+    publishDate: "2017-11-29",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -515,7 +515,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <p>Here is a summary of security considerations. It is important to note that WebSub is a server-to-server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
     <section>
       <h3>Discovery</h3>
-      <p>There are no specific security considerations for discovery.</p>
+      <p>The decision about whether a subscriber should look for <samp>&lt;link&gt;</samp> elements inside a page's <samp>&lt;body&gt;</samp> (as well as the <samp>&lt;head&gt;</samp>) is not straightforward, and there is currently no clear consensus. One reason to ignore the <samp>&lt;body&gt;</samp> during discovery is that some web sites (perhaps accidentally) allow users to post content containing <samp>&lt;link&gt;</samp> elements. If WebSub discovery uses such <samp>&lt;link&gt;</samp> elements, one user could maliciously cause all subscribers to use an alternate hub which later delivers malicious content. Given this potential attack, it may be prudent to do discovery only in the <samp>&lt;head&gt;</samp> of HTML documents.</p>
     </section>
     <section>
       <h3>Subscriptions</h3>
