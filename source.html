@@ -509,11 +509,12 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
     <p>Here is a summary of security considerations. It is important to note that WebSub is a server-to-server protocol which relies only on HTTP. It is strongly recommended to use HTTPS for all requests.</p>
     <section>
       <h3>Discovery</h3>
-      <p>The decision about whether a subscriber should look for <samp>&lt;link&gt;</samp> elements inside a page's <samp>&lt;body&gt;</samp> (as well as the <samp>&lt;head&gt;</samp>) is not straightforward, and there is currently no clear consensus. One reason to ignore the <samp>&lt;body&gt;</samp> during discovery is that some web sites (perhaps accidentally) allow users to post content containing <samp>&lt;link&gt;</samp> elements. If WebSub discovery uses such <samp>&lt;link&gt;</samp> elements, one user could maliciously cause all subscribers to use an alternate hub which later delivers malicious content. Given this potential attack, it may be prudent to do discovery only in the <samp>&lt;head&gt;</samp> of HTML documents.</p>
+      <p>The decision about whether a subscriber should look for <samp>&lt;link&gt;</samp> elements inside a page's <samp>&lt;body&gt;</samp> (as well as the <samp>&lt;head&gt;</samp>) is not straightforward, and there is currently no clear consensus. One reason to ignore the <samp>&lt;body&gt;</samp> during discovery is that some web sites might (perhaps accidentally) allow users to post content containing <samp>&lt;link&gt;</samp> elements, though the working group does not know of any specific examples of such sites. If WebSub discovery uses such <samp>&lt;link&gt;</samp> elements, a user contributing to such sites could potentially maliciously cause all subscribers to use an alternate hub which later delivers malicious content. Given this potential attack, it may be prudent to do discovery only in the <samp>&lt;head&gt;</samp> of HTML documents.</p>
     </section>
     <section>
       <h3>Subscriptions</h3>
-      <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Then the subscribers SHOULD use unique unguessable capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution. Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single use <samp>hub.challenge</samp>.</p>
+      <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Second, subscribers SHOULD use unique unguessable capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution.</p>
+      <p>Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single-use <samp>hub.challenge</samp>.</p>
       </section>
     <section>
       <h3>Distribution</h3>
@@ -570,7 +571,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
 
       <ul>
         <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
-        <li>Updated reference name from "[[WHATWG-URL]]" to "[[URL]]", but does not change the actual reference.</li>
+        <li>Updated reference name from "WHATWG-URL" to "[[URL]]", but does not change the actual reference.</li>
         <li>Rephrase sentence on hub URL discovery to better clarify which URLs are being talked about, and use "notify" instead of "ping"</li>
         <li>Correct "mime-type" to "Media Type" and add informative reference to RFC.</li>
         <li>Rephrase summary of "subscribing and unsubscribing" to explicitly mention the actor of each step</li>
