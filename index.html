@@ -379,7 +379,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><link rel="canonical" href="https://www.w3.org/TR/websub/"><script id="initialUserConfig" type="application/json">{
   "specStatus": "ED",
-  "publishDate": "2017-11-29",
+  "publishDate": "2017-12-05",
   "shortName": "websub",
   "editors": [
     {
@@ -505,16 +505,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "publisher": "WHATWG"
     }
   },
-  "publishISODate": "2017-11-29T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 29 November 2017"
+  "publishISODate": "2017-12-05T00:00:00.000Z",
+  "generatedSubtitle": "Editor's Draft 05 December 2017"
 }</script><meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub."></head>
 <body aria-busy="false" class="h-entry"><div class="head">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
-  <p><!--_hyper: 825644726;--></p>
+  <p><!--_hyper: -1460394903;--></p>
   <h1 class="title p-name" id="title">WebSub</h1>
-  <h2 id="w3c-editor-s-draft-29-november-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-11-29">29 November 2017</time></h2>
+  <h2 id="w3c-editor-s-draft-05-december-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-12-05">05 December 2017</time></h2>
   <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -627,7 +627,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </p>
         
 
-</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a href="#definitions" class="tocxref"><span class="secno">1. </span>Definitions</a></li><li class="tocline"><a href="#high-level-protocol-flow" class="tocxref"><span class="secno">2. </span>High-level protocol flow</a></li><li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">3. </span>Conformance</a><ol class="toc"><li class="tocline"><a href="#conformance-classes" class="tocxref"><span class="secno">3.1 </span>Conformance Classes</a></li><li class="tocline"><a href="#candidate-recommendation-exit-criteria" class="tocxref"><span class="secno">3.2 </span>Candidate Recommendation Exit Criteria</a><ol class="toc"><li class="tocline"><a href="#publisher" class="tocxref"><span class="secno">3.2.1 </span>Publisher</a></li><li class="tocline"><a href="#subscriber" class="tocxref"><span class="secno">3.2.2 </span>Subscriber</a></li><li class="tocline"><a href="#hub" class="tocxref"><span class="secno">3.2.3 </span>Hub</a></li><li class="tocline"><a href="#independent" class="tocxref"><span class="secno">3.2.4 </span>Independent</a></li><li class="tocline"><a href="#interoperable" class="tocxref"><span class="secno">3.2.5 </span>Interoperable</a></li><li class="tocline"><a href="#feature" class="tocxref"><span class="secno">3.2.6 </span>Feature</a></li></ol></li></ol></li><li class="tocline"><a href="#discovery" class="tocxref"><span class="secno">4. </span>Discovery</a><ol class="toc"><li class="tocline"><a href="#content-negotiation" class="tocxref"><span class="secno">4.1 </span>Content Negotiation</a></li></ol></li><li class="tocline"><a href="#subscribing-and-unsubscribing" class="tocxref"><span class="secno">5. </span>Subscribing and Unsubscribing</a><ol class="toc"><li class="tocline"><a href="#subscriber-sends-subscription-request" class="tocxref"><span class="secno">5.1 </span>Subscriber Sends Subscription Request</a><ol class="toc"><li class="tocline"><a href="#subscription-parameter-details" class="tocxref"><span class="secno">5.1.1 </span>Subscription Parameter Details</a></li><li class="tocline"><a href="#subscription-response-details" class="tocxref"><span class="secno">5.1.2 </span>Subscription Response Details</a></li></ol></li><li class="tocline"><a href="#subscription-validation" class="tocxref"><span class="secno">5.2 </span>Subscription Validation</a></li><li class="tocline"><a href="#hub-verifies-intent" class="tocxref"><span class="secno">5.3 </span>Hub Verifies Intent of the Subscriber</a><ol class="toc"><li class="tocline"><a href="#verification-details" class="tocxref"><span class="secno">5.3.1 </span>Verification Details</a></li></ol></li></ol></li><li class="tocline"><a href="#publishing" class="tocxref"><span class="secno">6. </span>Publishing</a><ol class="toc"><li class="tocline"><a href="#subscription-migration" class="tocxref"><span class="secno">6.1 </span>Subscription Migration</a></li></ol></li><li class="tocline"><a href="#content-distribution" class="tocxref"><span class="secno">7. </span>Content Distribution</a><ol class="toc"><li class="tocline"><a href="#signing-content" class="tocxref"><span class="secno">7.1 </span>Authenticated Content Distribution</a><ol class="toc"><li class="tocline"><a href="#recognized-algorithm-names" class="tocxref"><span class="secno">7.1.1 </span>Recognized algorithm names</a></li><li class="tocline"><a href="#signature-validation" class="tocxref"><span class="secno">7.1.2 </span>Signature validation</a></li></ol></li></ol></li><li class="tocline"><a href="#security-considerations" class="tocxref"><span class="secno">8. </span>Security Considerations</a><ol class="toc"><li class="tocline"><a href="#discovery-0" class="tocxref"><span class="secno">8.1 </span>Discovery</a></li><li class="tocline"><a href="#subscriptions" class="tocxref"><span class="secno">8.2 </span>Subscriptions</a></li><li class="tocline"><a href="#distribution" class="tocxref"><span class="secno">8.3 </span>Distribution</a></li><li class="tocline"><a href="#security-and-privacy-review" class="tocxref"><span class="secno">8.4 </span>Security and Privacy Review</a></li></ol></li><li class="tocline"><a href="#change-log" class="tocxref"><span class="secno">A. </span>Change Log</a><ol class="toc"><li class="tocline"><a href="#changes-from-03-october-2017-pr-to-this-version" class="tocxref"><span class="secno">A.1 </span>Changes from 03 October 2017 PR to this version</a></li><li class="tocline"><a href="#changes-from-11-april-2017-cr-to-03-october-2017-pr" class="tocxref"><span class="secno">A.2 </span>Changes from 11 April 2017 CR to 03 October 2017 PR</a></li><li class="tocline"><a href="#changes-from-24-november-wd-to-11-april-2017-cr" class="tocxref"><span class="secno">A.3 </span>Changes from 24 November WD to 11 April 2017 CR</a></li><li class="tocline"><a href="#changes-from-20-october-fpwd-to-24-november-2016" class="tocxref"><span class="secno">A.4 </span>Changes from 20 October FPWD to 24 November 2016</a></li></ol></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a><ol class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">B.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">B.2 </span>Informative references</a></li></ol></li></ol></nav>
+</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a href="#definitions" class="tocxref"><span class="secno">1. </span>Definitions</a></li><li class="tocline"><a href="#high-level-protocol-flow" class="tocxref"><span class="secno">2. </span>High-level protocol flow</a></li><li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">3. </span>Conformance</a><ol class="toc"><li class="tocline"><a href="#conformance-classes" class="tocxref"><span class="secno">3.1 </span>Conformance Classes</a></li><li class="tocline"><a href="#candidate-recommendation-exit-criteria" class="tocxref"><span class="secno">3.2 </span>Candidate Recommendation Exit Criteria</a><ol class="toc"><li class="tocline"><a href="#publisher" class="tocxref"><span class="secno">3.2.1 </span>Publisher</a></li><li class="tocline"><a href="#subscriber" class="tocxref"><span class="secno">3.2.2 </span>Subscriber</a></li><li class="tocline"><a href="#hub" class="tocxref"><span class="secno">3.2.3 </span>Hub</a></li><li class="tocline"><a href="#independent" class="tocxref"><span class="secno">3.2.4 </span>Independent</a></li><li class="tocline"><a href="#interoperable" class="tocxref"><span class="secno">3.2.5 </span>Interoperable</a></li><li class="tocline"><a href="#feature" class="tocxref"><span class="secno">3.2.6 </span>Feature</a></li></ol></li></ol></li><li class="tocline"><a href="#discovery" class="tocxref"><span class="secno">4. </span>Discovery</a><ol class="toc"><li class="tocline"><a href="#content-negotiation" class="tocxref"><span class="secno">4.1 </span>Content Negotiation</a></li></ol></li><li class="tocline"><a href="#subscribing-and-unsubscribing" class="tocxref"><span class="secno">5. </span>Subscribing and Unsubscribing</a><ol class="toc"><li class="tocline"><a href="#subscriber-sends-subscription-request" class="tocxref"><span class="secno">5.1 </span>Subscriber Sends Subscription Request</a><ol class="toc"><li class="tocline"><a href="#subscription-parameter-details" class="tocxref"><span class="secno">5.1.1 </span>Subscription Parameter Details</a></li><li class="tocline"><a href="#subscription-response-details" class="tocxref"><span class="secno">5.1.2 </span>Subscription Response Details</a></li></ol></li><li class="tocline"><a href="#subscription-validation" class="tocxref"><span class="secno">5.2 </span>Subscription Validation</a></li><li class="tocline"><a href="#hub-verifies-intent" class="tocxref"><span class="secno">5.3 </span>Hub Verifies Intent of the Subscriber</a><ol class="toc"><li class="tocline"><a href="#verification-details" class="tocxref"><span class="secno">5.3.1 </span>Verification Details</a></li></ol></li></ol></li><li class="tocline"><a href="#publishing" class="tocxref"><span class="secno">6. </span>Publishing</a><ol class="toc"><li class="tocline"><a href="#subscription-migration" class="tocxref"><span class="secno">6.1 </span>Subscription Migration</a></li></ol></li><li class="tocline"><a href="#content-distribution" class="tocxref"><span class="secno">7. </span>Content Distribution</a><ol class="toc"><li class="tocline"><a href="#signing-content" class="tocxref"><span class="secno">7.1 </span>Authenticated Content Distribution</a><ol class="toc"><li class="tocline"><a href="#recognized-algorithm-names" class="tocxref"><span class="secno">7.1.1 </span>Recognized algorithm names</a></li><li class="tocline"><a href="#signature-validation" class="tocxref"><span class="secno">7.1.2 </span>Signature validation</a></li></ol></li></ol></li><li class="tocline"><a href="#security-considerations" class="tocxref"><span class="secno">8. </span>Security Considerations</a><ol class="toc"><li class="tocline"><a href="#discovery-0" class="tocxref"><span class="secno">8.1 </span>Discovery</a></li><li class="tocline"><a href="#subscriptions" class="tocxref"><span class="secno">8.2 </span>Subscriptions</a></li><li class="tocline"><a href="#distribution" class="tocxref"><span class="secno">8.3 </span>Distribution</a></li><li class="tocline"><a href="#security-and-privacy-review" class="tocxref"><span class="secno">8.4 </span>Security and Privacy Review</a></li></ol></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li><li class="tocline"><a href="#change-log" class="tocxref"><span class="secno">B. </span>Change Log</a><ol class="toc"><li class="tocline"><a href="#changes-from-03-october-2017-pr-to-this-version" class="tocxref"><span class="secno">B.1 </span>Changes from 03 October 2017 PR to this version</a></li><li class="tocline"><a href="#changes-from-11-april-2017-cr-to-03-october-2017-pr" class="tocxref"><span class="secno">B.2 </span>Changes from 11 April 2017 CR to 03 October 2017 PR</a></li><li class="tocline"><a href="#changes-from-24-november-wd-to-11-april-2017-cr" class="tocxref"><span class="secno">B.3 </span>Changes from 24 November WD to 11 April 2017 CR</a></li><li class="tocline"><a href="#changes-from-20-october-fpwd-to-24-november-2016" class="tocxref"><span class="secno">B.4 </span>Changes from 20 October FPWD to 24 November 2016</a></li></ol></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">C. </span>References</a><ol class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">C.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">C.2 </span>Informative references</a></li></ol></li></ol></nav>
 
   <section id="definitions">
     <!--OddPage--><h2 id="x1-definitions"><span class="secno">1. </span>Definitions</h2>
@@ -1062,11 +1062,31 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </section>
   </section>
 
+  <section class="appendix informative" id="acknowledgements">
+    <!--OddPage--><h2 id="a-acknowledgements"><span class="secno">A. </span>Acknowledgements</h2><p><em>This section is non-normative.</em></p>
+
+    <p>The editors wish to thank the authors of PubSubHubbub, the IndieWeb community, and other implementers for their support, encouragement and enthusiasm. In particular, the editors wish to thank 
+      <a href="https://bradfitz.com/">Brad Fitzpatrick</a>, 
+      <a href="http://www.onebigfluke.com/">Brett Slatkin</a>, 
+      <a href="http://martin.atkins.me.uk/">Martin Atkins</a>, 
+      <a href="http://rhiaro.co.uk/">Amy Guy</a>, 
+      <a href="https://barryfrost.com/">Barry Frost</a>, 
+      <a href="https://ben.thatmustbe.me/">Benjamin Roberts</a>, 
+      <a href="https://zeonfederated.com/">Eugen Rochko</a>,
+      <a href="https://github.com/twitch-jordanpotter">Jordan Potter</a>,
+      <a href="https://notiz.blog/">Matthias Pfefferle</a>,
+      <a href="https://unicyclic.com/mal/">Malcolm Blaney</a>,
+      <a href="https://ma.rtendevri.es/">Marten de Vries</a>,
+      <a href="http://tantek.com/">Tantek Çelik</a>,
+      and
+      <a href="https://eighty-twenty.org/">Tony Garnock-Jones</a>.
+  </p></section>
+
   <section class="appendix informative" id="change-log">
-    <!--OddPage--><h2 id="a-change-log"><span class="secno">A. </span>Change Log</h2><p><em>This section is non-normative.</em></p>
+    <!--OddPage--><h2 id="b-change-log"><span class="secno">B. </span>Change Log</h2><p><em>This section is non-normative.</em></p>
 
     <section id="changes-from-03-october-2017-pr-to-this-version">
-      <h3 id="a-1-changes-from-03-october-2017-pr-to-this-version"><span class="secno">A.1 </span>Changes from 03 October 2017 PR to this version</h3>
+      <h3 id="b-1-changes-from-03-october-2017-pr-to-this-version"><span class="secno">B.1 </span>Changes from 03 October 2017 PR to this version</h3>
 
       <ul>
         <li>Added link to content negotiation section from corresponding item in conformance criteria</li>
@@ -1087,11 +1107,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>Added security consideration for discovery related to link rel discovery in body vs head</li>
         <li>Dropped unused feature of the hub rejecting the subscription and providing an alternate topic URL</li>
         <li>Added sequence diagram in high-level overview section, and minor updates to phrasing of that section</li>
+        <li>Added acknowledgements</li>
       </ul>
     </section>
 
     <section id="changes-from-11-april-2017-cr-to-03-october-2017-pr">
-      <h3 id="a-2-changes-from-11-april-2017-cr-to-03-october-2017-pr"><span class="secno">A.2 </span>Changes from 11 April 2017 CR to 03 October 2017 PR</h3>
+      <h3 id="b-2-changes-from-11-april-2017-cr-to-03-october-2017-pr"><span class="secno">B.2 </span>Changes from 11 April 2017 CR to 03 October 2017 PR</h3>
 
       <ul>
         <li>Adds informative guidelines for how publishers can migrate subscribers to a new topic URL</li>
@@ -1111,7 +1132,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </section>
 
     <section id="changes-from-24-november-wd-to-11-april-2017-cr">
-      <h3 id="a-3-changes-from-24-november-wd-to-11-april-2017-cr"><span class="secno">A.3 </span>Changes from 24 November WD to 11 April 2017 CR</h3>
+      <h3 id="b-3-changes-from-24-november-wd-to-11-april-2017-cr"><span class="secno">B.3 </span>Changes from 24 November WD to 11 April 2017 CR</h3>
 
       <ul>
         <li>Clarified wording on supported algorithms for authenticated distribution</li>
@@ -1126,7 +1147,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </section>
 
     <section id="changes-from-20-october-fpwd-to-24-november-2016">
-      <h3 id="a-4-changes-from-20-october-fpwd-to-24-november-2016"><span class="secno">A.4 </span>Changes from 20 October FPWD to 24 November 2016</h3>
+      <h3 id="b-4-changes-from-20-october-fpwd-to-24-november-2016"><span class="secno">B.4 </span>Changes from 20 October FPWD to 24 November 2016</h3>
 
       <ul>
         <li>Added informative reference to previous versions of the spec, PubSubHubbub 0.3 and 0.4</li>
@@ -1167,7 +1188,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </script>
 
 
-<section id="references" class="appendix"><!--OddPage--><h2 id="b-references"><span class="secno">B. </span>References</h2><section id="normative-references"><h3 id="b-1-normative-references"><span class="secno">B.1 </span>Normative references</h3><dl class="bibliography"><dt id="bib-Encoding">[Encoding]</dt><dd><a href="https://encoding.spec.whatwg.org/"><cite>Encoding Standard</cite></a>. Anne van Kesteren. WHATWG. Living Standard. URL: <a href="https://encoding.spec.whatwg.org/">https://encoding.spec.whatwg.org/</a>
+<section id="references" class="appendix"><!--OddPage--><h2 id="c-references"><span class="secno">C. </span>References</h2><section id="normative-references"><h3 id="c-1-normative-references"><span class="secno">C.1 </span>Normative references</h3><dl class="bibliography"><dt id="bib-Encoding">[Encoding]</dt><dd><a href="https://encoding.spec.whatwg.org/"><cite>Encoding Standard</cite></a>. Anne van Kesteren. WHATWG. Living Standard. URL: <a href="https://encoding.spec.whatwg.org/">https://encoding.spec.whatwg.org/</a>
 </dd><dt id="bib-HTML5">[HTML5]</dt><dd><a href="https://www.w3.org/TR/html5/"><cite>HTML5</cite></a>. Ian Hickson; Robin Berjon; Steve Faulkner; Travis Leithead; Erika Doyle Navara; Theresa O'Connor; Silvia Pfeiffer. W3C. 28 October 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/html5/">https://www.w3.org/TR/html5/</a>
 </dd><dt id="bib-RFC2119">[RFC2119]</dt><dd><a href="https://tools.ietf.org/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner. IETF. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
 </dd><dt id="bib-RFC2818">[RFC2818]</dt><dd><a href="https://tools.ietf.org/html/rfc2818"><cite>HTTP Over TLS</cite></a>. E. Rescorla. IETF. May 2000. Informational. URL: <a href="https://tools.ietf.org/html/rfc2818">https://tools.ietf.org/html/rfc2818</a>
@@ -1176,7 +1197,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 </dd><dt id="bib-RFC7230">[RFC7230]</dt><dd><a href="https://tools.ietf.org/html/rfc7230"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. R. Fielding, Ed.; J. Reschke, Ed.. IETF. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a>
 </dd><dt id="bib-RFC7231">[RFC7231]</dt><dd><a href="https://tools.ietf.org/html/rfc7231"><cite>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</cite></a>. R. Fielding, Ed.; J. Reschke, Ed.. IETF. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a>
 </dd><dt id="bib-URL">[URL]</dt><dd><a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren. WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
-</dd></dl></section><section id="informative-references"><h3 id="b-2-informative-references"><span class="secno">B.2 </span>Informative references</h3><dl class="bibliography"><dt id="bib-capability-urls">[capability-urls]</dt><dd><a href="https://www.w3.org/TR/capability-urls/"><cite>Good Practices for Capability URLs</cite></a>. Jeni Tennison. W3C. 18 February 2014. W3C Working Draft. URL: <a href="https://www.w3.org/TR/capability-urls/">https://www.w3.org/TR/capability-urls/</a>
+</dd></dl></section><section id="informative-references"><h3 id="c-2-informative-references"><span class="secno">C.2 </span>Informative references</h3><dl class="bibliography"><dt id="bib-capability-urls">[capability-urls]</dt><dd><a href="https://www.w3.org/TR/capability-urls/"><cite>Good Practices for Capability URLs</cite></a>. Jeni Tennison. W3C. 18 February 2014. W3C Working Draft. URL: <a href="https://www.w3.org/TR/capability-urls/">https://www.w3.org/TR/capability-urls/</a>
 </dd><dt id="bib-FIPS-PUB-180-4">[FIPS-PUB-180-4]</dt><dd><a href="http://dx.doi.org/10.6028/NIST.FIPS.180-4"><cite>Secure Hash Standard (SHS)</cite></a>. National Institute of Standards and Technology. U.S. Department of Commerce. URL: <a href="http://dx.doi.org/10.6028/NIST.FIPS.180-4">http://dx.doi.org/10.6028/NIST.FIPS.180-4</a>
 </dd><dt id="bib-PubSubHubbub-Core-0.3">[PubSubHubbub-Core-0.3]</dt><dd><a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html"><cite>PubSubHubbub Core 0.3 -- Working Draft</cite></a>. B. Fitzpatrick; B. Slatkin; M. Atkins.URL: <a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html">https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.3.html</a>
 </dd><dt id="bib-PubSubHubbub-Core-0.4">[PubSubHubbub-Core-0.4]</dt><dd><a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html"><cite>PubSubHubbub Core 0.4 -- Working Draft</cite></a>. B. Fitzpatrick; B. Slatkin; M. Atkins; J. Genestoux.URL: <a href="https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html">https://pubsubhubbub.github.io/PubSubHubbub/pubsubhubbub-core-0.4.html</a>
