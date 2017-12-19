@@ -1,4 +1,4 @@
-# Twtich
+# Twitch
 
 Implementation Home Page URL: https://dev.twitch.tv/docs/api/webhooks-guide
 
@@ -28,7 +28,7 @@ Answers are:
 
 ## Distribution
 
-* [ ] 100: Sends a notification with a matching content-type of the topic URL
+* [x] 100: Sends a notification with a matching content-type of the topic URL
 * [ ] 100: Sends a notification with the full contents of the topic
 * [x] 101: Sends a notification with a valid signature
   * Please select the signature method(s) that the hub uses to sign requests
