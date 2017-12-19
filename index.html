@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" dir="ltr" typeof="bibo:Document" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 18.3.0"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
+<!DOCTYPE html><html lang="en" dir="ltr" typeof="bibo:Document" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 19.0.1"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>/* --- EXAMPLES --- */
 div.example-title {
     min-width: 7.5em;
     color: #b9ab2d;
@@ -379,7 +379,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><link rel="canonical" href="https://www.w3.org/TR/websub/"><script id="initialUserConfig" type="application/json">{
   "specStatus": "ED",
-  "publishDate": "2017-12-05",
+  "publishDate": "2017-12-19",
   "shortName": "websub",
   "editors": [
     {
@@ -505,16 +505,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "publisher": "WHATWG"
     }
   },
-  "publishISODate": "2017-12-05T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 05 December 2017"
+  "publishISODate": "2017-12-19T00:00:00.000Z",
+  "generatedSubtitle": "Editor's Draft 19 December 2017"
 }</script><meta name="description" content="WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub."></head>
 <body aria-busy="false" class="h-entry"><div class="head">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
-  <p><!--_hyper: -1098032759;--></p>
+  <p><!--_hyper: 788914575;--></p>
   <h1 class="title p-name" id="title">WebSub</h1>
-  <h2 id="w3c-editor-s-draft-05-december-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-12-05">05 December 2017</time></h2>
+  <h2 id="w3c-editor-s-draft-19-december-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time class="dt-published" datetime="2017-12-19">19 December 2017</time></h2>
   <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="https://w3c.github.io/websub/">https://w3c.github.io/websub/</a></dd>
@@ -886,7 +886,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dt>hub.topic</dt>
         <dd><em class="rfc2119" title="REQUIRED">REQUIRED</em>. The topic URL that the subscriber wishes to subscribe to or unsubscribe from. Note that this <em class="rfc2119" title="MUST">MUST</em> be the "self" URL found during the discovery step, which may be different from the URL that was used to make the discovery request.</dd>
         <dt>hub.lease_seconds</dt>
-        <dd><em class="rfc2119" title="OPTIONAL">OPTIONAL</em>. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs <em class="rfc2119" title="MAY">MAY</em> choose to respect this value or not, depending on their own policies. This parameter <em class="rfc2119" title="MAY">MAY</em> be present for unsubscription requests and <em class="rfc2119" title="MUST">MUST</em> be ignored by the hub in that case.</dd>
+        <dd><em class="rfc2119" title="OPTIONAL">OPTIONAL</em>. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs <em class="rfc2119" title="MAY">MAY</em> choose to respect this value or not, depending on their own policies, and <em class="rfc2119" title="MAY">MAY</em> set a default value if the subscriber omits the parameter. This parameter <em class="rfc2119" title="MAY">MAY</em> be present for unsubscription requests and <em class="rfc2119" title="MUST">MUST</em> be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
         <dd><em class="rfc2119" title="OPTIONAL">OPTIONAL</em>. A subscriber-provided cryptographically random unique secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter <em class="rfc2119" title="SHOULD">SHOULD</em> only be specified when the request was made over HTTPS [<cite><a class="bibref" href="#bib-RFC2818">RFC2818</a></cite>]. This parameter <em class="rfc2119" title="MUST">MUST</em> be less than 200 bytes in length.</dd>
       </dl>
@@ -1073,7 +1073,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a href="https://barryfrost.com/">Barry Frost</a>, 
       <a href="https://ben.thatmustbe.me/">Benjamin Roberts</a>, 
       <a href="https://zeonfederated.com/">Eugen Rochko</a>,
-      <a href="https://github.com/jordanpotter">Jordan Potter</a>,
+      <a href="https://github.com/twitch-jordanpotter">Jordan Potter</a>,
       <a href="https://notiz.blog/">Matthias Pfefferle</a>,
       <a href="https://unicyclic.com/mal/">Malcolm Blaney</a>,
       <a href="https://ma.rtendevri.es/">Marten de Vries</a>,
@@ -1109,6 +1109,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>Dropped unused feature of the hub rejecting the subscription and providing an alternate topic URL</li>
         <li>Added sequence diagram in high-level overview section, and minor updates to phrasing of that section</li>
         <li>Added acknowledgements</li>
+        <li>Note that hubs may set a default value for lease_seconds</li>
       </ul>
     </section>
 
