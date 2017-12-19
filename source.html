@@ -387,7 +387,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt>hub.topic</dt>
         <dd>REQUIRED. The topic URL that the subscriber wishes to subscribe to or unsubscribe from. Note that this MUST be the "self" URL found during the discovery step, which may be different from the URL that was used to make the discovery request.</dd>
         <dt>hub.lease_seconds</dt>
-        <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
+        <dd>OPTIONAL. Number of seconds for which the subscriber would like to have the subscription active, given as a positive decimal integer. Hubs MAY choose to respect this value or not, depending on their own policies, and MAY set a default value if the subscriber omits the parameter. This parameter MAY be present for unsubscription requests and MUST be ignored by the hub in that case.</dd>
         <dt>hub.secret</dt>
         <dd>OPTIONAL. A subscriber-provided cryptographically random unique secret string that will be used to compute an HMAC digest for <a href="#authenticated-content-distribution">authorized content distribution</a>. If not supplied, the HMAC digest will not be present for content distribution requests. This parameter SHOULD only be specified when the request was made over HTTPS [[!RFC2818]]. This parameter MUST be less than 200 bytes in length.</dd>
       </dl>
@@ -610,6 +610,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <li>Dropped unused feature of the hub rejecting the subscription and providing an alternate topic URL</li>
         <li>Added sequence diagram in high-level overview section, and minor updates to phrasing of that section</li>
         <li>Added acknowledgements</li>
+        <li>Note that hubs may set a default value for lease_seconds</li>
       </ul>
     </section>
 
