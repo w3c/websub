@@ -279,7 +279,7 @@
       <li>The URL of one or more hubs designated by the publisher. If more than one hub URL is specified, it is expected that the publisher notifies each hub, so the subscriber may subscribe to one or more of them.</li>
       <li>The canonical URL for the topic to which subscribers are expected to use for subscriptions.</li>
     </ul>
-    <p class="note">Publishers may wish to advertise and publish to more than one hub for fault tolerance and redundancy. If one hub fails to propagate an update to the document, then using multiple independent hub is a way to increase the liklihood of delivery to subscribers. As such, subscribers may subscribe to one or more of the advertised hubs.</p>
+    <p class="note">Publishers may wish to advertise and publish to more than one hub for fault tolerance and redundancy. If one hub fails to propagate an update to the document, then using multiple independent hub is a way to increase the likelihood of delivery to subscribers. As such, subscribers may subscribe to one or more of the advertised hubs.</p>
     <p>The protocol currently supports the following discovery mechanisms. Publishers MUST implement at least one of them:</p>
     <ul>
       <li>Link Headers [[!RFC5988]]: the publisher SHOULD include at least one Link Header [[!RFC5988]] with <samp>rel=hub</samp> (a hub link header) as well as exactly one Link Header [[!RFC5988]] with <samp>rel=self</samp> (the self link header)</li>
