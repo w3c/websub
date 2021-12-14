@@ -25,7 +25,7 @@ Answers are:
 
 * [x] 1xx: Successfully creates a subscription
 * [ ] 200: Subscribing to a URL that reports a different rel=self
-  * Note: Due to concerns about misconfigured feeds Feedmail currently ignores WebSub where the self link differs substantially from the feed URL and falls back to polling.
+  * Note: Due to concerns about misconfigured feeds FeedMail currently ignores WebSub where the self link differs substantially from the feed URL and falls back to polling.
 * [x] 201: Subscribing to a topic URL that sends an HTTP 302 temporary redirect
 * [x] 202: Subscribing to a topic URL that sends an HTTP 301 permanent redirect
 * [x] 203: Subscribing to a hub that sends a 302 temporary redirect
