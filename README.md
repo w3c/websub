@@ -1,6 +1,8 @@
 # WebSub
 
-The WebSub specification is produced by the W3C Social Web Working Group.
+The WebSub Recommendation was produced by the W3C Social Web Working Group.
+
+REC: https://www.w3.org/TR/2018/REC-websub-20180123/
 
 Editor's Draft: https://w3c.github.io/websub/
 
