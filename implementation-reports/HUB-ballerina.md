@@ -1,6 +1,6 @@
 # Ballerina
 
-Implementation Home Page URL: [ballerina/websub](https://ballerina.io/learn/api-docs/ballerina/websub.html) 
+Implementation Home Page URL: [ballerina/websub](https://central.ballerina.io/ballerina/websubhub/latest) 
 
 Source code repo URL(s) (optional): https://github.com/ballerina-lang/ballerina
 * [x] 100% open source implementation
@@ -36,7 +36,7 @@ Answers are:
   * Please select the signature method(s) that the hub uses to sign requests
   * [x] sha1
   * [x] sha256
-  * [ ] sha384
-  * [ ] sha512
+  * [x] sha384
+  * [x] sha512
 * [ ] Sends only a diff of the topic URL for Atom or RSS feeds
 
