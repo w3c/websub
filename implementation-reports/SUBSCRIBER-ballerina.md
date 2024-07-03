@@ -1,6 +1,6 @@
 # Ballerina
 
-Implementation Home Page URL: [ballerina/websub](https://ballerina.io/learn/api-docs/ballerina/websub.html)
+Implementation Home Page URL: [ballerina/websub](https://central.ballerina.io/ballerina/websub/latest)
 
 Source code repo URL(s) (optional): https://github.com/ballerina-lang/ballerina
 * [x] 100% open source implementation
@@ -34,8 +34,8 @@ Answers are:
   * Please select the signature method(s) that the subscriber recognizes. All methods listed below are currently acceptable for the hub to choose:
   * [x] sha1
   * [x] sha256
-  * [ ] sha384
-  * [ ] sha512
+  * [x] sha384
+  * [x] sha512
 * [x] 1xx: Requests a subscription with a specific `lease_seconds` (optional, hub may ignore)
 * [x] Callback URL is unique per subscription (should)
   * Developer specifies the URL  
