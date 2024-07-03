@@ -1,6 +1,6 @@
 # Ballerina
 
-Implementation Home Page URL: [ballerina/websub](https://ballerina.io/learn/api-docs/ballerina/websub.html)
+Implementation Home Page URL: [ballerina/websub](https://central.ballerina.io/ballerina/websubhub/latest#PublisherClient)
 
 Source code repo URL(s) (optional): https://github.com/ballerina-lang/ballerina
 * [x] 100% open source implementation
