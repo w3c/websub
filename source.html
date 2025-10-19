@@ -433,7 +433,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt><samp>hub.topic</samp></dt>
         <dd>REQUIRED. The topic URL given in the corresponding subscription request.</dd>
         <dt><samp>hub.challenge</samp></dt>
-        <dd>REQUIRED. A hub-generated, random string that MUST be echoed by the subscriber to verify the subscription.</dd>
+        <dd>REQUIRED. A hub-generated, random string that MUST be echoed by the subscriber to verify the subscription. This random string MUST only consist of characters in the set <code>[#x2B] | [#2D-#x39] | [#x3D] | [#41-#x5A] | [#x5F] | [#x61-#x7A]</code>.</dd>
         <dt><samp>hub.lease_seconds</samp></dt>
         <dd>REQUIRED/OPTIONAL. The hub-determined number of seconds that the subscription will stay active before expiring, measured from the time the verification request was made from the hub to the subscriber. Hubs MUST supply this parameter when <samp>hub.mode</samp> is set to "subscribe". This parameter MAY be present when <samp>hub.mode</samp> is "unsubscribe" and MUST be ignored by subscribers in that case.</dd>
       </dl>
