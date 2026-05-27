@@ -126,7 +126,9 @@
     <p>WebSub provides a common mechanism for communication between publishers of any kind of Web content and their subscribers, based on HTTP web hooks. Subscription requests are relayed through hubs, which validate and verify the request. Hubs then distribute new and updated content to subscribers when it becomes available. WebSub was previously known as PubSubHubbub.</p>
   </section>
 
-  <section id="sotd"></section>
+  <section id="sotd">
+    <p class=advisement>Status Update (October 2025): Mitigations related to cross-site scripting (XSS) risk have been added to the Security Considerations section, along with acknowledgments of those who reported it.<p>
+  </section>
 
   <section id="definitions">
     <h2>Definitions</h2>
@@ -431,13 +433,14 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
         <dt><samp>hub.topic</samp></dt>
         <dd>REQUIRED. The topic URL given in the corresponding subscription request.</dd>
         <dt><samp>hub.challenge</samp></dt>
-        <dd>REQUIRED. A hub-generated, random string that MUST be echoed by the subscriber to verify the subscription.</dd>
+        <dd>REQUIRED. A hub-generated, random string that MUST be echoed by the subscriber to verify the subscription. This random string MUST only consist of characters in the set <code>[#x2B] | [#2D-#x39] | [#x3D] | [#41-#x5A] | [#x5F] | [#x61-#x7A]</code>.</dd>
         <dt><samp>hub.lease_seconds</samp></dt>
         <dd>REQUIRED/OPTIONAL. The hub-determined number of seconds that the subscription will stay active before expiring, measured from the time the verification request was made from the hub to the subscriber. Hubs MUST supply this parameter when <samp>hub.mode</samp> is set to "subscribe". This parameter MAY be present when <samp>hub.mode</samp> is "unsubscribe" and MUST be ignored by subscribers in that case.</dd>
       </dl>
       <section id="verification-details">
         <h4>Verification Details</h4>
         <p>The subscriber MUST confirm that the <samp>hub.topic</samp> corresponds to a pending subscription or unsubscription that it wishes to carry out. If so, the subscriber MUST respond with an HTTP success (2xx) code with a response body equal to the <samp>hub.challenge</samp> parameter. If the subscriber does not agree with the action, the subscriber MUST respond with a 404 "Not Found" response.</p>
+        <p>The subscriber MUST use a safe Media Type for the subscription confirmation response in order to prevent reflected code injection (reflected XSS) attacks.</p>
         <p>The hub MUST consider other server response codes (3xx, 4xx, 5xx) to mean that the verification request has failed. If the subscriber returns an HTTP [[!RFC7231]] success (2xx) but the content body does not match the <samp>hub.challenge</samp> parameter, the hub MUST also consider verification to have failed.</p>
         <p>Hubs MAY make the <samp>hub.lease_seconds</samp> equal to the value the subscriber passed in their subscription request but MAY change the value depending on the hub's policies. To sustain a subscription, the subscriber MUST re-request the subscription on the hub before <samp>hub.lease_seconds</samp> seconds has elapsed.</p>
         <p>Hubs MUST enforce lease expirations, and MUST NOT issue perpetual lease durations.</p>
@@ -514,6 +517,8 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <h3>Subscriptions</h3>
       <p>First, subscribers SHOULD always favor the HTTPS URL for hubs (even if the URL is advertised as HTTP). Second, subscribers SHOULD use unique unguessable capability URLs for the callbacks, as well as make them available via HTTPS. Finally, subscribers SHOULD use a <samp>hub.secret</samp> when subscribing to allow signature of the content distribution.</p>
       <p>Hubs SHOULD enforce short lived <samp>hub.lease_seconds</samp> (10 days is a good default). When performing intent verification, the hub SHOULD use a random, single-use <samp>hub.challenge</samp>.</p>
+      <p>The intent verification procedure introduces a risk of reflected code injection (reflected XSS) attack. Subscribers MUST serve the intent verification response using a safe Media Type such as <code>application/octet-stream</code> in order to protect against this type of attack. Moreover, the intent verification response could be exploited to bypass <code>Content-Security-Policy</code> restrictions: subscribers MUST serve the intent verification response with <code>X-Content-Type-Options: nosniff</code> to mitigate this.</p>
+      <p>The intent verification procedure could be used to trick users into downloading a malicious resource from a trusted subscriber. Subscribers SHOULD impose restrictions on the <code>hub.challenge</code> parameter such as limiting its length and rejecting binary data.</p>
       </section>
     <section>
       <h3>Distribution</h3>
@@ -581,6 +586,7 @@ Link: &lt;https://hub.example.com/&gt;; rel="hub"
       <a href="http://tantek.com/">Tantek Çelik</a>,
       and
       <a href="https://eighty-twenty.org/">Tony Garnock-Jones</a>.
+      <p>The W3C Team wish to thank <a href="https://www.gabriel.urdhr.fr/">Gabriel Corona</a>, for reporting the XSS</p>
   </section>
 
   <section class="appendix informative">
