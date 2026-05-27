@@ -5,12 +5,11 @@
   <title>WebSub</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD">
-  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'>
+  <script src='https://www.w3.org/Tools/respec/respec-w3c' async class='remove'>
   </script>
   <script class='remove'>
   var respecConfig = {
     specStatus: "ED",
-    publishDate: "2017-12-19",
     shortName: "websub",
     editors: [{
       name: "Julien Genestoux",
@@ -26,16 +25,12 @@
     authors: [{
       name: "Julien Genestoux"
     }],
-    previousMaturity: "PR",
-    previousPublishDate: "2017-10-03",
-    edDraftURI: "https://websub.net/draft",
+    edDraftURI: "https://w3c.github.io/websub/",
     testSuiteURI: "https://websub.rocks/",
     implementationReportURI: "https://websub.net/implementation-reports",
     errata: "https://websub.net/errata",
-    wg: "Social Web Working Group",
-    wgURI: "https://www.w3.org/Social/WG",
+    group: "wg/social",
     wgPublicList: "public-socialweb",
-    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/72531/status",
     otherLinks: [{
       key: 'Past Authors',
       data: [
@@ -127,7 +122,7 @@
   </section>
 
   <section id="sotd">
-    <p class=advisement>Status Update (October 2025): Mitigations related to cross-site scripting (XSS) risk have been added to the Security Considerations section, along with acknowledgments of those who reported it.<p>
+    <p class=advisement>Status Update (May 2025): Mitigations related to cross-site scripting (XSS) risk have been added to the Security Considerations section, along with acknowledgments of those who reported it.<p>
   </section>
 
   <section id="definitions">
@@ -176,7 +171,7 @@
     "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
     document are to be interpreted as described in [[!RFC2119]].</p>
 
-    <section>
+    <section id="conformance">
       <h3>Conformance Classes</h3>
 
       <p>WebSub describes three roles: publishers, subscribers and hubs. This section describes the conformance criteria for each role.</p>
